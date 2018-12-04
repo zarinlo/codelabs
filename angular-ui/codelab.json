@@ -4,15 +4,23 @@
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2018-12-03T22:17:32-05:00",
+  "updated": "2018-12-03T22:53:33-05:00",
   "id": "angular-ui",
   "duration": 73,
   "title": "How to Create an Angular7 UI with Material Design",
   "author": "Zarin Lokhandwala",
   "summary": "How to Create an Angular 7 UI with Material Design",
   "theme": "",
-  "status": null,
-  "category": null,
-  "tags": [],
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "angular7",
+    "bootstrap",
+    "angular-material"
+  ],
+  "tags": [
+    "typescript"
+  ],
   "url": "angular-ui"
 }

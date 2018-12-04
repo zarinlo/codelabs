@@ -1,6 +1,9 @@
 author: Zarin Lokhandwala
 summary: How to Create an Angular 7 UI with Material Design
 id: angular-ui
+categories: angular7, bootstrap, angular-material
+environments: typescript
+status: draft
 
 # How to Create an Angular7 UI with Material Design
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
