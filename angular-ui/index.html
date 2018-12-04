@@ -1,0 +1,752 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>How to Create an Angular7 UI with Material Design</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="How to Create an Angular7 UI with Material Design"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Overview" duration="15">
+        <h2 class="checklist">What you&#39;ll learn</h2>
+<ul class="checklist">
+<li>How to display data from an API onto a table</li>
+<li>How to proxy data from your local backend server (i.e. Java API) to your frontend (i.e. Angular)</li>
+</ul>
+<h2>Prerequisties</h2>
+<ul>
+<li>Run the backend found here: <a href="https://github.com/zarinlo/sample-springboot-api" target="_blank">sample-springboot-api</a></li>
+</ul>
+<h2>What you&#39;ll need</h2>
+<ul>
+<li>Install <a href="https://git-scm.com/downloads" target="_blank">Git and Git Bash</a></li>
+<li>Install <a href="https://medium.com/@richardkall/installing-node-js-using-node-version-manager-nvm-c21546a613bc" target="_blank">nvm</a> (Node Version Manager)</li>
+<li>Install Node.js and npm via nvm</li>
+<li>Install <a href="https://github.com/angular/angular-cli/wiki" target="_blank">Angular CLI</a></li>
+<li>Install any IDE (i.e. <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>)</li>
+</ul>
+<h2>What are these tools?</h2>
+<ul>
+<li>Node Version Manager or <a href="https://github.com/creationix/nvm/blob/master/README.md" target="_blank">nvm</a> is a tool that allows you to manage multiple versions of Node.js on the same machine.</li>
+<li><a href="https://nodejs.org/en/about/" target="_blank">Node.js</a> is a JavaScript runtime environment and <a href="https://www.npmjs.com/" target="_blank">npm</a> which is the node package manager.</li>
+<li>Angular CLI is a command line interface that easily scaffolds bare-minimum Angular apps.</li>
+<li><a href="https://material.angular.io" target="_blank">Angular Material</a>, which will be introduced later, is a UI design framework for Angular apps.</li>
+<li><a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>, which will be introduced later as well, is another front-end framework for designing websites and web applications.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setup Your Environment" duration="3">
+        <p>We will be creating a new Angular CLI application. But before we begin, double check you have installed compatible versions of the tools mentioned in the previous step.</p>
+<h2>nvm</h2>
+<pre><code>$ nvm --version
+0.33.11
+</code></pre>
+<h2>Node.js</h2>
+<pre><code>$ node --version
+v10.13.0
+</code></pre>
+<h2>npm</h2>
+<pre><code>$ npm --version
+6.4.1
+</code></pre>
+<h2>Angular CLI</h2>
+<pre><code>$ ng --version                           
+     _                      _                 ____ _     ___
+    / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+   / △ \ | &#39;_ \ / _` | | | | |/ _` | &#39;__|   | |   | |    | |
+  / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+ /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+                |___/
+    
+
+Angular CLI: 7.0.6
+Node: 10.13.0
+OS: darwin x64
+Angular: 
+... 
+
+Package                      Version
+------------------------------------------------------
+@angular-devkit/architect    0.10.6
+@angular-devkit/core         7.0.6
+@angular-devkit/schematics   7.0.6
+@schematics/angular          7.0.6
+@schematics/update           0.10.6
+rxjs                         6.3.3
+typescript                   3.1.6
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Scaffold Your WebApp" duration="2">
+        <p>Create a new Angular CLI project and enable routing. The name of the project will be <code>sample-angular7-ui</code> and we will be using <code>scss</code> instead of <code>css</code> for our stylesheets.</p>
+<pre><code>$ ng new sample-angular7-ui --style scss
+</code></pre>
+<p>Here is the output of the command above:</p>
+<pre><code>? Would you like to add Angular routing? Yes
+CREATE sample-angular7-ui/README.md (1033 bytes)
+CREATE sample-angular7-ui/angular.json (3967 bytes)
+CREATE sample-angular7-ui/package.json (1325 bytes)
+CREATE sample-angular7-ui/tsconfig.json (408 bytes)
+CREATE sample-angular7-ui/tslint.json (2837 bytes)
+CREATE sample-angular7-ui/.editorconfig (246 bytes)
+CREATE sample-angular7-ui/.gitignore (503 bytes)
+CREATE sample-angular7-ui/src/favicon.ico (5430 bytes)
+CREATE sample-angular7-ui/src/index.html (303 bytes)
+CREATE sample-angular7-ui/src/main.ts (372 bytes)
+CREATE sample-angular7-ui/src/polyfills.ts (3234 bytes)
+CREATE sample-angular7-ui/src/test.ts (642 bytes)
+CREATE sample-angular7-ui/src/styles.scss (80 bytes)
+CREATE sample-angular7-ui/src/browserslist (388 bytes)
+CREATE sample-angular7-ui/src/karma.conf.js (964 bytes)
+CREATE sample-angular7-ui/src/tsconfig.app.json (166 bytes)
+CREATE sample-angular7-ui/src/tsconfig.spec.json (256 bytes)
+CREATE sample-angular7-ui/src/tslint.json (314 bytes)
+CREATE sample-angular7-ui/src/assets/.gitkeep (0 bytes)
+CREATE sample-angular7-ui/src/environments/environment.prod.ts (51 bytes)
+CREATE sample-angular7-ui/src/environments/environment.ts (662 bytes)
+CREATE sample-angular7-ui/src/app/app-routing.module.ts (245 bytes)
+CREATE sample-angular7-ui/src/app/app.module.ts (393 bytes)
+CREATE sample-angular7-ui/src/app/app.component.scss (0 bytes)
+CREATE sample-angular7-ui/src/app/app.component.html (1173 bytes)
+CREATE sample-angular7-ui/src/app/app.component.spec.ts (1131 bytes)
+CREATE sample-angular7-ui/src/app/app.component.ts (223 bytes)
+CREATE sample-angular7-ui/e2e/protractor.conf.js (752 bytes)
+CREATE sample-angular7-ui/e2e/tsconfig.e2e.json (213 bytes)
+CREATE sample-angular7-ui/e2e/src/app.e2e-spec.ts (310 bytes)
+CREATE sample-angular7-ui/e2e/src/app.po.ts (204 bytes)
+npm WARN deprecated circular-json@0.5.9: CircularJSON is in maintenance only, flatted is its successor.
+
+&gt; fsevents@1.2.4 install ~/Git/sample-angular7-ui/node_modules/fsevents
+&gt; node install
+
+[fsevents] Success: &#34;~/Git/sample-angular7-ui/node_modules/fsevents/lib/binding/Release/node-v64-darwin-x64/fse.node&#34; already installed
+Pass --update-binary to reinstall or --build-from-source to recompile
+
+&gt; node-sass@4.9.3 install ~/Git/sample-angular7-ui/node_modules/node-sass
+&gt; node scripts/install.js
+
+Cached binary found at ~/.npm/node-sass/4.9.3/darwin-x64-64_binding.node
+
+&gt; node-sass@4.9.3 postinstall ~/Git/sample-angular7-ui/node_modules/node-sass
+&gt; node scripts/build.js
+
+Binary found at ~/Git/sample-angular7-ui/node_modules/node-sass/vendor/darwin-x64-64/binding.node
+Testing binary
+Binary is fine
+added 1162 packages from 1173 contributors and audited 39133 packages in 71.495s
+found 0 vulnerabilities
+
+    Successfully initialized git.
+</code></pre>
+<p>Next, install all the dev dependenices needed for this app:</p>
+<pre><code>$ npm install
+audited 39133 packages in 6.428s
+found 0 vulnerabilities
+</code></pre>
+<p>Now open up a terminal session with either Git Bash (Windows) or Terminal (Mac OS) and startup your angular app!</p>
+<pre><code>$ ng serve
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+                                                                                          
+Date: 2018-11-25T16:58:50.553Z
+Hash: ceb4379b5c9557dc3b98
+Time: 6640ms
+chunk {main} main.js, main.js.map (main) 12.7 kB [initial] [rendered]
+chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 223 kB [initial] [rendered]
+chunk {runtime} runtime.js, runtime.js.map (runtime) 6.08 kB [entry] [rendered]
+chunk {styles} styles.js, styles.js.map (styles) 16.6 kB [initial] [rendered]
+chunk {vendor} vendor.js, vendor.js.map (vendor) 3.54 MB [initial] [rendered]
+ℹ ｢wdm｣: Compiled successfully.
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating Object Models" duration="6">
+        <p>Considering that this is typesript, we must define the type of data that we are going to subscribe to and display. We are expecting a top-level object with a Stock array inside of it. Here is a sample of the data:</p>
+<pre><code>{
+  &#34;stocks&#34;: [
+    {
+        name: string;
+        description: string;
+        symbol: string;
+        price: number;
+        lastUpdated: string;
+    },
+    { ... },
+    { ... },
+    ...
+  ]
+}
+</code></pre>
+<p>Let&#39;s start by creating model of the entire top-level object as well as the model for individual stock object.</p>
+<h2>Stock Model</h2>
+<p>This is what your current directory should look like.</p>
+<pre><code>|src
+|---|app
+|---|---|app-routing.module.ts
+|---|---|app.component.html
+|---|---|app.component.scss
+|---|---|app.component.spec.ts
+|---|---|app.component.ts
+|---|---|app.module.ts
+|---|assets
+</code></pre>
+<p>We will be adding two model classes (i.e. interfaces in Angular) underneath a <code>models</code> directory under the <code>app</code> folder. Angular has a few pre-built templates that you can use to help you during development. It provides you a simple command to help generate a model. Run the following command while you are in the <code>/src/app</code> directory:</p>
+<pre><code>$ ng generate interface models/stock
+</code></pre>
+<p>Output:</p>
+<pre><code>CREATE src/app/models/stock.ts (27 bytes)
+</code></pre>
+<p>Your directory should look like the following now:</p>
+<pre><code>|src
+|---|app
+|---|---|models
+|---|---|---|stock.ts
+|---|---|app-routing.module.ts
+|---|---|app.component.html
+|---|---|app.component.scss
+|---|---|app.component.spec.ts
+|---|---|app.component.ts
+|---|---|app.module.ts
+|---|assets
+</code></pre>
+<p>Now, go ahead and define the schmea for the stock object in the <code>stock.ts</code> file:</p>
+<pre><code>export interface Stock {
+    name: string;
+    description: string;
+    symbol: string;
+    price: number;
+    lastUpdated: string;
+}
+</code></pre>
+<h2>StocksResponse Model</h2>
+<p>Once you have created the stock object, next define the entire top-level object response.<br>Let&#39;s stick with the same naming convention as we did while generating the API and call the overall object <code>StocksResponse</code>.</p>
+<pre><code>$ ng generate interface models/stocksResponse
+</code></pre>
+<p>The above command will generate a <code>stocks-response.ts</code> file, in which you will import the <code>stock</code> object and define the top-level object response as followed:</p>
+<pre><code>import { Stock } from &#39;./stock&#39;;
+
+export interface StocksResponse {
+    stocks: Stock[];
+}
+</code></pre>
+<p>✅Move on to the next step to create the service that will handle the data!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create the Stock Service" duration="8">
+        <p>Once you have defined your object models, the next step is to setup a service to retrieve the data from your API.</p>
+<p>Let&#39;s use the angular command to generate a service under the <code>src/app</code> directory once again.</p>
+<pre><code>$ ng generate service services/stock
+</code></pre>
+<p>Angular automatically creates a service class as well as a test-service class:</p>
+<pre><code>CREATE src/app/services/stock.service.spec.ts (328 bytes)
+CREATE src/app/services/stock.service.ts (134 bytes)
+</code></pre>
+<p>Inside the <code>stock.service.ts</code> file, you should see the following:</p>
+<pre><code>import { Injectable } from &#39;@angular/core&#39;;
+
+@Injectable({
+  providedIn: &#39;root&#39;
+})
+export class StockService {
+
+  constructor() { }
+}
+</code></pre>
+<p>In order to retrieve the stocks, we will use the <code>HttpClient</code> module from <code>@angular/common</code>, which is a standard angular HTTP package along with the <code>HttpHeaders</code> module to call the backend stocks API. We will also require the <code>StocksResponse</code> schema to be imported.</p>
+<p>Finally, we will also be implementing RxJS which is Reactive JavaScript programming. To really understand RxJS, take a look at the following resources:</p>
+<ul>
+<li><a href="https://medium.com/@mohandere/rxjs-5-in-5-minutes-1c3b4ed0d8cc" target="_blank">Rxjs: In 5 minutes!</a></li>
+<li><a href="https://medium.com/defmethod-works/implementing-rxjs-part-i-daaef12ec1c6" target="_blank">A Beginner&#39;s Adventure with RxJS: Part I</a></li>
+</ul>
+<pre><code>import { Injectable } from &#39;@angular/core&#39;;
+import { HttpClient } from &#39;@angular/common/http&#39;;
+import { HttpHeaders } from &#39;@angular/common/http&#39;;
+import { StocksResponse } from &#39;../models/stocks-response&#39;;
+import { Observable } from &#39;rxjs&#39;;
+
+
+@Injectable({
+  providedIn: &#39;root&#39;
+})
+export class StockService {
+
+  constructor() { }
+}
+</code></pre>
+<p>Now we will define the the path of the stocks API URL (<code>stocksUrl</code>) and setup a simple function to get the top-level object response. We will dive into the details on how to fully define the API URL a little later.</p>
+<p>As for the <code>getStocks</code> function, we need to retrieve a response of type <code>StocksResponse</code> and pass in the proper HTTP headers into our <code>GET</code> request. Note how RxJS is implemented in the form of <code>Observables</code>.</p>
+<p>We are passing in two headers:</p>
+<ul>
+<li><code>Content-Type</code>: This header tells the client what the content type of the returned content actually is.</li>
+<li><code>Accept</code>: This request header advertises which content types, expressed as MIME types, the client is able to understand. Using content negotiation, the server then selects one of the proposals, uses it and informs the client of its choice with the <code>Content-Type</code> response header.</li>
+</ul>
+<pre><code>export class StockService {
+
+  private stocksUrl = &#39;/api/stocks&#39;;
+
+  constructor(private http: HttpClient) { }
+  
+  getStocks(): Observable&lt;StocksResponse&gt; {
+    let headers = new HttpHeaders();
+    headers = headers.set(&#39;Content-Type&#39;, &#39;application/json; charset=utf-8&#39;);
+    headers = headers.append(&#39;Accept&#39;, &#39;application/json&#39;);
+    return this.http.get&lt;StocksResponse&gt;(this.stocksUrl, {headers: headers});    
+  }
+}
+</code></pre>
+<p>Continue to the next step to fully complete this step.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Modules, Components, Services" duration="5">
+        <h2>Overview</h2>
+<p>A <strong>Module</strong> is like a big container that contains one or many smaller containers such as Components, Services, Pipes.</p>
+<p>A <strong>Component</strong> contains one of the following:</p>
+<ul>
+<li>an HTML template / HTML code</li>
+<li>code (TypeScript)</li>
+</ul>
+<p>A <strong>Service</strong> is a reusable code that can be shared by Components.</p>
+<p>A <strong>Pipe</strong> takes in data and transforms it to the desired output.</p>
+<p><img src="img/be1236a943a9315.png"></p>
+<h2>Breakdown of <code>app.module.ts</code></h2>
+<p>In your angular application, you have an <code>app.module.ts</code> file. It looks like the following:</p>
+<pre><code>import { BrowserModule } from &#39;@angular/platform-browser&#39;;
+import { NgModule } from &#39;@angular/core&#39;;
+
+import { AppRoutingModule } from &#39;./app-routing.module&#39;;
+import { AppComponent } from &#39;./app.component&#39;;
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+</code></pre>
+<p>Let&#39;s breakdown what this file actually is used for.</p>
+<p>Modules are a way to organize your code. They help control Dependency Injection. You can also load multiple modules at once and lazy load other modules.</p>
+<p>You import modules into the <code>imports</code> section.</p>
+<p>You declare components in the <code>declarations</code> section. Components used in the routing of a specific module, most be declared in said module. If components are used in another module, then you must only declare them in that other module.</p>
+<p>You provide services in the <code>providers</code> section.</p>
+<p>You can provide services at the Component level or at the Module level. If services are provided at the Module level, it creates an instance of the service to be shared across the entire module. However, if you provide a service at the Component leve, then a unique instance of it is available to that Component only.</p>
+<p>Now let&#39;s modify our file by including the <code>HttpClientModule</code> and the <code>StockService</code> in the appropriate places.</p>
+<pre><code>import { BrowserModule } from &#39;@angular/platform-browser&#39;;
+import { NgModule } from &#39;@angular/core&#39;;
+import { HttpClientModule } from &#39;@angular/common/http&#39;;
+
+import { AppRoutingModule } from &#39;./app-routing.module&#39;;
+import { AppComponent } from &#39;./app.component&#39;;
+import { StockService } from &#39;./services/stock.service&#39;;
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [StockService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create the Stock Component" duration="2">
+        <p>Now we need to build out component that will be displaying the stock data. For this step, we will create a Stock Component.</p>
+<p>Run the following in the <code>src/app</code> directory:</p>
+<pre><code>$ ng generate component components/stocks
+</code></pre>
+<p>Output:</p>
+<pre><code>CREATE src/app/components/stocks/stocks.component.scss (0 bytes)
+CREATE src/app/components/stocks/stocks.component.html (25 bytes)
+CREATE src/app/components/stocks/stocks.component.spec.ts (628 bytes)
+CREATE src/app/components/stocks/stocks.component.ts (270 bytes)
+UPDATE src/app/app.module.ts (634 bytes)
+</code></pre>
+<p>Check your recently modified <code>app.module.ts</code> file, you should see that <code>StocksComponent</code> was automatically imported and added to declarations since we used the angular command to create the component.</p>
+<p>Futhermore, you have a simple HTML template generated for you named <code>stocks.component.html</code>:</p>
+<pre><code>&lt;p&gt;
+  stocks works!
+&lt;/p&gt;
+</code></pre>
+<p>✅Now that we have a separate component for stocks, let&#39;s create the route to hit the stocks HTML page.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Route to Stocks Component" duration="5">
+        <p>Angular sets up routing for you with the <code>app-routing.module.ts</code> file. The contents of this file is as follows:</p>
+<pre><code>import { NgModule } from &#39;@angular/core&#39;;
+import { Routes, RouterModule } from &#39;@angular/router&#39;;
+
+const routes: Routes = [];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+</code></pre>
+<p>We are going to define two routes:</p>
+<ol type="1">
+<li>Route back to the home page → <code>/</code></li>
+<li>Route to <code>/stocks</code></li>
+</ol>
+<p>To do so, import the components that you want to route the paths to:</p>
+<pre><code>import { StocksComponent } from &#39;./components/stocks/stocks.component&#39;;
+import { AppComponent } from &#39;./app.component&#39;;
+</code></pre>
+<p>Then define the paths in the <code>Routes</code> array in the following manner:</p>
+<pre><code>const routes: Routes = [
+  {
+    path: &#39;&#39;,
+    component: AppComponent,
+    pathMatch: &#39;full&#39;
+  },
+  {
+    path: &#39;stocks&#39;,
+    component: StocksComponent
+  }
+];
+</code></pre>
+<p>Once you save the project, go to <a href="http://localhost:4200/stocks" target="_blank">http://localhost:4200/stocks</a>, you should see <code>stocks works!</code> at the bottom of the page.</p>
+<p><img src="img/966fea75c984706e.png"></p>
+<p>The reason that you can see the HTML page on the bottom of the generic Angular app is due to the <code>&lt;router-outlet&gt;&lt;/router-outlet&gt;</code> tag at the bottom of the <code>app.component.html</code> which will render the output of each specific route&#39;s component. Anything outside the <code>router-outlet</code> tag on the main component HTML page will get rendered on every route.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Retrieve Stocks Data" duration="5">
+        <p>In order to get the stock data, we will utilize the stocks service in the stocks component. Currently the <code>StocksComponent</code> class looks like this:</p>
+<pre><code>import { Component, OnInit } from &#39;@angular/core&#39;;
+
+@Component({
+  selector: &#39;app-stocks&#39;,
+  templateUrl: &#39;./stocks.component.html&#39;,
+  styleUrls: [&#39;./stocks.component.scss&#39;]
+})
+export class StocksComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
+</code></pre>
+<p>Simply import the <code>StockService</code> at the top, initialize a private instance of it inside the <code>constructor</code>, and then call the service inside the <code>ngOnInit()</code> function so that the data refreshes every time the screen reloads. For the time being, the <code>getStocks</code> function will be getting the data and printing it out to the console. As a reminder, when you use the dot operator on the <code>data</code> response object (i.e. <code>data.stocks</code>), you are returning the stocks array inside the top level object of type <code>StocksResponse</code>.</p>
+<aside class="special"><p>Note: It is best practice to implement a caching feature, especially for big data sets. We will not be going over how to do that in this tutorial.</p>
+</aside>
+<p>Your <code>StocksComponent</code> should look like the following:</p>
+<pre><code>import { Component, OnInit } from &#39;@angular/core&#39;;
+import { StockService } from &#39;../../services/stock.service&#39;;
+
+@Component({
+  selector: &#39;app-stocks&#39;,
+  templateUrl: &#39;./stocks.component.html&#39;,
+  styleUrls: [&#39;./stocks.component.scss&#39;]
+})
+export class StocksComponent implements OnInit {
+
+  constructor(private stockService: StockService) { }
+
+  ngOnInit() {
+    this.stockService.getStocks().subscribe(data =&gt; {
+      console.log(data.stocks);
+    })
+  }
+
+}
+</code></pre>
+<p>✅Now move onto the next step to find out how to retrieve the data!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setup a Proxy" duration="5">
+        <p>Remember how we defined the <code>stocksUrl</code> as <code>/api/stocks</code> in the <code>StockService</code>, well now we will connect the pieces to show you how the request from your frontend is routed to your backend. Your API is running at <a href="http://localhost:8080/api/v1/stocks" target="_blank">http://localhost:8080/api/v1/stocks</a>. Your frontend needs to make a request to that endpoint, however, in your codebase you do not want to hard-code a URL that will change depending on where you will run your backend in the future, whether that be on a server or a different port, etc. So to test locally, we setup a <code>proxy.conf.json</code> file at the root of the project, to proxy to our backend.</p>
+<h2>Contents of <code>proxy.conf.json</code></h2>
+<p>This type of file is commonly used and can be found here: <a href="https://github.com/angular/angular-cli/blob/master/docs/documentation/stories/proxy.md#rewriting-the-url-path" target="_blank">Rewriting the URL Path</a></p>
+<pre><code>{
+  &#34;/api&#34;: {
+    &#34;target&#34;: &#34;http://localhost:8080/api/v1&#34;,
+    &#34;secure&#34;: false,
+    &#34;pathRewrite&#34;: {
+      &#34;^/api&#34;: &#34;&#34;
+    }
+  }
+}
+</code></pre>
+<p>As you can see, this is just a rewrite, indicating that everytime <code>/api</code> is mentioned as an HTTP path, replace that with <code>http://localhost:8080/api/v1</code> and then append everything after <code>/api</code> to the end of the rewrite.</p>
+<p>Go ahead and kill your current angular CLI session run the following command to serve up the frontend again:</p>
+<pre><code>$ ng serve --proxy-config proxy.conf.json 
+</code></pre>
+<p>If you go back to <a href="http://localhost:4200/stocks" target="_blank">http://localhost:4200/stocks</a>, right-click <strong>Inspect</strong>, and check the <strong>Console</strong> tab, you should see the stocks array.</p>
+<p><img src="img/3d0809252ad70ad.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install Material UI" duration="3">
+        <p>Now that we have ensured that data is coming through to the UI, we will use the table component from an Angular UI Framework known as <a href="https://material.angular.io/" target="_blank">Angular Material</a>. First, let&#39;s install Angular Material.</p>
+<p>Follow the steps here: <a href="https://material.angular.io/guide/getting-started" target="_blank">Getting Started</a> (use version <code>7.1.0</code>)</p>
+<aside class="special"><p>Note: each time you use the <code>--save</code> flag, it is adding the package name to your <code>package.json</code> file.</p>
+</aside>
+<p>Run the following in the root directory:</p>
+<pre><code>$ npm install --save @angular/material @angular/cdk @angular/animations
++ @angular/animations@7.0.4
++ @angular/cdk@7.1.0
++ @angular/material@7.1.0
+added 3 packages from 1 contributor, updated 1 package and audited 39138 packages in 11.8s
+found 0 vulnerabilities
+</code></pre>
+<p>Then add the module as discussed earler to <code>app.module.ts</code>:</p>
+<pre><code>...
+import { BrowserAnimationsModule } from &#39;@angular/platform-browser/animations&#39;;
+...
+
+  imports: [
+    ...
+    BrowserAnimationsModule
+  ],
+...
+export class AppModule { }
+</code></pre>
+<p>Include one of Angular Material&#39;s prebuilt themes to your global <code>styles.css</code> file:</p>
+<pre><code>@import &#34;~@angular/material/prebuilt-themes/indigo-pink.css&#34;;
+</code></pre>
+<p>To handle gesture support for certain components, install the following at the root directory:</p>
+<pre><code>$ npm install --save hammerjs
+</code></pre>
+<p>Finally, in the <code>main.ts</code> file, import HammerJS at the top:</p>
+<pre><code>import &#39;hammerjs&#39;;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setup Material Table Component" duration="8">
+        <p>Once Angular Material has been setup, let&#39;s utilize the <a href="https://material.angular.io/components/table/overview#pagination" target="_blank">Table Component with Pagination</a>.</p>
+<p>Let&#39;s use the example given in the docs and modify it to our needs. Just as a note, the sample is using static data to render the table.</p>
+<h2>Modify <code>stocks.component.ts</code></h2>
+<pre><code>import { Component, OnInit, ViewChild } from &#39;@angular/core&#39;;
+import { StockService } from &#39;../../services/stock.service&#39;;
+import { MatTableDataSource, MatPaginator } from &#39;@angular/material&#39;;
+
+@Component({
+  selector: &#39;app-stocks&#39;,
+  templateUrl: &#39;./stocks.component.html&#39;,
+  styleUrls: [&#39;./stocks.component.scss&#39;]
+})
+export class StocksComponent implements OnInit {
+
+  displayedColumns: string[] = [&#39;name&#39;, &#39;description&#39;, &#39;symbol&#39;, &#39;price&#39;, &#39;lastUpdated&#39;];
+  dataSource = new MatTableDataSource();
+
+  constructor(private stockService: StockService) { }
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngOnInit() {
+    this.stockService.getStocks().subscribe(data =&gt; {
+      this.dataSource.data = data.stocks;
+      this.dataSource.paginator = this.paginator
+    })
+  }
+
+}
+</code></pre>
+<p>You will be using the <code>MatTableDataSource</code> and <code>MatPaginator</code> modules. Make sure you import this in your <code>app.module.ts</code> file by doing the following:</p>
+<pre><code>import { MatTableModule, MatPaginatorModule } from &#39;@angular/material&#39;;
+...
+
+  imports: [
+    ...
+    MatTableModule,
+    MatPaginatorModule
+  ],
+...
+export class AppModule { }
+</code></pre>
+<h2>Modify <code>stocks.component.html</code></h2>
+<p>Reference the docs once again to see how to display the data:</p>
+<pre><code>&lt;table mat-table [dataSource]=&#34;dataSource&#34; class=&#34;mat-elevation-z8&#34;&gt;
+
+  &lt;!-- Name Column --&gt;
+  &lt;ng-container matColumnDef=&#34;name&#34;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt; Name &lt;/th&gt;
+    &lt;td mat-cell *matCellDef=&#34;let stock&#34;&gt; {{stock.name}} &lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;!-- Description Column --&gt;
+  &lt;ng-container matColumnDef=&#34;description&#34;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt; Description &lt;/th&gt;
+    &lt;td mat-cell *matCellDef=&#34;let stock&#34;&gt; {{stock.description}} &lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;!-- Symbol Column --&gt;
+  &lt;ng-container matColumnDef=&#34;symbol&#34;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt; Symbol &lt;/th&gt;
+    &lt;td mat-cell *matCellDef=&#34;let stock&#34;&gt; {{stock.symbol}} &lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;!-- Price Column --&gt;
+  &lt;ng-container matColumnDef=&#34;price&#34;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt; Price &lt;/th&gt;
+    &lt;td mat-cell *matCellDef=&#34;let stock&#34;&gt; {{stock.price}} &lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;!-- Last Updated Column --&gt;
+  &lt;ng-container matColumnDef=&#34;lastUpdated&#34;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt; Last Updated &lt;/th&gt;
+    &lt;td mat-cell *matCellDef=&#34;let stock&#34;&gt; {{stock.lastUpdated}} &lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;tr mat-header-row *matHeaderRowDef=&#34;displayedColumns&#34;&gt;&lt;/tr&gt;
+  &lt;tr mat-row *matRowDef=&#34;let row; columns: displayedColumns;&#34;&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;mat-paginator [pageSizeOptions]=&#34;[5, 10, 20]&#34; showFirstLastButtons&gt;&lt;/mat-paginator&gt;
+</code></pre>
+<p>You should now be able to see the following page at the <code>/stocks</code> endpoint:</p>
+<p><img src="img/e6290fb19458eb39.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install Bootstrap" duration="3">
+        <p>Bootstrap is the world&#39;s most popular front-end component library. We are not going to implement much of Boostrap, other than use its container class to help style the UI, however, you can check out the components on their webpage and try them out.</p>
+<p>In the root directory run to install version <code>4.1</code> of Bootstrap:</p>
+<pre><code>$ npm install --save bootstrap
+</code></pre>
+<p>Now configure <code>angular.json</code> to include the minified stylesheet file under the <code>styles</code> array:</p>
+<pre><code>&#34;styles&#34;: [
+  &#34;node_modules/bootstrap/dist/css/bootstrap.min.css&#34;,
+  &#34;styles.scss&#34;
+]
+</code></pre>
+<p>Lastly, import the following minified stylesheet in your <code>style.scss</code>:</p>
+<pre><code>@import &#39;~bootstrap/dist/css/bootstrap.min.css&#39;;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Cleanup the UI" duration="3">
+        <p>Let&#39;s start by cleaning up the <code>app.component.html</code>. Remove all the generic content that came along with the scaffolded project and replace it with a <a href="https://material.angular.io/components/toolbar/overview" target="_blank">Basic Toolbar</a> from Angular Material. This is the new HTML file:</p>
+<pre><code>&lt;div class=&#34;container-fluid&#34;&gt;
+  &lt;mat-toolbar color=&#34;primary&#34;&gt;Stocks App&lt;/mat-toolbar&gt;
+  &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Make sure to add the <code>MatToolbarModule</code> to the <code>app.module.ts</code> file as well:</p>
+<pre><code>import { MatTableModule, MatPaginatorModule, MatToolbarModule } from &#39;@angular/material&#39;;
+...
+
+  imports: [
+    ...
+    MatToolbarModule
+  ],
+...
+export class AppModule { }
+</code></pre>
+<p>In the <code>stocks.component.scss</code> file, add the following to increase the width of the table:</p>
+<pre><code>table {
+  width: 100%;
+}
+</code></pre>
+<p>Remove the <code>mat-elevation-z8</code> class from table in <code>stocks.component.html</code> so that we remove the 3D effect of the table.</p>
+<p>Finally, let&#39;s make the <code>lastUpdated</code> date attribute much more readable on our table component. To do so, let&#39;s use an angular <a href="https://angular.io/api/common/DatePipe" target="_blank">Pipe</a>.</p>
+<pre><code>  ...
+
+  &lt;!-- Last Updated Column --&gt;
+  &lt;ng-container matColumnDef=&#34;lastUpdated&#34;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt; Last Updated &lt;/th&gt;
+    &lt;td mat-cell *matCellDef=&#34;let stock&#34;&gt; {{stock.lastUpdated | date}} &lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  ...
+</code></pre>
+<p>Once your application reloads, you should have the following application:</p>
+<p><img src="img/567e8e6d7a70c982.png"></p>
+<p>🎊🎉 You&#39;re all done!!!</p>
+<h3><a href="https://github.com/zarinlo/sample-angular-ui" target="_blank">Download full codebase</a></h3>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Congratulations!" duration="0">
+        <p><img src="img/5d7818897b99cf16.jpg"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -319,9 +319,9 @@ Take a look at how the path is defined and notice that it's surrounded by quotes
 
 Each of the operations above will require a path parameter denoted by the `in: path` key-value pair. The update operation (PUT), however, takes in both a path parameter and an object via the body. 
 
-➡️ <a href="../elements/assets/swagger.yaml" style download>View Swagger in YAML</a>
+➡️ <a href="../elements/assets/springboot-api/swagger.yaml" style download>View Swagger in YAML</a>
 
-➡️ <a href="../elements/assets/swagger.json" style download>View Swagger in JSON</a>
+➡️ <a href="../elements/assets/springboot-api/swagger.json" style download>View Swagger in JSON</a>
 
 ✅You've completed your first basic API spec! Now let's start by scaffolding (i.e. structuring) your Spring boot project. 
 
@@ -343,7 +343,7 @@ Spring Initialzr can be accessed via a web UI or through your IDE (i.e. IntelliJ
 4. In the Dependencies sections add: **Web**, **MongoDB**, and **Security**
 5. Click **Generate Project** and a download should start for the project. 
 
-![](elements/assets/scaffold-spring-api.png)
+![](elements/assets/springboot-api/scaffold-spring-api.png)
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## API Project Structure
@@ -404,7 +404,7 @@ Before we can import your API into any IDE (i.e. Eclipse, IntelliJ), we need to 
 
 The file will be used by maven to install the needed dependencies and it points to public repositories, which your local machine will reference when it's pulling down dependencies. If you are running into issues with downloading the dependencies, you may need to configure the **proxy** section. 
 
-➡️ <a href="../elements/assets/settings.xml" style download>View settings.xml file</a>
+➡️ <a href="../elements/assets/springboot-api/settings.xml" style download>View settings.xml file</a>
 
 You can find more information on a default `settings.xml` file here: [Apache Maven: settings.xml](https://github.com/apache/maven/blob/master/apache-maven/src/conf/settings.xml)
 
@@ -416,13 +416,13 @@ Whether you are using IntelliJ or Eclipse, you will need to import your project 
 
 ### IntelliJ Specific 
 - Import Project: Import the project as a Maven project. Continue through the wizard and let the dependencies all load, this may take some time. 
-![](elements/assets/import-as-maven-proj.png)
+![](elements/assets/springboot-api/import-as-maven-proj.png)
 
 - Set Maven Build Repository: Under ***IntelliJ** --> **Preferences** OR **File** --> **Settings**, go to **Build, Execution. Deployment** --> **Build Tools** --> **Maven**, and make sure the remote repository URLs are being pulled from your `settings.xml` file. Check out the official JetBrains website: [Maven. Repositories](https://www.jetbrains.com/help/idea/maven-repositories.html)
-![](elements/assets/set-maven-build-tool.png)
+![](elements/assets/springboot-api/set-maven-build-tool.png)
 
 - Reimport Project: Once you have imported the project, you may need to reimport the dependencies at times.
-![](elements/assets/reimport-maven-proj.png)
+![](elements/assets/springboot-api/reimport-maven-proj.png)
 
 - Set Project SDK: Under **File** --> **Project Structure** --> **Project**, make sure that you set your project SDK to java1.8 or java1.10. Check out the official JetBrains website: [Working with SDKs](https://www.jetbrains.com/help/idea/sdk.html)
 
@@ -527,7 +527,7 @@ Duration: 5
 Annotations in Java is a special form of metadata that can be embedded in Java source code. Users can use annotations to configure beans inside the java source file itself. 
 
 Here is a simple overview of common Spring annotations:
-![](elements/assets/spring-annotations.png)
+![](elements/assets/springboot-api/spring-annotations.png)
 
 - `@Component`: Generic stereotype for any Spring-managed component
 - `@Repository`: The Persistence layer (Data Access Layer) of the application, which is used to get data from the database. All the database related operations are done by the repository.       
@@ -670,7 +670,7 @@ public class StockController {
 
 At this point, you can startup the API locally by running `./mvnw spring-boot:run` on a MacOS or `mvnw.cmd spring-boot:run` on a Windows. By default, the API will be running on [http://localhost:8080/api/v1/stocks](http://localhost:8080/api/v1/stocks). Open a browser and try the GET request just by hitting that endpoint. You should see an empty stock array object as the response. 
 
-![](elements/assets/empty-stock-obj.png)
+![](elements/assets/springboot-api/empty-stock-obj.png)
 
 Spring has a variety of different configurations available which can be enabled/disabled via the `application.properties` file. It allows custom configuration properties as well. This file is found under the **resources** folder. In order to set the name of the mongo database, add the following properties in the file:
 
@@ -1401,7 +1401,7 @@ mvnw.cmd spring-boot:run
 
 Navigate to [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html). You should see the Swagger UI. From here, you can expand each endpoint and test out all of your API operations with the "Try it out" button. 
 
-![](elements/assets/swagger-ui.png)
+![](elements/assets/springboot-api/swagger-ui.png)
 
 SpringFox auto-generates Swagger in JSON format, which can be found at [http://localhost:8080/v2/api-docs](http://localhost:8080/v2/api-docs). The **v2** stands for the version of Swagger, not the version of the API. You can see the stock data stored in mongo at [http://localhost:8080/api/v1/stocks](http://localhost:8080/api/v1/stocks). Under the **resources/static** directory, you will find the `swagger.yaml` API Spec as well as JSON the formatted file.  
 
@@ -1418,4 +1418,4 @@ You can also view the actuator endpoints enabled here:
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Congratulations!
 
-![](elements/assets/congrats.jpg)
+![](elements/assets/springboot-api/congrats.jpg)

@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
   <title>How to Design a RESTful Spring boot API</title>
-  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../elements/codelab.html">
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <style is="custom-style">
     body {
@@ -313,8 +313,8 @@ paths:
 </code></pre>
 <p>Take a look at how the path is defined and notice that it&#39;s surrounded by quotes. In YAML, when you don&#39;t want special characters to be handled any other way besides a string, you use quotes to ensure that.</p>
 <p>Each of the operations above will require a path parameter denoted by the <code>in: path</code> key-value pair. The update operation (PUT), however, takes in both a path parameter and an object via the body.</p>
-<p>➡️ <a href="../elements/assets/swagger.yaml" target="_blank">View Swagger in YAML</a></p>
-<p>➡️ <a href="../elements/assets/swagger.json" target="_blank">View Swagger in JSON</a></p>
+<p>➡️ <a href="../elements/assets/springboot-api/swagger.yaml" target="_blank">View Swagger in YAML</a></p>
+<p>➡️ <a href="../elements/assets/springboot-api/swagger.json" target="_blank">View Swagger in JSON</a></p>
 <p>✅You&#39;ve completed your first basic API spec! Now let&#39;s start by scaffolding (i.e. structuring) your Spring boot project.</p>
 
 
@@ -381,7 +381,7 @@ paths:
       <google-codelab-step label="Configuring your API Project" duration="5">
         <p>Before we can import your API into any IDE (i.e. Eclipse, IntelliJ), we need to configure your maven settings. Once you have installed maven you also need to inlcude a <code>settings.xml</code> file directly under your <strong>.m2</strong> folder. Your <strong>.m2</strong> folder should be in your user home directory. Take a look at the maven install guide to ensure that your folder is in the correct place.</p>
 <p>The file will be used by maven to install the needed dependencies and it points to public repositories, which your local machine will reference when it&#39;s pulling down dependencies. If you are running into issues with downloading the dependencies, you may need to configure the <strong>proxy</strong> section.</p>
-<p>➡️ <a href="../elements/assets/settings.xml" target="_blank">View settings.xml file</a></p>
+<p>➡️ <a href="../elements/assets/springboot-api/settings.xml" target="_blank">View settings.xml file</a></p>
 <p>You can find more information on a default <code>settings.xml</code> file here: <a href="https://github.com/apache/maven/blob/master/apache-maven/src/conf/settings.xml" target="_blank">Apache Maven: settings.xml</a></p>
 
 

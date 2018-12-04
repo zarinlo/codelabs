@@ -1,10 +1,10 @@
 {
   "environment": "web",
-  "source": "springboot-api.md",
+  "source": "codelab-springboot-api.md",
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2018-11-29T21:25:21-05:00",
+  "updated": "2018-12-03T22:16:09-05:00",
   "id": "springboot-api",
   "duration": 189,
   "title": "How to Design a RESTful Spring boot API",
