@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>How to Design a RESTful Spring boot API</title>
-  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../elements/codelab.html">
+  <title>How to Design a RESTful Spring Boot API</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <style is="custom-style">
     body {
@@ -20,7 +20,7 @@
 </head>
 <body unresolved class="fullbleed">
 
-  <google-codelab title="How to Design a RESTful Spring boot API"
+  <google-codelab title="How to Design a RESTful Spring Boot API"
                   environment="web"
                   feedback-link="">
     
@@ -36,6 +36,7 @@
 <li>Install <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank">Java 8</a> or <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html" target="_blank">Java 10</a> JDK</li>
 <li>Install <a href="https://maven.apache.org/download.cgi" target="_blank">Apache Maven</a></li>
 <li>Install <a href="https://www.mongodb.com/download-center#community" target="_blank">MongoDB</a></li>
+<li>Install <a href="https://www.jetbrains.com/idea/" target="_blank">IntelliJ</a> or any other IDE of your choice</li>
 </ul>
 
 
@@ -336,7 +337,7 @@ paths:
 
       </google-codelab-step>
     
-      <google-codelab-step label="API Project Structure" duration="1">
+      <google-codelab-step label="API Project Structure" duration="2">
         <p>Before we begin constructing our API, let&#39;s setup the structure of the project correctly. Once you extract the initial zip file from the previous step, ensure you directory structure looks like the following:</p>
 <pre><code>|api
 |---|src
@@ -378,9 +379,9 @@ paths:
 
       </google-codelab-step>
     
-      <google-codelab-step label="Configuring your API Project" duration="5">
-        <p>Before we can import your API into any IDE (i.e. Eclipse, IntelliJ), we need to configure your maven settings. Once you have installed maven you also need to inlcude a <code>settings.xml</code> file directly under your <strong>.m2</strong> folder. Your <strong>.m2</strong> folder should be in your user home directory. Take a look at the maven install guide to ensure that your folder is in the correct place.</p>
-<p>The file will be used by maven to install the needed dependencies and it points to public repositories, which your local machine will reference when it&#39;s pulling down dependencies. If you are running into issues with downloading the dependencies, you may need to configure the <strong>proxy</strong> section.</p>
+      <google-codelab-step label="Configuring your Maven Settings" duration="5">
+        <p>Before we can import your API into any IDE (i.e. IntelliJ), we need to configure your maven settings. Once you have installed maven you also need to inlcude a <code>settings.xml</code> file directly under your <strong>.m2</strong> folder. Your <strong>.m2</strong> folder should be in your user home directory. Take a look at the maven install guide to ensure that your folder is in the correct place.</p>
+<p>The file will be used by maven to install the needed dependencies and it points to public repositories, which your local machine will reference when it&#39;s pulling down dependencies. If you are running into issues with downloading the dependencies, you may need to configure the <strong>proxy</strong> section. e</p>
 <p>➡️ <a href="../elements/assets/springboot-api/settings.xml" target="_blank">View settings.xml file</a></p>
 <p>You can find more information on a default <code>settings.xml</code> file here: <a href="https://github.com/apache/maven/blob/master/apache-maven/src/conf/settings.xml" target="_blank">Apache Maven: settings.xml</a></p>
 
@@ -388,14 +389,35 @@ paths:
       </google-codelab-step>
     
       <google-codelab-step label="Importing your API Project" duration="8">
-        <p>Whether you are using IntelliJ or Eclipse, you will need to import your project as a Maven project. You can run through the following to make sure your project has been imported correctly.</p>
-<h2>IntelliJ Specific</h2>
+        <p>If you are using IntelliJ, import your project as a Maven project. You can run through the following to make sure your project has been imported and configured correctly.</p>
+<h2>Import Project</h2>
+<p>Import the project as a Maven project. Continue through the wizard and let all the dependencies load, which may take some time.</p>
 <ul>
-<li>Import Project: Import the project as a Maven project. Continue through the wizard and let the dependencies all load, this may take some time.<br><img src="img/d6fc9ffeac7d9949.png"></li>
-<li>Set Maven Build Repository: Under *<strong>IntelliJ</strong> –&gt; <strong>Preferences</strong> OR <strong>File</strong> –&gt; <strong>Settings</strong>, go to <strong>Build, Execution. Deployment</strong> –&gt; <strong>Build Tools</strong> –&gt; <strong>Maven</strong>, and make sure the remote repository URLs are being pulled from your <code>settings.xml</code> file. Check out the official JetBrains website: <a href="https://www.jetbrains.com/help/idea/maven-repositories.html" target="_blank">Maven. Repositories</a><img src="img/23b067c854d2f198.png"></li>
-<li>Reimport Project: Once you have imported the project, you may need to reimport the dependencies at times.<br><img src="img/dbf0d7d163dec787.png"></li>
-<li>Set Project SDK: Under <strong>File</strong> –&gt; <strong>Project Structure</strong> –&gt; <strong>Project</strong>, make sure that you set your project SDK to java1.8 or java1.10. Check out the official JetBrains website: <a href="https://www.jetbrains.com/help/idea/sdk.html" target="_blank">Working with SDKs</a></li>
-<li>Synchronize: Right-click on the project folder and hit Synchronize.</li>
+<li>Reference: <a href="https://www.jetbrains.com/help/idea/maven-support.html#maven_import_project_start" target="_blank">Importing a Maven Project</a></li>
+</ul>
+<h2>Maven Build Repository</h2>
+<p>Under <strong>Preferences</strong> OR <strong>File</strong> –&gt; <strong>Settings</strong>, go to <strong>Build, Execution. Deployment</strong> –&gt; <strong>Build Tools</strong> –&gt; <strong>Maven</strong>, and make sure the remote repository URLs are being pulled from your <code>settings.xml</code> file.</p>
+<ul>
+<li>Reference: <a href="https://www.jetbrains.com/help/idea/maven-repositories.html" target="_blank">Maven. Repositories</a></li>
+</ul>
+<p><img src="img/23b067c854d2f198.png"></p>
+<h2>Set Project SDK</h2>
+<p>Under <strong>File</strong> –&gt; <strong>Project Structure</strong> –&gt; <strong>Project</strong>, make sure that you set your project SDK to java1.8 or java1.10.</p>
+<ul>
+<li>Reference: <a href="https://www.jetbrains.com/help/idea/sdk.html" target="_blank">Working with SDKs</a></li>
+</ul>
+<h2>Setup Run Configurations</h2>
+<p>In order to run your project, go ahead and setup a <strong>Spring Boot</strong> run configuration.</p>
+<ul>
+<li>Reference: <a href="https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html" target="_blank">Creating and Editing Run/Debug Configurations</a></li>
+</ul>
+<h2>Reimport Project (if needed)</h2>
+<p>Once you have imported the project, there may be times where you need to reimport depenedencies incase you add/change/remove dependencies. Press <code>Ctrl</code>+<code>Shift</code>+<code>A</code> to find actions, and input &#34;reimport&#34;, you will find the &#34;Reimport All Maven Projects&#34;. On a Mac, use ⌘ + ⇧ + A instead.</p>
+<p><img src="img/dbf0d7d163dec787.png"></p>
+<h2>Synchronize Project (if needed)</h2>
+<p>To synchronize your project, right-click on the project folder and hit Synchronize. You can also do this from the maven projects tool window.</p>
+<ul>
+<li>Reference: <a href="https://www.jetbrains.com/help/idea/maven-projects-tool-window.html" target="_blank">Maven Projects Tool Window</a></li>
 </ul>
 <p>✅Continue on to the next step to start creating the Object model classes for a Stock as we defined in our API Spec.</p>
 

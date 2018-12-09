@@ -5,7 +5,7 @@ categories: spring-boot, springboot, restful-api, rest-api, api, mongodb, swagge
 environments: java
 status: draft
 
-# How to Design a RESTful Spring boot API
+# How to Design a RESTful Spring Boot API
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Overview
 Duration: 15
@@ -19,6 +19,7 @@ Duration: 15
 - Install [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) or [Java 10](http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html) JDK
 - Install [Apache Maven](https://maven.apache.org/download.cgi)
 - Install [MongoDB](https://www.mongodb.com/download-center#community)
+- Install [IntelliJ](https://www.jetbrains.com/idea/) or any other IDE of your choice 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Covering API Endpoints
@@ -347,7 +348,7 @@ Spring Initialzr can be accessed via a web UI or through your IDE (i.e. IntelliJ
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## API Project Structure
-Duration: 1
+Duration: 2
 
 Before we begin constructing our API, let's setup the structure of the project correctly. Once you extract the initial zip file from the previous step, ensure you directory structure looks like the following: 
 
@@ -397,12 +398,12 @@ Now, let's create the other directories that we will need going further.
 Under the **api** folder you have a **stock** folder, which is where we are going to define the Stock controller, object classes and services. Under the **config** and **exceptions** folder, we will create shared classes that the entire project will use. 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Configuring your API Project
+## Configuring your Maven Settings
 Duration: 5
 
-Before we can import your API into any IDE (i.e. Eclipse, IntelliJ), we need to configure your maven settings. Once you have installed maven you also need to inlcude a `settings.xml` file directly under your **.m2** folder. Your **.m2** folder should be in your user home directory. Take a look at the maven install guide to ensure that your folder is in the correct place. 
+Before we can import your API into any IDE (i.e. IntelliJ), we need to configure your maven settings. Once you have installed maven you also need to inlcude a `settings.xml` file directly under your **.m2** folder. Your **.m2** folder should be in your user home directory. Take a look at the maven install guide to ensure that your folder is in the correct place. 
 
-The file will be used by maven to install the needed dependencies and it points to public repositories, which your local machine will reference when it's pulling down dependencies. If you are running into issues with downloading the dependencies, you may need to configure the **proxy** section. 
+The file will be used by maven to install the needed dependencies and it points to public repositories, which your local machine will reference when it's pulling down dependencies. If you are running into issues with downloading the dependencies, you may need to configure the **proxy** section. e
 
 ➡️ <a href="../elements/assets/springboot-api/settings.xml" style download>View settings.xml file</a>
 
@@ -412,21 +413,37 @@ You can find more information on a default `settings.xml` file here: [Apache Mav
 ## Importing your API Project
 Duration: 8
 
-Whether you are using IntelliJ or Eclipse, you will need to import your project as a Maven project. You can run through the following to make sure your project has been imported correctly. 
+If you are using IntelliJ, import your project as a Maven project. You can run through the following to make sure your project has been imported and configured correctly. 
 
-### IntelliJ Specific 
-- Import Project: Import the project as a Maven project. Continue through the wizard and let the dependencies all load, this may take some time. 
-![](elements/assets/springboot-api/import-as-maven-proj.png)
+### Import Project
+Import the project as a Maven project. Continue through the wizard and let all the dependencies load, which may take some time. 
+- Reference: [Importing a Maven Project](https://www.jetbrains.com/help/idea/maven-support.html#maven_import_project_start)
 
-- Set Maven Build Repository: Under ***IntelliJ** --> **Preferences** OR **File** --> **Settings**, go to **Build, Execution. Deployment** --> **Build Tools** --> **Maven**, and make sure the remote repository URLs are being pulled from your `settings.xml` file. Check out the official JetBrains website: [Maven. Repositories](https://www.jetbrains.com/help/idea/maven-repositories.html)
+<!-- ![](elements/assets/springboot-api/import-as-maven-proj.png) -->
+
+### Maven Build Repository
+Under **Preferences** OR **File** --> **Settings**, go to **Build, Execution. Deployment** --> **Build Tools** --> **Maven**, and make sure the remote repository URLs are being pulled from your `settings.xml` file.
+- Reference: [Maven. Repositories](https://www.jetbrains.com/help/idea/maven-repositories.html)
+
 ![](elements/assets/springboot-api/set-maven-build-tool.png)
 
-- Reimport Project: Once you have imported the project, you may need to reimport the dependencies at times.
+### Set Project SDK
+Under **File** --> **Project Structure** --> **Project**, make sure that you set your project SDK to java1.8 or java1.10. 
+- Reference: [Working with SDKs](https://www.jetbrains.com/help/idea/sdk.html)
+
+### Setup Run Configurations
+In order to run your project, go ahead and setup a **Spring Boot** run configuration. 
+- Reference: [Creating and Editing Run/Debug Configurations](https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html)
+
+### Reimport Project (if needed)
+Once you have imported the project, there may be times where you need to reimport depenedencies incase you add/change/remove dependencies. Press `Ctrl`+`Shift`+`A` to find actions, and input "reimport", you will find the "Reimport All Maven Projects". On a Mac, use ⌘ + ⇧ + A instead.
+
 ![](elements/assets/springboot-api/reimport-maven-proj.png)
 
-- Set Project SDK: Under **File** --> **Project Structure** --> **Project**, make sure that you set your project SDK to java1.8 or java1.10. Check out the official JetBrains website: [Working with SDKs](https://www.jetbrains.com/help/idea/sdk.html)
+### Synchronize Project (if needed)
+To synchronize your project, right-click on the project folder and hit Synchronize. You can also do this from the maven projects tool window. 
 
-- Synchronize: Right-click on the project folder and hit Synchronize. 
+- Reference: [Maven Projects Tool Window](https://www.jetbrains.com/help/idea/maven-projects-tool-window.html)
 
 ✅Continue on to the next step to start creating the Object model classes for a Stock as we defined in our API Spec. 
 
