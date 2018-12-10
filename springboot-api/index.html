@@ -658,8 +658,8 @@ public class StockController {
 </code></pre>
 <p>Normally, I would not recommend declaring the runtime environment in this manner becuase you will have to update that property in a file that you version. You rather set this in your run/debug configurations instead. However, to understand more about how Spring profiles work, reference this: <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html" target="_blank">Spring Boot features - Profiles</a></p>
 <h2>Setting up Mongo Properties</h2>
-<p>In order to set the name of the mongo database, add the following properties in the <code>application-local.properties</code> folder.</p>
-<pre><code>spring.data.mongodb.database=samplespringapi
+<p>In order to set the name of the mongo database, add the following properties in the <code>application-local.properties</code> folder. As you can see we will use Camel Case to name the mongo database. For db naming restrictions, reference: <a href="https://docs.mongodb.com/manual/reference/limits/#restrictions-on-db-names" target="_blank">Restrictions on DB Names</a></p>
+<pre><code>spring.data.mongodb.database=sampleSpringApi
 spring.data.mongodb.host=localhost
 spring.data.mongodb.port=27017
 </code></pre>

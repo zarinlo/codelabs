@@ -721,10 +721,10 @@ Normally, I would not recommend declaring the runtime environment in this manner
  
 ### Setting up Mongo Properties
 
-In order to set the name of the mongo database, add the following properties in the `application-local.properties` folder. 
+In order to set the name of the mongo database, add the following properties in the `application-local.properties` folder. As you can see we will use Camel Case to name the mongo database. For db naming restrictions, reference: [Restrictions on DB Names](https://docs.mongodb.com/manual/reference/limits/#restrictions-on-db-names)
 
 ~~~java
-spring.data.mongodb.database=samplespringapi
+spring.data.mongodb.database=sampleSpringApi
 spring.data.mongodb.host=localhost
 spring.data.mongodb.port=27017
 ~~~
