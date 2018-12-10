@@ -635,12 +635,41 @@ public class StockController {
 </code></pre>
 <p>At this point, you can startup the API locally by running <code>./mvnw spring-boot:run</code> on a MacOS or <code>mvnw.cmd spring-boot:run</code> on a Windows. By default, the API will be running on <a href="http://localhost:8080/api/v1/stocks" target="_blank">http://localhost:8080/api/v1/stocks</a>. Open a browser and try the GET request just by hitting that endpoint. You should see an empty stock array object as the response.</p>
 <p><img src="img/c3fb3cc53e7479ed.png"></p>
-<p>Spring has a variety of different configurations available which can be enabled/disabled via the <code>application.properties</code> file. It allows custom configuration properties as well. This file is found under the <strong>resources</strong> folder. In order to set the name of the mongo database, add the following properties in the file:</p>
-<pre><code>spring.data.mongodb.database=SampleSpringAPI
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Define Application Properties" duration="15">
+        <p>Spring allows you to configure/enable/disable various application properties rather easily via its <code>application.properties</code> file. You can set custom configurations as well. This file is found under the <strong>src/main/resources</strong> folder.</p>
+<p>Spring also allows you to handle properties per environment (i.e. dev, qa, prod). This is taken care of in the naming convention of the file. In order to select which file / profile to use at runtime, you can do so in multiple ways as well.</p>
+<h2>Properties per Environment</h2>
+<p>In order to keep the environment properties organized, we will create the following files under <code>src/main/resources</code>. Notice the naming convention we use in the files.</p>
+<ul>
+<li><code>application.properties</code></li>
+<li><code>application-local.properties</code></li>
+<li><code>application-dev.properties</code></li>
+<li><code>application-qa.properties</code></li>
+</ul>
+<p>We have successfully created four files. The local properties file will be used for <code>local</code> testing, <code>dev</code> will be used for the development servers, <code>qa</code> for Quality Assurance, and for the production environment, the default <code>application.properties</code> file will be used. Now there is a hierarchy for the ways that these files are sourced at runtime. Let&#39;s say you want to use the <code>local</code> properties file for the time being, Spring will initilize everything in that <code>local</code> file first, then it will initialize everything in the default <code>application.properties</code> file. However, for any property that has been declared in both the local file as well as prod file, Spring will use the values for the property declared in the <code>local</code> file vs the prod file, since that was the environment set by the user as the runtime environment.</p>
+<h2>Setting Runtime Environment</h2>
+<p>Now there are multiple ways to set the runtime environment or in other words, the Active Profile. This goes back to configuring your <a href="https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html" target="_blank">run/debug configurations</a>. If you look closely, there is an option to set your <strong>Active Profile</strong>, and in that section, you can type in <code>local</code> or <code>dev</code> or <code>qa</code>, etc. For the purposes of this tutorial, let&#39;s set the profile to <code>local</code>.</p>
+<p>Another way to initialize the profile on startup, would be to simply add a property in the <code>application.properties</code> at the top, which is the following:</p>
+<pre><code>spring.profiles.active=local
+</code></pre>
+<p>Normally, I would not recommend declaring the runtime environment in this manner becuase you will have to update that property in a file that you version. You rather set this in your run/debug configurations instead. However, to understand more about how Spring profiles work, reference this: <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html" target="_blank">Spring Boot features - Profiles</a></p>
+<h2>Setting up Mongo Properties</h2>
+<p>In order to set the name of the mongo database, add the following properties in the <code>application-local.properties</code> folder.</p>
+<pre><code>spring.data.mongodb.database=samplespringapi
 spring.data.mongodb.host=localhost
 spring.data.mongodb.port=27017
 </code></pre>
-<p>Take a step back and annotate the <code>Stock</code> class <code>@Document</code> to name the collection inside the Mongo database that will store the stock objects.</p>
+<p>The complete list of all predefined Spring application properties can be found here: <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html" target="_blank">Common Application Properties</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="GET /stocks (Pt III)" duration="1">
+        <p>Now take a step back and annotate the <code>Stock</code> class with <code>@Document</code> to name the collection inside the Mongo database that will store the stock objects.</p>
 <pre><code>import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -1214,7 +1243,8 @@ public class CorsConfig extends WebSecurityConfigurerAdapter {
       </google-codelab-step>
     
       <google-codelab-step label="Spring Properties and Actuators" duration="5">
-        <p>We covered how to add Spring properties to the <code>application.properties</code>, so now we&#39;ll go over different <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html" target="_blank">Spring actuators</a> that you can add to the properties file as well. Actuator endpoints let you monitor and interact with your application. Spring boot includes a number of built-in endpoints and lets you add your own as well.</p>
+        <p>We covered how to add Spring properties to the <code>application-local.properties</code>, so now we&#39;ll go over different <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html" target="_blank">Spring actuators</a> that you can add to the <code>application.properties</code> file. Notice that we are not adding these actuators to the <code>local</code> properties file, because we want to enable certain features for the entire application.</p>
+<p>Actuator endpoints let you monitor and interact with your application. Spring boot includes a number of built-in endpoints and lets you add your own as well.</p>
 <p>To enable spring actuator support, include the following in your <code>pom.xml</code> file.</p>
 <pre><code>&lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
@@ -1222,12 +1252,12 @@ public class CorsConfig extends WebSecurityConfigurerAdapter {
 &lt;/dependency&gt;
 </code></pre>
 <h2>Actuator Endpoints</h2>
-<p>Let&#39;s add a couple of endpoints to demonstrate the use of actuators. By default, actuators can be discovered via the <code>/actuator</code> endpoint. If you want to override this so that you can access the endpoints via the root path, <code>\</code>, we will include the first line as shown. You can add multiple web endpoints, just check the spring actuator documentation linked.</p>
+<p>Let&#39;s add a couple of endpoints to the <code>application.properties</code> file to demonstrate the use of actuators. By default, actuators can be discovered via the <code>/actuator</code> endpoint. If you want to override this so that you can access the endpoints via the root path, <code>\</code>, we will include the first line as shown. You can add multiple web endpoints, just check the spring actuator documentation linked.</p>
 <pre><code>management.endpoints.web.base-path=/
 management.endpoints.web.exposure.include=health, metrics, httptrace, mappings
 </code></pre>
-<h2>Properties</h2>
-<p>The <code>LocalDateTime</code> property in the Swagger UI will show up as an object instead of an ISO8601 string. In order to fix this, we have to add the following <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper" target="_blank">Jackson ObjectMapper</a> environment property.</p>
+<h2>Application Properties</h2>
+<p>The <code>LocalDateTime</code> property in the Swagger UI will show up as an object instead of an ISO8601 string. In order to fix this, we have to add the following <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper" target="_blank">Jackson ObjectMapper</a> environment property. Keep in mind, you will add this to your <code>application.properties</code> file vs your <code>application-local.properties</code> file because we want this to be enabled for every environment, and not just specifically for your local testing.</p>
 <pre><code>spring.jackson.serialization.write-dates-as-timestamps=false
 </code></pre>
 <p>✅Next, add in your final build steps.</p>
