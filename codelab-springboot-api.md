@@ -704,12 +704,13 @@ In order to keep the environment properties organized, we will create the follow
 - `application-local.properties`
 - `application-dev.properties`
 - `application-qa.properties`
+- `application-prod.properties`
 
-We have successfully created four files. The local properties file will be used for `local` testing, `dev` will be used for the development servers, `qa` for Quality Assurance, and for the production environment, the default `application.properties` file will be used. Now there is a hierarchy for the ways that these files are sourced at runtime. Let's say you want to use the `local` properties file for the time being, Spring will initilize everything in that `local` file first, then it will initialize everything in the default `application.properties` file. However, for any property that has been declared in both the local file as well as prod file, Spring will use the values for the property declared in the `local` file vs the prod file, since that was the environment set by the user as the runtime environment. 
+We have successfully created four files. The local properties file will be used for `local` testing, `dev` will be used for the development servers, `qa` for Quality Assurance, and `prod` for the production environment. The default `application.properties` file will be include what is common amongst all the environments. Now there is a hierarchy for the ways that these files are sourced at runtime. Let's say you want to use the `local` properties file for the time being, Spring will initilize everything in that `local` file first, then it will initialize everything in the default `application.properties` file. However, for any property that has been declared in both the local file as well as prod file, Spring will use the values for the property declared in the `local` file vs the prod file, since that was the environment set by the user as the runtime environment. 
 
 ### Setting Runtime Environment 
 
-Now there are multiple ways to set the runtime environment or in other words, the Active Profile. This goes back to configuring your [run/debug configurations](https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html). If you look closely, there is an option to set your **Active Profile**, and in that section, you can type in `local` or `dev` or `qa`, etc. For the purposes of this tutorial, let's set the profile to `local`. 
+Now there are multiple ways to set the runtime environment or in other words, the Active Profile. This goes back to configuring your [run/debug configurations](https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html). If you look closely, there is an option to set your **Active Profile**, and in that section, you can type in `local` or `dev`, etc. For the purposes of this tutorial, let's set the profile to `local`. 
 
 Another way to initialize the profile on startup, would be to simply add a property in the `application.properties` at the top, which is the following:
 
@@ -1467,8 +1468,6 @@ You can also view the actuator endpoints enabled here:
 - Metrics: [http://localhost:8080/metrics](http://localhost:8080/metrics)
 - Http Trace: [http://localhost:8080/httptrace](http://localhost:8080/httptrace)
 - Mappings: [http://localhost:8080/mappings](http://localhost:8080/mappings)
-
-### View Codebase
 
 ➡️ [Download full codebase](https://github.com/zarinlo/sample-springboot-api) 
 

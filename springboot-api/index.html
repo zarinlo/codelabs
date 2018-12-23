@@ -314,8 +314,9 @@ paths:
 </code></pre>
 <p>Take a look at how the path is defined and notice that it&#39;s surrounded by quotes. In YAML, when you don&#39;t want special characters to be handled any other way besides a string, you use quotes to ensure that.</p>
 <p>Each of the operations above will require a path parameter denoted by the <code>in: path</code> key-value pair. The update operation (PUT), however, takes in both a path parameter and an object via the body.</p>
-<p>➡️ <a href="../elements/assets/springboot-api/swagger.yaml" target="_blank">View Swagger in YAML</a></p>
-<p>➡️ <a href="../elements/assets/springboot-api/swagger.json" target="_blank">View Swagger in JSON</a></p>
+<paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1"><a href="../elements/assets/springboot-api/swagger.yaml" target="_blank">View Swagger (YAML)</a></paper-button>
+<paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1"><a href="../elements/assets/springboot-api/swagger.json" target="_blank">View Swagger (JSON)</a></paper-button>
+
 <p>✅You&#39;ve completed your first basic API spec! Now let&#39;s start by scaffolding (i.e. structuring) your Spring boot project.</p>
 
 
@@ -382,7 +383,7 @@ paths:
       <google-codelab-step label="Configuring your Maven Settings" duration="5">
         <p>Before we can import your API into any IDE (i.e. IntelliJ), we need to configure your maven settings. Once you have installed maven you also need to inlcude a <code>settings.xml</code> file directly under your <strong>.m2</strong> folder. Your <strong>.m2</strong> folder should be in your user home directory. Take a look at the maven install guide to ensure that your folder is in the correct place.</p>
 <p>The file will be used by maven to install the needed dependencies and it points to public repositories, which your local machine will reference when it&#39;s pulling down dependencies. If you are running into issues with downloading the dependencies, you may need to configure the <strong>proxy</strong> section. e</p>
-<p>➡️ <a href="../elements/assets/springboot-api/settings.xml" target="_blank">View settings.xml file</a></p>
+<paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1"><a href="../elements/assets/springboot-api/settings.xml" target="_blank">View settings.xml</a></paper-button>
 <p>You can find more information on a default <code>settings.xml</code> file here: <a href="https://github.com/apache/maven/blob/master/apache-maven/src/conf/settings.xml" target="_blank">Apache Maven: settings.xml</a></p>
 
 
@@ -649,10 +650,11 @@ public class StockController {
 <li><code>application-local.properties</code></li>
 <li><code>application-dev.properties</code></li>
 <li><code>application-qa.properties</code></li>
+<li><code>application-prod.properties</code></li>
 </ul>
-<p>We have successfully created four files. The local properties file will be used for <code>local</code> testing, <code>dev</code> will be used for the development servers, <code>qa</code> for Quality Assurance, and for the production environment, the default <code>application.properties</code> file will be used. Now there is a hierarchy for the ways that these files are sourced at runtime. Let&#39;s say you want to use the <code>local</code> properties file for the time being, Spring will initilize everything in that <code>local</code> file first, then it will initialize everything in the default <code>application.properties</code> file. However, for any property that has been declared in both the local file as well as prod file, Spring will use the values for the property declared in the <code>local</code> file vs the prod file, since that was the environment set by the user as the runtime environment.</p>
+<p>We have successfully created four files. The local properties file will be used for <code>local</code> testing, <code>dev</code> will be used for the development servers, <code>qa</code> for Quality Assurance, and <code>prod</code> for the production environment. The default <code>application.properties</code> file will be include what is common amongst all the environments. Now there is a hierarchy for the ways that these files are sourced at runtime. Let&#39;s say you want to use the <code>local</code> properties file for the time being, Spring will initilize everything in that <code>local</code> file first, then it will initialize everything in the default <code>application.properties</code> file. However, for any property that has been declared in both the local file as well as prod file, Spring will use the values for the property declared in the <code>local</code> file vs the prod file, since that was the environment set by the user as the runtime environment.</p>
 <h2>Setting Runtime Environment</h2>
-<p>Now there are multiple ways to set the runtime environment or in other words, the Active Profile. This goes back to configuring your <a href="https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html" target="_blank">run/debug configurations</a>. If you look closely, there is an option to set your <strong>Active Profile</strong>, and in that section, you can type in <code>local</code> or <code>dev</code> or <code>qa</code>, etc. For the purposes of this tutorial, let&#39;s set the profile to <code>local</code>.</p>
+<p>Now there are multiple ways to set the runtime environment or in other words, the Active Profile. This goes back to configuring your <a href="https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html" target="_blank">run/debug configurations</a>. If you look closely, there is an option to set your <strong>Active Profile</strong>, and in that section, you can type in <code>local</code> or <code>dev</code>, etc. For the purposes of this tutorial, let&#39;s set the profile to <code>local</code>.</p>
 <p>Another way to initialize the profile on startup, would be to simply add a property in the <code>application.properties</code> at the top, which is the following:</p>
 <pre><code>spring.profiles.active=local
 </code></pre>
@@ -1326,9 +1328,7 @@ mvnw.cmd spring-boot:run
 <li>Http Trace: <a href="http://localhost:8080/httptrace" target="_blank">http://localhost:8080/httptrace</a></li>
 <li>Mappings: <a href="http://localhost:8080/mappings" target="_blank">http://localhost:8080/mappings</a></li>
 </ul>
-<h2>View Codebase</h2>
-<p>➡️ <a href="https://github.com/zarinlo/sample-springboot-api" target="_blank">Download full codebase</a></p>
-
+<paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1"><a href="https://github.com/zarinlo/sample-springboot-api" target="_blank">Download API Codebase</a></paper-button>
 
       </google-codelab-step>
     
