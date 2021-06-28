@@ -22,43 +22,101 @@
 
   <google-codelab title="How to Design a RESTful Spring Boot API"
                   environment="web"
-                  feedback-link="">
+                  feedback-link="https://zarin.io">
     
       <google-codelab-step label="Overview" duration="15">
         <h2 class="checklist">What you&#39;ll learn</h2>
 <ul class="checklist">
 <li>How to design an API using OpenAPI Spec (Swagger)</li>
-<li>How to develop a Spring boot API connected to MongoDB</li>
+<li>How to scaffold a Java Spring API project</li>
+<li>How to configure application properties, web security and Swagger</li>
+<li>How to run and connect to MongoDB locally (stretch goal: establish remote MongoDB cluster)</li>
 </ul>
 <h2>What you&#39;ll need</h2>
+<h3>Software</h3>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p>Name</p>
+</td><td colspan="1" rowspan="1"><p>Version</p>
+</td><td colspan="1" rowspan="1"><p>Required</p>
+</td><td colspan="1" rowspan="1"><p>MacOS Guide</p>
+</td><td colspan="1" rowspan="1"><p>Notes</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><a href="https://git-scm.com/" target="_blank">Git</a></p>
+</td><td colspan="1" rowspan="1"><p>latest</p>
+</td><td colspan="1" rowspan="1"><p>true</p>
+</td><td colspan="1" rowspan="1"><p><a href="https://formulae.brew.sh/formula/git#default" target="_blank">Install git via Homebrew</a></p>
+</td><td colspan="1" rowspan="1"><p>The installation package typically installs both Git and Git Bash.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank">OpenJDK</a></p>
+</td><td colspan="1" rowspan="1"><p>16.0.1</p>
+</td><td colspan="1" rowspan="1"><p>true</p>
+</td><td colspan="1" rowspan="1"><p><a href="https://johnathangilday.com/blog/macos-homebrew-openjdk/" target="_blank">How to setup openjdk via Homebrew</a></p>
+</td><td colspan="1" rowspan="1"><p>If you are using an older version of openjdk (minimum v11+), you can still run this project by either setting <strong>VM options</strong> in the Run Config or appending the following to the bash command below: <code>-Djdk.tls.client.protocols=TLSv1.2</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><a href="https://maven.apache.org/download.cgi" target="_blank">Apache Maven</a></p>
+</td><td colspan="1" rowspan="1"><p>3.5.3</p>
+</td><td colspan="1" rowspan="1"><p>true</p>
+</td><td colspan="1" rowspan="1"><p><a href="https://formulae.brew.sh/formula/maven" target="_blank">Install maven via Homebrew</a></p>
+</td><td colspan="1" rowspan="1"><p><a href="https://cguntur.me/2020/05/20/understanding-apache-maven-the-series/" target="_blank">Understanding Apache Maven - The Series</a></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><a href="https://www.mongodb.com/download-center#community" target="_blank">MongoDB</a></p>
+</td><td colspan="1" rowspan="1"><p>4.2</p>
+</td><td colspan="1" rowspan="1"><p>false</p>
+</td><td colspan="1" rowspan="1"><p><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x" target="_blank">Install mongodb-community@4.2 via Homebrew</a></p>
+</td><td colspan="1" rowspan="1"><p>Use an embedded version of MongoDB. More info under the database related sections.</p>
+</td></tr>
+</table>
+<h3>Applications</h3>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p>Type</p>
+</td><td colspan="1" rowspan="1"><p>OS</p>
+</td><td colspan="1" rowspan="1"><p>Options</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Bash Emulator</p>
+</td><td colspan="1" rowspan="1"><p>MacOS</p>
+</td><td colspan="1" rowspan="1"><p>Native Terminal, <a href="https://iterm2.com/" target="_blank">iTerm2</a></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Bash Emulator</p>
+</td><td colspan="1" rowspan="1"><p>Windows</p>
+</td><td colspan="1" rowspan="1"><p><a href="https://www.laptopmag.com/articles/use-bash-shell-windows-10" target="_blank">Native Bash for Windows 10</a>, <a href="https://git-scm.com/downloads" target="_blank">Git Bash</a>, <a href="https://cmder.net/" target="_blank">Cmder</a></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>IDE</p>
+</td><td colspan="1" rowspan="1"><p>MacOS, Windows</p>
+</td><td colspan="1" rowspan="1"><p><a href="https://www.jetbrains.com/idea/" target="_blank">IntelliJ</a></p>
+</td></tr>
+</table>
+<h3>Subscriptions</h3>
 <ul>
-<li>Install <a href="https://git-scm.com/downloads" target="_blank">Git and Git Bash</a></li>
-<li>Install <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank">Java 8</a> or <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html" target="_blank">Java 10</a> JDK</li>
-<li>Install <a href="https://maven.apache.org/download.cgi" target="_blank">Apache Maven</a></li>
-<li>Install <a href="https://www.mongodb.com/download-center#community" target="_blank">MongoDB</a></li>
-<li>Install <a href="https://www.jetbrains.com/idea/" target="_blank">IntelliJ</a> or any other IDE of your choice</li>
+<li>Optional - Retrieve an API subscription key from: <a href="https://rapidapi.com/suneetk92/api/latest-stock-price/" target="_blank">Latest Stock API</a></li>
 </ul>
+<aside class="special"><p>A sample key to the API above will be provided, if you don&#39;t want to create a subscription.</p>
+</aside>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Covering API Endpoints" duration="3">
-        <p>We will be creating 5 RESTful API endpoints. For this code lab we will be creating an API to retrieve stock information.<br>The API will contain the following resource methods:</p>
-<ul>
-<li>GET multiple stock objects</li>
-<li>GET a stock object</li>
-<li>POST or create a new stock object</li>
-<li>PUT or update an existing stock object</li>
-<li>DELETE a stock object</li>
-</ul>
-<h2>Actual Endpoints</h2>
-<ol type="1">
-<li>GET <code>/stocks</code></li>
-<li>GET <code>/stocks/{symbol}</code></li>
-<li>POST <code>/stocks/{symbol}</code></li>
-<li>PUT <code>/stocks/{symbol}</code></li>
-<li>DELETE <code>/stocks/{symbol}</code></li>
-</ol>
+      <google-codelab-step label="Explaining API Endpoints" duration="3">
+        <p>For this codelab, we will design and develop five RESTful API endpoints. The API will have a service class that calls an external stock API to populate a MongoDB, which the five endpoints will interact with. The API contract will contain the following resource methods:</p>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p>Get all stock objects</p>
+</td><td colspan="1" rowspan="1"><p><strong>GET</strong><code>/stocks</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Get a single stock object</p>
+</td><td colspan="1" rowspan="1"><p><strong>GET</strong><code>/stocks/{symbol}</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Create a new stock object</p>
+</td><td colspan="1" rowspan="1"><p><strong>POST</strong><code>/stocks/{symbol}</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Update a stock object</p>
+</td><td colspan="1" rowspan="1"><p><strong>PUT</strong><code>/stocks/{symbol}</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Delete a stock object</p>
+</td><td colspan="1" rowspan="1"><p><strong>DELETE</strong><code>/stocks/{symbol}</code></p>
+</td></tr>
+</table>
 
 
       </google-codelab-step>
@@ -84,78 +142,101 @@
 <li><a href="https://apiblueprint.org/" target="_blank">API Blueprint</a></li>
 <li><a href="https://swagger.io/" target="_blank">Swagger</a> (renamed to <a href="https://github.com/OAI/OpenAPI-Specification" target="_blank">OpenAPI Spec</a>)</li>
 </ul>
-<p>We will be utilizing Swagger framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allowed both humans and computers to discover and understand the capabilities of a service without requiring access to source code.</p>
+<p>We will be utilizing OpenAPI Spect (i.e. Swagger) framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allowed both humans and computers to discover and understand the capabilities of a service without requiring access to source code.</p>
 <p>✅Move on to the next step to start building your API Spec!</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Creating the Spec (Pt I)" duration="15">
-        <p>Swagger spec can be written in either JSON or YAML. We will be using YAML for this code lab.</p>
+        <p>An OpenAPI spec can be written in either JSON or YAML. We will be using YAML for this code lab.</p>
 <p>You can use the online swagger editor: <a href="https://editor.swagger.io/" target="_blank">editor.swagger.io</a></p>
-<p>For this code lab, we are going to create a simple Stocks API that will manage a database full of various stock objects.</p>
-<p>To start a Swagger YAML file, you need to add the <code>info</code> object at the start of the file/editor.</p>
-<pre><code>swagger: &#39;2.0&#39;
+<p>For this code lab, we are going to create a simple Stocks API that will help manage data in a MongoDB.</p>
+<p>Open up any <a href="https://kinsta.com/blog/best-text-editors/" target="_blank">text editor</a>, like Sublime or Notepad++, and create a file called <code>openapi.yaml</code>.</p>
+<p>Let&#39;s begin with the basic <code>info</code> block at the start of the file.</p>
+<h2>Info</h2>
+<pre><code>openapi: 3.0.3
 info:
-  version: 1.0.0
   title: Stock API
-  description: Spring boot API that maintains stocks in a MongoDB
+  description: Sample Java Spring Boot API using MongoDB Atlas
   contact:
-    name: Zarin
-    url: &#39;https://github.com/zarinlo&#39;
-basePath: /api/v1
-host: &#39;localhost:8080&#39;
-schemes:
-  - https
-  - http
-consumes:
-  - application/json
-produces:
-  - application/json
+    name: Zarin Lokhandwala
+    url: https://github.com/zarinlo
+  version: 2.0.0
+servers:
+- url: http://localhost:8080
+  description: Inferred Url
+tags:
+- name: stock-controller
+  description: Stock Controller
 </code></pre>
-<p>Let&#39;s understand the important properties of this Swagger spec so far:</p>
-<ul>
-<li><code>swagger</code>: The version of the Swagger spec you are using (i.e. 2.0)</li>
-<li><code>info</code>: The info block contains important meta-details regarding your API</li>
-<li><code>version</code>: The version of the API being developed, which should follow <a href="https://semver.org" target="_blank">Semantic Versioning</a>. Semantic versioning consists of three digits, the first numnber indicating the <strong>major</strong> version of an application, the next number is known as <strong>minor</strong> which indicates any features that have been added, and the last number indicates the <strong>patch</strong> fix that has been applied. The <strong>major</strong> number is what is actually taken into consideration when determining the base path of an API.</li>
-<li><code>host</code>: The host name and port or the IP address of the F5 URL that is hosting/serving the API</li>
-<li><code>basePath</code>: This is the base path that your API will be served on before the context path is supplied for the hosted application. The context path is essentially the resource name, so in this case since we will be implementing a stocks API, the context path will be set to <code>/stocks</code>. Therefore, the full path after the hostname/URL is <code>/api/v1/stocks</code>.</li>
-<li><code>schemes</code>: A defined list of which protocols the API is using to transfer data between the client and server. Transferring text data is done via HTTP(S) where the &#39;S&#39; stands for secured.</li>
-<li><code>consumes</code>: A list of <a href="https://webplatform.github.io/docs/concepts/Internet_and_Web/mime_types/" target="_blank">MIME</a> types the <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank">CRUD</a> operations can consume. MIME types enable browsers to recognize the file-type of a file, which has been sent via HTTP by a server. Think of this as the ‘Accept&#39; header on the client side being set to ‘application/json&#39;.</li>
-<li><code>produces</code>: A list of MIME types the operations can produce. Think of this as the ‘Content-Type&#39; header that is set on the client side, which lets the server know the format of the data being sent.</li>
-</ul>
-<p>Let&#39;s expand this YAML by adding our frist REST API definition. To implement the GET <code>/stocks</code> endpoint, we first need to define the object data type being requested and modified.</p>
-<pre><code>definitions:
-  Stock:
-    type: object
-    required:
-      - description
-      - lastUpdated
-      - name
-      - price
-      - symbol
-    properties:
-      description:
-        type: string
-      lastUpdated:
-        type: string
-      name:
-        type: string
-      price:
-        type: integer
-      symbol:
-        type: string
+<p>Now let&#39;s break it down:</p>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p><code>openapi</code></p>
+</td><td colspan="1" rowspan="1"><p>The version of the OpenAPI spec you are using (i.e. 3.0.3)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>info</code></p>
+</td><td colspan="1" rowspan="1"><p>The info block contains important meta-details regarding your API</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>version</code></p>
+</td><td colspan="1" rowspan="1"><p>The version of the API being developed, which should follow <a href="https://semver.org" target="_blank">Semantic Versioning</a>. Semantic versioning consists of three digits, the first numnber indicating the <strong>major</strong> version of an application, the next number is known as <strong>minor</strong> which indicates any features that have been added, and the last number indicates the <strong>patch</strong> fix that has been applied. The <strong>major</strong> number is what is actually taken into consideration when determining the base path of an API.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>url</code></p>
+</td><td colspan="1" rowspan="1"><p>The URL that is hosting/serving the API. More than one entry can be made under the <code>servers</code> section.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>tags</code></p>
+</td><td colspan="1" rowspan="1"><p>Tags are used to group or categorize operations together for a specific reason.</p>
+</td></tr>
+</table>
+<p>Let&#39;s add the first REST endpoint definition: <strong>GET</strong><code>/stocks</code> endpoint.</p>
+<p>Before we do so, we must define the schemas for the request and response objects from the Latest Stock API (reference the Overview slide for more details) inventory.</p>
+<p>Insert this directly after the <code>tags</code> section.</p>
+<h2>Stock Object</h2>
+<pre><code>components:
+  schemas:
+    Stock:
+      title: Stock
+      type: object
+      properties:
+        dayHigh:
+          type: number
+          format: double
+        dayLow:
+          type: number
+          format: double
+        identifier:
+          type: string
+        lastPrice:
+          type: number
+          format: double
+        lastUpdateTime:
+          type: string
+        open:
+          type: number
+          format: double
+        previousClose:
+          type: number
+          format: double
+        symbol:
+          type: string
+        totalTradedValue:
+          type: number
+          format: double
+        totalTradedVolume:
+          type: integer
+          format: int64
+        yearHigh:
+          type: integer
+          format: int64
+        yearLow:
+          type: integer
+          format: int64
 </code></pre>
-<p>In the code block above, we are defining the Stock object that has five required attributes. Under the <code>properties</code> tag we describe the <strong>type</strong> of each attribute being either a string or integer. You can elaborate on the types, just do a quick google search.</p>
-<p>Now take a step back. The most commonly used Content-Type porduced and consumed by modern APIs is JSON. The <code>/stocks</code> endpoint should therefore be returning an object as the response. In this case, an object of array of Stock objects. We should not be returning a top-level array (shown below). To return an object of an array of Stock objects, we need to define another object model as we did ‘Stock&#39;.</p>
-<p>Top-level array (bad practice):</p>
-<pre><code>[
-  {},
-  {},
-  {}
-]
-</code></pre>
-<p>Object of array of objects (correct response model):</p>
+<p>In the code block above, we are defining the Stock object that has a number of attributes.</p>
+<p>Under the <code>properties</code> tag, each attribute is given a <code>type</code> and a <code>format</code>. You can elaborate on the types and formats, just do a quick google search.</p>
+<p>Now let&#39;s take a step back. APIs, typically, produce and consume the <code>Content-Type</code> known as JSON. The <code>/stocks</code> endpoint should, therefore, return a JSON response object. Furthermore, in this case, an array of stock objects.</p>
+<p>The correct way to return to return all the stock objects, according to REST, is to return an object encompassing an array of objects:</p>
 <pre><code>{
   &#34;stocks&#34;: [
     {},
@@ -164,160 +245,282 @@ produces:
   ]
 }
 </code></pre>
-<p>Add the following to ensure that your <code>/stocks</code> endpoint returns an object of array of stock objects. Make sure you align the ‘StocksResponse&#39; block with the ‘Stocks&#39; block from above. YAML is sensitive to tabs, spaces, and everything in between.</p>
-<pre><code>  StocksResponse:
-    type: object
-    required:
-      - stocks
-    properties:
-      stocks:
-        type: array
-        items:
-          $ref: &#39;#/definitions/Stock&#39;
+<p>The incorrect way to return all the stock objects is to return a top-level array:</p>
+<pre><code>[
+  {},
+  {},
+  {}
+]
 </code></pre>
-<p>✅Move on to the next step to add the API operations.</p>
+<p>An important rule in REST is to design a consistent API spec. To return either a stock object or a collection of stock objects, we define a general response object.</p>
+<p>The response object will encompass any response data type and deliver it back to the user in a standard format.</p>
+<p>When defining the general object, do so under the <code>schemas</code> section of the YAML and ensure the indentation is precise, since YAML files are senstiive.</p>
+<h2>Stock General Response</h2>
+<pre><code>components:
+  schemas:
+...
+    StockGeneralResponse:
+      title: StockGeneralResponse
+      type: object
+      properties:
+        response:
+          type: object
+        status:
+          type: string
+          enum:
+          - ACCEPTED
+          - BAD_GATEWAY
+          - BAD_REQUEST
+          - CREATED
+          - NOT_FOUND
+          - NO_CONTENT
+          - OK
+        userMessages:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+</code></pre>
+<p>This response object has three main attributes:</p>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p><code>response</code></p>
+</td><td colspan="1" rowspan="1"><p>This is the actual response encompassed by the general object. Ergo a stock object or a collection of stock objects.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>status</code></p>
+</td><td colspan="1" rowspan="1"><p>The HTTP status that was returned by the underlying service responsible for the data. An <code>enum</code> is a special &#34;class&#34; that represents a group of constants (unchangeable variables, like final variables).</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>userMessages</code></p>
+</td><td colspan="1" rowspan="1"><p>This is used to deliver a string of messages back to the user to provide additional information incase an error occurs.</p>
+</td></tr>
+</table>
+<p>✅Move on to the next step to add the API endpoints.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Creating the Spec (Pt II)" duration="15">
-        <p>Now we are ready to implement the GET <code>/stocks</code> method. We are going to continue our Spec above directly above the <strong>definitions</strong> section. This section is normally kept towards the bottom of the Spec.</p>
-<pre><code>tags:
-  - name: stock
-    description: Stock Controller
-paths:
-  /stocks:
-    x-swagger-router-controller: stocks
+        <p>Now we are ready to implement the GET <code>/stocks</code> method. We are going to insert this portion between the basic <code>info</code> block we created and the <code>components</code> block.</p>
+<h2>GET <code>/stocks</code></h2>
+<pre><code>paths:
+  &#34;/api/v1/stocks&#34;:
     get:
       tags:
-        - stock
-      description: Get all stocks
-      operationId: getStocks
+      - stock-controller
+      summary: Get all stocks
+      operationId: getAllStocks
       responses:
         &#39;200&#39;:
-          description: stocks found
-          schema:
-            $ref: &#39;#/definitions/StocksResponse&#39;
+          description: &#39;Successful: Stock(s) found.&#39;
+          content:
+            application/json:
+              schema:
+                &#34;$ref&#34;: &#34;#/components/schemas/StockGeneralResponse&#34;
+        &#39;400&#39;:
+          description: &#39;Bad Request: Check input parameter(s) syntax for invalid characters.&#39;
+        &#39;401&#39;:
+          description: &#39;Unauthorized: User is not entitled to retrieve information.&#39;
+        &#39;404&#39;:
+          description: &#39;Not Found: Stock(s) not found.&#39;
+        &#39;500&#39;:
+          description: &#39;Internal Server Error: Backend service is down.&#39;
 </code></pre>
-<p>Once again, here&#39;s the breakdown of the tags:</p>
-<ul>
-<li><code>tags</code>: Tags are used to group operations together for a specific reason</li>
-<li><code>paths</code>: This is where you specify the context path along with any path parameter required. The first path defined is the just the context path, `/stocks&#39;.</li>
-<li><code>get</code>: The method being applied to a given path</li>
-<li><code>description</code>: A short description of what the method does</li>
-<li><code>operationId</code>: The actual name of the method/function in your source code</li>
-<li><code>responses</code>: A list of possible HTTP status codes returned by the server as a response to the client. Take a look at <a href="https://httpstatuses.com/" target="_blank">HTTP status codes</a> to understand which HTTP numeric response is appropriate for a given method.</li>
-<li><code>schema</code>: Used to set the data-type of the content being returned by the method. A method will not always return content. For instance, DELETE, does not return any content back to the client since it has been removed, unless you save it as a temporary variable before deleting the item/object. Notice how the <code>$ref</code> tag points to the ‘StocksResponse` definition under schema, this relates back to the premise of not returning a top-level array.</li>
-</ul>
-<p>Since we are already working on the <code>/stocks</code> endpoint, let&#39;s implement the POST method. Under the context path you can return objects as well as create them.</p>
-<pre><code>    post:
+<p>Once again, here&#39;s the breakdown of the keys:</p>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p><code>paths</code></p>
+</td><td colspan="1" rowspan="1"><p>This is where you specify the <strong>base</strong> + <strong>context</strong> path, essentially the full endpoint. The base path is <code>/api/v1</code> (more details later) and the context is <code>/stocks</code>.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>get</code></p>
+</td><td colspan="1" rowspan="1"><p>The CRUD operation being applied to a given path.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>summary</code></p>
+</td><td colspan="1" rowspan="1"><p>Short description of the function.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>operationId</code></p>
+</td><td colspan="1" rowspan="1"><p>The actual name of the function you are going to use in your source code, in this case, <code>getAllStocks</code>.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>responses</code></p>
+</td><td colspan="1" rowspan="1"><p>A list of possible HTTP status codes returned by the server as a response to the client. Take a look at <a href="https://httpstatuses.com/" target="_blank">HTTP status codes</a> to understand which HTTP numeric response is appropriate for a given scenario.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>content</code></p>
+</td><td colspan="1" rowspan="1"><p>Content type to be returned to the user is in the form of JSON, denoted as <code>application/json</code>.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>schema</code></p>
+</td><td colspan="1" rowspan="1"><p>Sets the data-type of the content being returned by the function. A method will not always return content. For instance, <code>DELETE</code>, does not return any content back to the client since data has been removed, unless you save it as a temporary variable before deleting the actual item/object. Notice how the <code>$ref</code> tag points to the <code>StockGeneralResponse</code> definition under the <code>components</code> section, this relates back to the premise of not returning a top-level array.</p>
+</td></tr>
+</table>
+<p>Now, under the endpoint of <code>/api/v1/stocks</code>, we are implementing a <code>GET</code> operation and a <code>POST</code> operation.</p>
+<p>Here is how we are going to define a <code>post</code> operation, which should be aligned under the <code>get</code> defintion we completed above.</p>
+<h2>POST <code>/stocks</code></h2>
+<pre><code>paths:
+  &#34;/api/v1/stocks&#34;:
+...
+    post:
       tags:
-        - stock
-      description: Create a stock
+      - stock-controller
+      summary: Create a new stock
       operationId: createStock
-      parameters:
-        - name: stock
-          in: body
-          description: New stock object
-          required: true
-          schema:
-            $ref: &#39;#/definitions/Stock&#39;
+      requestBody:
+        content:
+          application/json:
+            schema:
+              &#34;$ref&#34;: &#34;#/components/schemas/Stock&#34;
       responses:
-        &#39;201&#39;:
-          description: stock created
-          schema:
-            $ref: &#39;#/definitions/Stock&#39;
+        &#39;200&#39;:
+          description: &#39;Successful: Stock(s) found.&#39;
+          content:
+            application/json:
+              schema:
+                &#34;$ref&#34;: &#34;#/components/schemas/StockGeneralResponse&#34;
+        &#39;400&#39;:
+          description: &#39;Bad Request: Check input parameter(s) syntax for invalid characters.&#39;
+        &#39;401&#39;:
+          description: &#39;Unauthorized: User is not entitled to retrieve information.&#39;
+        &#39;404&#39;:
+          description: &#39;Not Found: Stock(s) not found.&#39;
+        &#39;500&#39;:
+          description: &#39;Internal Server Error: Backend service is down.&#39;
 </code></pre>
-<p>In order to create an object, the client is going to pass the server some data. The client can pass data as:</p>
-<ul>
-<li>a query parameter</li>
-<li>an object sent via the body of a request</li>
-<li>a URL path parameter</li>
-<li>a cookie</li>
-<li>a Header value</li>
-<li>etc...</li>
-</ul>
-<p>In this case, the POST request is done via the body. To learn more about parameter types, check out the <a href="https://swagger.io/docs/specification/describing-parameters" target="_blank">Describing Parameters</a> page. Let&#39;s break down the above code snippet again:</p>
-<ul>
-<li><code>parameters</code>: The parameters of an operation</li>
-<li><code>name</code>: A descriptive name for the data being requested</li>
-<li><code>in</code>: The location of the parameter (i.e. query, body, path, etc)</li>
-</ul>
-<p>We have now completed the spec for the operations that can be performed under the <code>/stocks</code> endpoint.</p>
+<p>When creating an object via a <code>POST</code> operation, the client passes the server some data.</p>
+<p>Some forms of how a client can pass data to the server are:</p>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p>a query parameter</p>
+</td><td colspan="1" rowspan="1"><p>Any value assigned to a key after the <code>?</code> in a URL, for example: <code>https://example.com/movies?genre=comedy</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>a path parameter</p>
+</td><td colspan="1" rowspan="1"><p><code>/api/v1/cars/german/{make}/models</code> where the endpoint will return all the models given a <code>make</code> of a German brand</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>an object sent via the body of a request</p>
+</td><td colspan="1" rowspan="1"><p><code>{ .. }</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>a Header value</p>
+</td><td colspan="1" rowspan="1"><p><code>Authorization: Value</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>a browser cookie 🍪</p>
+</td><td colspan="1" rowspan="1"><p>Logins, shopping carts, game scores, or anything else the server should remember</p>
+</td></tr>
+</table>
+<p>In this case, the <code>POST</code> will be performed with a stock object via the body of the request.</p>
+<p>Therefore, the <code>requestBody</code> is the main difference between the attributes used to describe the <code>POST</code> operation as compared to the <code>GET</code>.</p>
+<p>👉🏽 To learn more about parameter types, check out the <a href="https://swagger.io/docs/specification/describing-parameters" target="_blank">Describing Parameters</a> page.</p>
+<p>This concludes the spec for the CRUD operations that can be performed under the <code>/api/v1/stocks</code> endpoint.</p>
 <p>✅Move on to the next step to complete your API spec.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Creating the Spec (Pt III)" duration="8">
-        <p>Let&#39;s implement other operations under the next path, which consists of the context path + parameter value: <code>/stocks/{symbol}</code></p>
-<pre><code>  &#39;/stocks/{symbol}&#39;:
-    x-swagger-router-controller: stocks
+        <p>Let&#39;s implement the remaining three endpoints that follow the path of: <code>/api/v1/stocks/{symbol}</code></p>
+<h2>GET | PUT | DELETE <code>/stocks/{symbol}</code></h2>
+<pre><code>paths:
+...
+  &#34;/api/v1/stocks/{symbol}&#34;:
     get:
       tags:
-        - stock
-      description: Get a stock object by stock symbol
+      - stock-controller
+      summary: Get a stock by symbol
       operationId: getStockBySymbol
       parameters:
-        - name: symbol
-          in: path
-          description: A stock symbol
-          required: true
+      - name: symbol
+        in: path
+        description: A stock symbol
+        required: true
+        style: simple
+        allowReserved: false
+        schema:
           type: string
       responses:
         &#39;200&#39;:
-          description: stock found
-          schema:
-            $ref: &#39;#/definitions/Stock&#39;
+          description: &#39;Successful: Stock(s) found.&#39;
+          content:
+            application/json:
+              schema:
+                &#34;$ref&#34;: &#34;#/components/schemas/StockGeneralResponse&#34;
+        &#39;400&#39;:
+          description: &#39;Bad Request: Check input parameter(s) syntax for invalid characters.&#39;
+        &#39;401&#39;:
+          description: &#39;Unauthorized: User is not entitled to retrieve information.&#39;
         &#39;404&#39;:
-          description: Not found
+          description: &#39;Not Found: Stock(s) not found.&#39;
+        &#39;500&#39;:
+          description: &#39;Internal Server Error: Backend service is down.&#39;
     put:
       tags:
-        - stock
-      description: Update an existing stock object by stock symbol
-      operationId: updateStockBtSymbol
+      - stock-controller
+      summary: Update an existing stock by symbol
+      operationId: updateStockBySymbol
       parameters:
-        - name: symbol
-          in: path
-          description: A stock symbol
-          required: true
+      - name: symbol
+        in: path
+        description: A stock symbol
+        required: true
+        style: simple
+        schema:
           type: string
-        - name: updatedStock
-          in: body
-          description: Updated stock object
-          required: true
-          schema:
-            $ref: &#39;#/definitions/Stock&#39;
+      - name: lastPrice
+        in: query
+        description: Last Price
+        required: true
+        style: form
+        schema:
+          type: number
+          format: double
       responses:
-        &#39;202&#39;:
-          description: stock updated
-          schema:
-            $ref: &#39;#/definitions/Stock&#39;
+        &#39;200&#39;:
+          description: &#39;Successful: Stock(s) found.&#39;
+          content:
+            application/json:
+              schema:
+                &#34;$ref&#34;: &#34;#/components/schemas/StockGeneralResponse&#34;
+        &#39;400&#39;:
+          description: &#39;Bad Request: Check input parameter(s) syntax for invalid characters.&#39;
+        &#39;401&#39;:
+          description: &#39;Unauthorized: User is not entitled to retrieve information.&#39;
         &#39;404&#39;:
-          description: Not found
+          description: &#39;Not Found: Stock(s) not found.&#39;
+        &#39;500&#39;:
+          description: &#39;Internal Server Error: Backend service is down.&#39;
     delete:
       tags:
-        - stock
-      description: Delete a stock object by stock symbol
+      - stock-controller
+      summary: Delete a stock by symbol
       operationId: deleteStockBySymbol
       parameters:
-        - name: symbol
-          in: path
-          description: A stock symbol
-          required: true
+      - name: symbol
+        in: path
+        description: A stock symbol
+        required: true
+        style: simple
+        schema:
           type: string
       responses:
-        &#39;204&#39;:
-          description: stock deleted
+        &#39;200&#39;:
+          description: &#39;Successful: Stock(s) found.&#39;
+          content:
+            application/json:
+              schema:
+                &#34;$ref&#34;: &#34;#/components/schemas/StockGeneralResponse&#34;
+        &#39;400&#39;:
+          description: &#39;Bad Request: Check input parameter(s) syntax for invalid characters.&#39;
+        &#39;401&#39;:
+          description: &#39;Unauthorized: User is not entitled to retrieve information.&#39;
         &#39;404&#39;:
-          description: Not found
+          description: &#39;Not Found: Stock(s) not found.&#39;
+        &#39;500&#39;:
+          description: &#39;Internal Server Error: Backend service is down.&#39;
 </code></pre>
-<p>Take a look at how the path is defined and notice that it&#39;s surrounded by quotes. In YAML, when you don&#39;t want special characters to be handled any other way besides a string, you use quotes to ensure that.</p>
-<p>Each of the operations above will require a path parameter denoted by the <code>in: path</code> key-value pair. The update operation (PUT), however, takes in both a path parameter and an object via the body.</p>
-<paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1"><a href="../elements/assets/springboot-api/swagger.yaml" target="_blank">View Swagger (YAML)</a></paper-button>
-<paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1"><a href="../elements/assets/springboot-api/swagger.json" target="_blank">View Swagger (JSON)</a></paper-button>
-
-<p>✅You&#39;ve completed your first basic API spec! Now let&#39;s start by scaffolding (i.e. structuring) your Spring boot project.</p>
+<p>Take a look at how the paths are defined for <code>/api/v1/stocks</code> and <code>/api/v1/stocks/{symbol}</code>. You will notice that they are surrounded by quotes. In YAML, enclosing characters in quotes ensures that it will be handled as a <code>string</code>.</p>
+<p>Each of the operations above will require a <code>path</code> parameter denoted as:</p>
+<pre><code>in: path
+</code></pre>
+<p>For the rest of the items, refer to the link presented earlier: <a href="https://swagger.io/docs/specification/describing-parameters" target="_blank">Describing Parameters</a></p>
+<ul>
+<li><a href="../elements/assets/springboot-api/openapi.yaml" target="_blank">Download the full OpenAPI Spec YAML</a></li>
+<li><a href="../elements/assets/springboot-api/openapi.json" target="_blank">Download the full OpenAPI Spec JSON</a></li>
+</ul>
+<p>🚀 You&#39;ve completed your first basic API spec! Now let&#39;s start by scaffolding (i.e. structuring) your Spring Boot project.</p>
 
 
       </google-codelab-step>
@@ -326,77 +529,145 @@ paths:
         <p>A tool that scaffolds your web project for you is a tool that helps you kickstart new projects, which presecribes best practices and folder structure to help you stay productive. We will use Spring Initialzr to scaffold your basic Spring boot API.</p>
 <h2>Using Spring Initialzr</h2>
 <p>Spring Initialzr can be accessed via a web UI or through your IDE (i.e. IntelliJ/Eclipse). It generates a minimal project with the dependencies of your choice and enables you to start developing quickly.</p>
-<ol type="1">
+<ul>
 <li>Navigate to the web UI Spring Initialzr: <a href="https://start.spring.io" target="_blank">https://start.spring.io</a></li>
-<li>Fill in the following: Generate a <strong>Maven Project</strong> with <strong>Java</strong> and Spring Boot <strong>2.0.3</strong></li>
-<li>Fill in the artifact details:<br>a. Group = <strong>sample</strong><br>b. Artifact = <strong>api</strong></li>
-<li>In the Dependencies sections add: <strong>Web</strong>, <strong>MongoDB</strong>, and <strong>Security</strong></li>
+<li>Fill in the following: Generate a <strong>Maven Project</strong> with <strong>Java v16</strong> and Spring Boot <strong>2.5.2</strong></li>
+<li>Fill in the project details:</li>
+</ul>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p>Group</p>
+</td><td colspan="1" rowspan="1"><p>sample</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Artifact</p>
+</td><td colspan="1" rowspan="1"><p>api</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Name</p>
+</td><td colspan="1" rowspan="1"><p>Stocks API</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Description</p>
+</td><td colspan="1" rowspan="1"><p>Sample Java Spring Boot API using MongoDB Atlas</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Package name</p>
+</td><td colspan="1" rowspan="1"><p>sample.api</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Packaging</p>
+</td><td colspan="1" rowspan="1"><p>Jar</p>
+</td></tr>
+</table>
+<ul>
+<li>In the Dependencies sections add: <strong>Spring Web</strong>, <strong>Spring Data MongoDB</strong>, and <strong>Embedded MongoDB Database</strong></li>
 <li>Click <strong>Generate Project</strong> and a download should start for the project.</li>
-</ol>
-<p><img src="img/fb48ce2727518aad.png"></p>
+</ul>
+<p><img src="img/99ed41ce472b33d1.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="API Project Structure" duration="2">
-        <p>Before we begin constructing our API, let&#39;s setup the structure of the project correctly. Once you extract the initial zip file from the previous step, ensure you directory structure looks like the following:</p>
+        <p>Before we begin developing our API, let&#39;s setup the structure of the project correctly. Once you extract the initial zip file from the previous step, ensure your directory structure looks like the following:</p>
 <pre><code>|api
-|---|src
-|---|---|main
-|---|---|---|java
-|---|---|---|---|sample
-|---|---|---|---|---|api
-|---|---|---|resources
-|---|---|test
+  |-src
+  |  |-main
+  |  |  |-java
+  |  |  |  |-sample
+  |  |  |  |  |-api
+  |  |  |-resources
+  |  |  |  |-static
+  |  |  |  |-templates
+  |  |-test
 </code></pre>
 <p>You should rename the initial <strong>api</strong> folder to something else, for instance, <strong>sample-springboot-api</strong>.</p>
 <pre><code>|sample-springboot-api
-|---|src
-|---|---|main
-|---|---|---|java
-|---|---|---|---|sample
-|---|---|---|---|---|api
-|---|---|---|resources
-|---|---|test
+  |-src
+  |  |-main
+  |  |  |-java
+  |  |  |  |-sample
+  |  |  |  |  |-api
+  |  |  |-resources
+  |  |  |  |-static
+  |  |  |  |-templates
+  |  |-test
 </code></pre>
 <p>Now, let&#39;s create the other directories that we will need going further.</p>
 <pre><code>|sample-springboot-api
-|---|src
-|---|---|main
-|---|---|---|java
-|---|---|---|---|sample
-|---|---|---|---|---|api
-|---|---|---|---|---|---|config
-|---|---|---|---|---|---|exceptions
-|---|---|---|---|---|---|stock
-|---|---|---|---|---|---|---|models
-|---|---|---|---|---|---|---|repositories
-|---|---|---|---|---|---|---|services
-|---|---|---|resources
-|---|---|test
+  |-src
+  |  |-main
+  |  |  |-java
+  |  |  |  |-sample
+  |  |  |  |  |-api
+  |  |  |  |  |  |-stocks
+  |  |  |  |  |  |  |-repositories
+  |  |  |  |  |  |  |-models
+  |  |  |  |  |  |  |-exceptions
+  |  |  |  |  |  |  |-configs
+  |  |  |  |  |  |  |-controllers
+  |  |  |  |  |  |  |-services
+  |  |  |-resources
+  |  |  |  |-static
+  |  |  |  |-templates
+  |  |-test
 </code></pre>
-<p>Under the <strong>api</strong> folder you have a <strong>stock</strong> folder, which is where we are going to define the Stock controller, object classes and services. Under the <strong>config</strong> and <strong>exceptions</strong> folder, we will create shared classes that the entire project will use.</p>
+<h2>Base Project Structure</h2>
+<ul>
+<li>Under the <strong>api</strong> folder is where you want to create another directory specifically for <strong>stocks</strong>. This is so that down the line if you want to develop another API that&#39;s not related to stocks, then you can use the same project and keep things organized.</li>
+<li>You can either go directly into the <strong>stocks</strong> folder or you can add a <strong>v1</strong> folder in-between the two. So for example, the structure would be <strong>api</strong> &gt; <strong>v1</strong> &gt; <strong>stocks</strong>, and this helps if you are planning on maintaining multiple versions of your API down the line.</li>
+</ul>
+<h2>API Project Structure</h2>
+<p>Let&#39;s breakdown the folders under <strong>stocks</strong>:</p>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p>controllers</p>
+</td><td colspan="1" rowspan="1"><p>Manages all the REST calls and status codes</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>services</p>
+</td><td colspan="1" rowspan="1"><p>The business logic layer that handles any manipulation of data required</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>repositories</p>
+</td><td colspan="1" rowspan="1"><p>ses a Java Persistence API (JPA) that analyzes all the methods defined by an interface and automatically generates queries from the method names, in order to simplify the connection to the database from the Service layer</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>configs</p>
+</td><td colspan="1" rowspan="1"><p>Sets up the configurations for the REST calls, web security, Swagger documentation, etc</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>models</p>
+</td><td colspan="1" rowspan="1"><p>Manages all the REST calls and status codes</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>exceptions</p>
+</td><td colspan="1" rowspan="1"><p>Develop custom error handling for the application</p>
+</td></tr>
+</table>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Configuring your Maven Settings" duration="5">
-        <p>Before we can import your API into any IDE (i.e. IntelliJ), we need to configure your maven settings. Once you have installed maven you also need to inlcude a <code>settings.xml</code> file directly under your <strong>.m2</strong> folder. Your <strong>.m2</strong> folder should be in your user home directory. Take a look at the maven install guide to ensure that your folder is in the correct place.</p>
-<p>The file will be used by maven to install the needed dependencies and it points to public repositories, which your local machine will reference when it&#39;s pulling down dependencies. If you are running into issues with downloading the dependencies, you may need to configure the <strong>proxy</strong> section. e</p>
-<paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1"><a href="../elements/assets/springboot-api/settings.xml" target="_blank">View settings.xml</a></paper-button>
-<p>You can find more information on a default <code>settings.xml</code> file here: <a href="https://github.com/apache/maven/blob/master/apache-maven/src/conf/settings.xml" target="_blank">Apache Maven: settings.xml</a></p>
+      <google-codelab-step label="Configure Your Maven Settings" duration="5">
+        <p>Apache Maven, referred to as maven, is a build management tool that is primarily used to build Java projects.</p>
+<p>To learn more, check out: <a href="https://cguntur.me/2020/05/20/understanding-apache-maven-the-series/" target="_blank">Understanding Apache Maven - The Series</a></p>
+<p>Now before we import your project into an IDE, specifically IntelliJ for this tutorial, let&#39;s configure your maven settings.</p>
+<p>Verify that maven is installed correctly by running the following:</p>
+<pre><code> 05:00PM ~/.m2  
+🦋 mvn --version 
+Apache Maven 3.5.3 (3383c37e1f9e9b3bc3df5050c29c8aff9f295297; 2018-02-24T14:49:05-05:00)
+Maven home: /opt/apache-maven-3.5.3
+Java version: 16.0.1, vendor: Homebrew
+</code></pre>
+<p>Next, you will need to inlcude a <code>settings.xml</code> file directly under your <strong>.m2</strong> folder. Your <strong>.m2</strong> folder should located under your user home directory, as shown in the snippet above.</p>
+<p>The <code>settings.xml</code> file does not need anything in specific for the time being, the stock file is good enough.</p>
+<p>This file has metadata that is used by maven to install dependencies, understand which mirrors (i.e public repositories) to download said dependencies from, set proxies to circumvent firewalls, etc.</p>
+<p>➡️ <a href="../elements/assets/springboot-api/settings.xml" target="_blank">Download settings.xml file</a></p>
+<p>More information on a default <code>settings.xml</code> file here: <a href="https://maven.apache.org/settings.html" target="_blank">Apache Maven Settings</a></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Importing your API Project" duration="8">
+      <google-codelab-step label="Import API Project" duration="8">
         <p>If you are using IntelliJ, import your project as a Maven project. You can run through the following to make sure your project has been imported and configured correctly.</p>
 <h2>Import Project</h2>
 <p>Import the project as a Maven project. Continue through the wizard and let all the dependencies load, which may take some time.</p>
 <ul>
 <li>Reference: <a href="https://www.jetbrains.com/help/idea/maven-support.html#maven_import_project_start" target="_blank">Importing a Maven Project</a></li>
 </ul>
-<h2>Maven Build Repository</h2>
+<h2>Verify Maven Build Repository</h2>
 <p>Under <strong>Preferences</strong> OR <strong>File</strong> –&gt; <strong>Settings</strong>, go to <strong>Build, Execution. Deployment</strong> –&gt; <strong>Build Tools</strong> –&gt; <strong>Maven</strong>, and make sure the remote repository URLs are being pulled from your <code>settings.xml</code> file.</p>
 <ul>
 <li>Reference: <a href="https://www.jetbrains.com/help/idea/maven-repositories.html" target="_blank">Maven. Repositories</a></li>
@@ -425,24 +696,99 @@ paths:
 
       </google-codelab-step>
     
-      <google-codelab-step label="Creating API Object Models" duration="8">
+      <google-codelab-step label="Create API Object Models" duration="8">
         <p>Create a class called <code>Stock.java</code> under the <strong>models</strong> package (i.e. directory) with the following attributes:</p>
 <ul>
-<li>name</li>
-<li>description</li>
-<li>symbol</li>
-<li>price</li>
-<li>lastUpdated</li>
+<li><code>double</code> dayHigh</li>
+<li><code>double</code> dayLow</li>
+<li><code>String</code> identifier</li>
+<li><code>double</code> lastPrice</li>
+<li><code>String</code> lastUpdateTime</li>
+<li><code>double</code> open</li>
+<li><code>double</code> previousClose</li>
+<li><code>String</code> symbol</li>
+<li><code>double</code> totalTradedValue</li>
+<li><code>long</code> totalTradedVolume</li>
+<li><code>long</code> yearHigh</li>
+<li><code>long</code> yearLow</li>
 </ul>
-<p>You will need to Generate getters and setters for this Object class so that you can access and modify the objects as needed. Under <strong>Code</strong> –&gt; <strong>Generate</strong> select <strong>Getter and Setter</strong> and select all the attributes to generate them for.</p>
-<pre><code>import java.time.LocalDateTime;
+<p>You will need to Generate getters and setters for this Object class so that you can access and modify the objects as needed. Under <strong>Code</strong> –&gt; <strong>Generate</strong> select <strong>Getter and Setter</strong> and select all the attributes to generate them for. Repeat the same steps to generate a Constructor as well.</p>
+<pre><code>import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 public class Stock {
-    String symbol;
-    String name;
-    String description;
-    Double price;
-    LocalDateTime lastUpdated;
+    public double dayHigh;
+    public double dayLow;
+    public String identifier;
+    public double lastPrice;
+    public String lastUpdateTime;
+    public double open;
+    public double previousClose;
+    public String symbol;
+    public double totalTradedValue;
+    public long totalTradedVolume;
+    public long yearHigh;
+    public long yearLow;
+
+    // generate empty constructor 
+    public Stock() {
+    }
+
+    public double getDayHigh() {
+        return dayHigh;
+    }
+
+    public void setDayHigh(double dayHigh) {
+        this.dayHigh = dayHigh;
+    }
+
+    public double getDayLow() {
+        return dayLow;
+    }
+
+    public void setDayLow(double dayLow) {
+        this.dayLow = dayLow;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public double getLastPrice() {
+        return lastPrice;
+    }
+
+    public void setLastPrice(double lastPrice) {
+        this.lastPrice = lastPrice;
+    }
+
+    public String getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(String lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public double getOpen() {
+        return open;
+    }
+
+    public void setOpen(double open) {
+        this.open = open;
+    }
+
+    public double getPreviousClose() {
+        return previousClose;
+    }
+
+    public void setPreviousClose(double previousClose) {
+        this.previousClose = previousClose;
+    }
 
     public String getSymbol() {
         return symbol;
@@ -452,58 +798,103 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    public String getName() {
-        return name;
+    public double getTotalTradedValue() {
+        return totalTradedValue;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTotalTradedValue(double totalTradedValue) {
+        this.totalTradedValue = totalTradedValue;
     }
 
-    public String getDescription() {
-        return description;
+    public double getTotalTradedVolume() {
+        return totalTradedVolume;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTotalTradedVolume(long totalTradedVolume) {
+        this.totalTradedVolume = totalTradedVolume;
     }
 
-    public Double getPrice() {
-        return price;
+    public long getYearHigh() {
+        return yearHigh;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setYearHigh(long yearHigh) {
+        this.yearHigh = yearHigh;
     }
 
-    public LocalDateTime getLastUpdated() {
-        return lastUpdated;
+    public long getYearLow() {
+        return yearLow;
     }
 
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setYearLow(long yearLow) {
+        this.yearLow = yearLow;
     }
 }
 </code></pre>
-<p>Now according to our API spec, we do NOT want to return a top-level array for the GET <code>/stocks</code> endpoint. Create another class called <code>StocksResponse</code> with the following getter and setter as well as Constructor.</p>
-<ul>
-<li>stocks</li>
-</ul>
+<p>Next, we need a class called <code>StocksList.java</code> to return an array of stock objects.</p>
 <pre><code>import java.util.List;
 
-public class StocksResponse {
-    List&lt;Stock&gt; stocks;
+public class StockList {
 
-    public StocksResponse(List&lt;Stock&gt; stocks) {
-        this.stocks = stocks;
+    List&lt;Stock&gt; stockList;
+
+    public StockList(List&lt;Stock&gt; stockList) {
+        this.stockList = stockList;
     }
 
-    public List&lt;Stock&gt; getStocks() {
-        return stocks;
+    public List&lt;Stock&gt; getStockList() {
+        return stockList;
     }
 
-    public void setStocks(List&lt;Stock&gt; stocks) {
-        this.stocks = stocks;
+    public void setStockList(List&lt;Stock&gt; stockList) {
+        this.stockList = stockList;
+    }
+}
+</code></pre>
+<p>Now according to our API spec, we do NOT want to return a top-level array for the <strong>GET</strong><code>/api/v1/stocks</code> endpoint.</p>
+<p>Therefore, we develop a general class called <code>StocksGeneralResponse.java</code>. In the code snippet below, you will see the use of <code>T</code> which stands for <strong>Template</strong> in this case.</p>
+<p>The template allows the <code>StockGeneralResponse</code> to encompass any data type delivered by the response into an object, and pass along the HTTP status for that response as well.</p>
+<pre><code>import org.eclipse.collections.impl.set.mutable.UnifiedSet;
+import org.springframework.http.HttpStatus;
+
+public class StockGeneralResponse&lt;T&gt; {
+
+    private T response;
+
+    private HttpStatus httpStatus;
+
+    private UnifiedSet&lt;String&gt; userMessages = UnifiedSet.newSet();
+
+    public StockGeneralResponse() {
+    }
+
+    public StockGeneralResponse(T response, HttpStatus httpStatus) {
+        this.response = response;
+        this.httpStatus = httpStatus;
+    }
+
+    public T getResponse() {
+        return response;
+    }
+
+    public void setResponse(T response) {
+        this.response = response;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
+
+    public UnifiedSet&lt;String&gt; getUserMessages() {
+        return userMessages;
+    }
+
+    public void setUserMessages(UnifiedSet&lt;String&gt; userMessages) {
+        this.userMessages = userMessages;
     }
 }
 </code></pre>
@@ -514,13 +905,29 @@ public class StocksResponse {
     
       <google-codelab-step label="Spring Annotations Overview" duration="5">
         <p>Annotations in Java is a special form of metadata that can be embedded in Java source code. Users can use annotations to configure beans inside the java source file itself.</p>
-<p>Here is a simple overview of common Spring annotations:<br><img src="img/956bf8a962f48edd.png"></p>
-<ul>
-<li><code>@Component</code>: Generic stereotype for any Spring-managed component</li>
-<li><code>@Repository</code>: The Persistence layer (Data Access Layer) of the application, which is used to get data from the database. All the database related operations are done by the repository.<br></li>
-<li><code>@Service</code>: Stereotype for service layer where all business logic is done, data related calculations and all.</li>
-<li><code>@Controller</code>: Stereotype for presentation layer (spring-mvc). This is where your request mapping from presentation page is done. The Presentation layer won&#39;t go to any other file, it goes directly to the <code>@Controller</code> class and checks for requested path under the <code>@RequestMapping</code> annotation, before a method is called.</li>
-</ul>
+<p>Here is a full set of all available annotations within the Spring Framework: <a href="https://springframework.guru/spring-framework-annotations/" target="_blank">Spring Framework Annotations</a></p>
+<h2>Examples of Some Annotations Used</h2>
+<h3>@Component</h3>
+<p>This annotation is used on classes to indicate a Spring component. The <code>@Component</code> annotation marks the Java class as a bean or say component so that the component-scanning mechanism of Spring can add into the application context.</p>
+<h3>@Controller</h3>
+<p>The <code>@Controller</code> annotation is used to indicate the class is a Spring controller. This annotation can be used to identify controllers for Spring MVC or Spring WebFlux.</p>
+<h3>@Service</h3>
+<p>This annotation is used on a class. The <code>@Service</code> marks a Java class that performs some service, such as execute business logic, perform calculations and call external APIs. This annotation is a specialized form of the @Component annotation intended to be used in the service layer.</p>
+<h3>@Repository</h3>
+<p>This annotation is used on Java classes which directly access the database. The <code>@Repository</code> annotation works as marker for any class that fulfills the role of repository or Data Access Object.</p>
+<p>This annotation has a automatic translation feature. For example, when an exception occurs in the <code>@Repository</code> there is a handler for that exception and there is no need to add a try catch block.</p>
+<h3>@Configuration</h3>
+<p>This annotation is used on classes which define beans. <code>@Configuration</code> is an analog for XML configuration file – it is configuration using Java class. Java class annotated with <code>@Configuration</code> is a configuration by itself and will have methods to instantiate and configure the dependencies.</p>
+<h3>@Bean</h3>
+<p>This annotation is used at the method level. <code>@Bean</code> annotation works with <code>@Configuration</code> to create Spring beans. As mentioned earlier, <code>@Configuration</code> will have methods to instantiate and configure dependencies. Such methods will be annotated with <code>@Bean</code>. The method annotated with this annotation works as bean ID and it creates and returns the actual bean.</p>
+<h3>@Value</h3>
+<p>This annotation is used at the field, constructor parameter, and method parameter level. The <code>@Value</code> annotation indicates a default value expression for the field or parameter to initialize the property with.</p>
+<h3>@SpringBootApplication</h3>
+<p>This annotation is used on the application class while setting up a Spring Boot project. The class that is annotated with the <code>@SpringBootApplication</code> must be kept in the base package.</p>
+<h3>@RestController</h3>
+<p>This annotation is used at the class level. The <code>@RestController</code> annotation marks the class as a controller where every method returns a domain object instead of a view.</p>
+<h3>@Scheduled</h3>
+<p>This annotation is a method level annotation. The <code>@Scheduled</code> annotation is used on methods along with the trigger metadata. A method with <code>@Scheduled</code> should have void return type and should not accept any parameters.</p>
 
 
       </google-codelab-step>
@@ -1328,7 +1735,8 @@ mvnw.cmd spring-boot:run
 <li>Http Trace: <a href="http://localhost:8080/httptrace" target="_blank">http://localhost:8080/httptrace</a></li>
 <li>Mappings: <a href="http://localhost:8080/mappings" target="_blank">http://localhost:8080/mappings</a></li>
 </ul>
-<paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1"><a href="https://github.com/zarinlo/sample-springboot-api" target="_blank">Download API Codebase</a></paper-button>
+<p>➡️ <a href="https://github.com/zarinlo/sample-springboot-api" target="_blank">Download full codebase</a></p>
+
 
       </google-codelab-step>
     

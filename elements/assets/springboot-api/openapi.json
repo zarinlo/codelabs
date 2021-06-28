@@ -1,0 +1,325 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Stock API",
+    "description": "Sample Java Spring Boot API using MongoDB Atlas",
+    "contact": {
+      "name": "Zarin Lokhandwala",
+      "url": "https://github.com/zarinlo"
+    },
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Inferred Url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "stock-controller",
+      "description": "Stock Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/stocks": {
+      "get": {
+        "tags": [
+          "stock-controller"
+        ],
+        "summary": "Get all stocks",
+        "operationId": "getAllStocks",
+        "responses": {
+          "200": {
+            "description": "Successful: Stock(s) found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StockGeneralResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: Check input parameter(s) syntax for invalid characters."
+          },
+          "401": {
+            "description": "Unauthorized: User is not entitled to retrieve information."
+          },
+          "404": {
+            "description": "Not Found: Stock(s) not found."
+          },
+          "500": {
+            "description": "Internal Server Error: Backend service is down."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "stock-controller"
+        ],
+        "summary": "Create a new stock",
+        "operationId": "createStock",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Stock"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful: Stock(s) found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StockGeneralResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: Check input parameter(s) syntax for invalid characters."
+          },
+          "401": {
+            "description": "Unauthorized: User is not entitled to retrieve information."
+          },
+          "404": {
+            "description": "Not Found: Stock(s) not found."
+          },
+          "500": {
+            "description": "Internal Server Error: Backend service is down."
+          }
+        }
+      }
+    },
+    "/api/v1/stocks/{symbol}": {
+      "get": {
+        "tags": [
+          "stock-controller"
+        ],
+        "summary": "Get a stock by symbol",
+        "operationId": "getStockBySymbol",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "A stock symbol",
+            "required": true,
+            "style": "simple",
+            "allowReserved": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful: Stock(s) found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StockGeneralResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: Check input parameter(s) syntax for invalid characters."
+          },
+          "401": {
+            "description": "Unauthorized: User is not entitled to retrieve information."
+          },
+          "404": {
+            "description": "Not Found: Stock(s) not found."
+          },
+          "500": {
+            "description": "Internal Server Error: Backend service is down."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "stock-controller"
+        ],
+        "summary": "Update an existing stock by symbol",
+        "operationId": "updateStockBySymbol",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "A stock symbol",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastPrice",
+            "in": "query",
+            "description": "Last Price",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful: Stock(s) found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StockGeneralResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: Check input parameter(s) syntax for invalid characters."
+          },
+          "401": {
+            "description": "Unauthorized: User is not entitled to retrieve information."
+          },
+          "404": {
+            "description": "Not Found: Stock(s) not found."
+          },
+          "500": {
+            "description": "Internal Server Error: Backend service is down."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "stock-controller"
+        ],
+        "summary": "Delete a stock by symbol",
+        "operationId": "deleteStockBySymbol",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "A stock symbol",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful: Stock(s) found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StockGeneralResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: Check input parameter(s) syntax for invalid characters."
+          },
+          "401": {
+            "description": "Unauthorized: User is not entitled to retrieve information."
+          },
+          "404": {
+            "description": "Not Found: Stock(s) not found."
+          },
+          "500": {
+            "description": "Internal Server Error: Backend service is down."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Stock": {
+        "title": "Stock",
+        "type": "object",
+        "properties": {
+          "dayHigh": {
+            "type": "number",
+            "format": "double"
+          },
+          "dayLow": {
+            "type": "number",
+            "format": "double"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "lastPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "lastUpdateTime": {
+            "type": "string"
+          },
+          "open": {
+            "type": "number",
+            "format": "double"
+          },
+          "previousClose": {
+            "type": "number",
+            "format": "double"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "totalTradedValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalTradedVolume": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "yearHigh": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "yearLow": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "StockGeneralResponse": {
+        "title": "StockGeneralResponse",
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACCEPTED",
+              "BAD_GATEWAY",
+              "BAD_REQUEST",
+              "CREATED",
+              "NOT_FOUND",
+              "NO_CONTENT",
+              "OK"
+            ]
+          },
+          "userMessages": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2018-12-22T22:46:54-05:00",
+  "updated": "2021-06-27T23:51:05-04:00",
   "id": "springboot-api",
   "duration": 206,
   "title": "How to Design a RESTful Spring Boot API",
@@ -12,7 +12,7 @@
   "summary": "How to Design a RESTful Spring Boot API",
   "theme": "",
   "status": [
-    "draft"
+    "published"
   ],
   "category": [
     "spring-boot",
@@ -27,5 +27,6 @@
   "tags": [
     "java"
   ],
+  "feedback": "https://zarin.io",
   "url": "springboot-api"
 }
