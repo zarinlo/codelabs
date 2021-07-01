@@ -46,7 +46,7 @@ Positive
 : A sample key to the API above will be provided, if you don't want to create a subscription. 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Explaining API Endpoints
+## API Endpoints Explained
 Duration: 3
 
 For this codelab, we will design and develop five RESTful API endpoints. The API will have a service class that calls an external stock API to populate a MongoDB, which the five endpoints will interact with. The API contract will contain the following resource methods:
@@ -86,7 +86,7 @@ We will be utilizing OpenAPI Spect (i.e. Swagger) framework to design, produce, 
 ✅Move on to the next step to start building your API Spec!
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Creating the Spec (Pt I)
+## Create the Spec (Pt I)
 Duration: 15
 
 An OpenAPI spec can be written in either JSON or YAML. We will be using YAML for this code lab. 
@@ -252,7 +252,7 @@ This response object has three main attributes:
 ✅Move on to the next step to add the API endpoints.
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Creating the Spec (Pt II)
+## Create the Spec (Pt II)
 Duration: 15
 
 Now we are ready to implement the GET `/stocks` method. We are going to insert this portion between the basic `info` block we created and the `components` block.
@@ -357,7 +357,7 @@ This concludes the spec for the CRUD operations that can be performed under the 
 ✅Move on to the next step to complete your API spec.
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Creating the Spec (Pt III)
+## Create the Spec (Pt III)
 Duration: 8
 
 Let's implement the remaining three endpoints that follow the path of: `/api/v1/stocks/{symbol}`
@@ -480,7 +480,7 @@ For the rest of the items, refer to the link presented earlier: [Describing Para
 🚀 You've completed your first basic API spec! Now let's start by scaffolding (i.e. structuring) your Spring Boot project. 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Scaffold Your Spring API
+## Scaffold Spring API Project
 Duration: 3
 
 A tool that scaffolds your web project for you is a tool that helps you kickstart new projects, which presecribes best practices and folder structure to help you stay productive. We will use Spring Initialzr to scaffold your basic Spring boot API.
@@ -581,7 +581,7 @@ Let's breakdown the folders under **stocks**:
 | exceptions | Develop custom error handling for the application |
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Configure Your Maven Settings
+## Configure Maven Settings
 Duration: 5
 
 Apache Maven, referred to as maven, is a build management tool that is primarily used to build Java projects. 
@@ -667,6 +667,8 @@ Create a class called `Stock.java` under the **models** package (i.e. directory)
 - `long` yearLow
 
 You will need to Generate getters and setters for this Object class so that you can access and modify the objects as needed. Under **Code** --> **Generate** select **Getter and Setter** and select all the attributes to generate them for. Repeat the same steps to generate a Constructor as well. 
+
+### `Stock.java`
 
 ```java
 import org.springframework.data.annotation.Id;
@@ -790,6 +792,8 @@ public class Stock {
 
 Next, we need a class called `StocksList.java` to return an array of stock objects. 
 
+### `StocksList.java`
+
 ```java
 import java.util.List;
 
@@ -813,9 +817,9 @@ public class StockList {
 
 Now according to our API spec, we do NOT want to return a top-level array for the **GET** `/api/v1/stocks` endpoint. 
 
-Therefore, we develop a general class called `StocksGeneralResponse.java`. In the code snippet below, you will see the use of `T` which stands for **Template** in this case.
+Therefore, we develop a general class called `StocksGeneralResponse.java`. 
 
-The template allows the `StockGeneralResponse` to encompass any data type delivered by the response into an object, and pass along the HTTP status for that response as well. 
+### `StockGeneralResponse.java`
 
 ```java
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
@@ -863,11 +867,44 @@ public class StockGeneralResponse<T> {
 }
 ```
 
-✅Now let's design our first API endpoint! 
+In the code snippet above, you will see the use of `T` which stands for **Template** in this case.
+
+The template allows the `StockGeneralResponse` to encompass any data type delivered by the response into an object, and pass along the HTTP status for that response as well. 
+
+Certain datatypes used in this java class require the addition of Eclipse Collections. Therefore, open up your root `pom.xml` and include:
+
+```xml
+<dependencies>
+    ...
+    <!--Eclipse Collections-->
+    <dependency>
+        <groupId>org.eclipse.collections</groupId>
+        <artifactId>eclipse-collections-api</artifactId>
+        <version>${eclipse.collections}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.eclipse.collections</groupId>
+        <artifactId>eclipse-collections</artifactId>
+        <version>${eclipse.collections}</version>
+    </dependency>
+    ...
+</dependencies>
+```
+
+Create or use the pre-existing `<properties>` section at the top of the `pom.xml` file: 
+
+```xml
+<properties>
+    ...
+      <eclipse.collections>10.2.0</eclipse.collections>
+</properties>
+```
+
+✅Now let's get started on designing our first API endpoint! 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Spring Annotations Overview
-Duration: 5
+Duration: 3
 
 Annotations in Java is a special form of metadata that can be embedded in Java source code. Users can use annotations to configure beans inside the java source file itself. 
 
@@ -882,12 +919,10 @@ This annotation is used on classes to indicate a Spring component. The `@Compone
 The `@Controller` annotation is used to indicate the class is a Spring controller. This annotation can be used to identify controllers for Spring MVC or Spring WebFlux.
 
 #### @Service
-This annotation is used on a class. The `@Service` marks a Java class that performs some service, such as execute business logic, perform calculations and call external APIs. This annotation is a specialized form of the @Component annotation intended to be used in the service layer.
+This annotation is used on a class. The `@Service` marks a Java class that performs some service, such as execute business logic, perform calculations and call external APIs. This annotation is a specialized form of the `@Component` annotation intended to be used in the service layer.
 
 #### @Repository
-This annotation is used on Java classes which directly access the database. The `@Repository` annotation works as marker for any class that fulfills the role of repository or Data Access Object.
-
-This annotation has a automatic translation feature. For example, when an exception occurs in the `@Repository` there is a handler for that exception and there is no need to add a try catch block.
+This annotation is used on Java classes which directly access the database. The `@Repository` annotation works as marker for any class that fulfills the role of repository or Data Access Object. This annotation has a automatic translation feature. For example, when an exception occurs in the `@Repository` there is a handler for that exception and there is no need to add a try catch block.
 
 #### @Configuration
 This annotation is used on classes which define beans. `@Configuration` is an analog for XML configuration file – it is configuration using Java class. Java class annotated with `@Configuration` is a configuration by itself and will have methods to instantiate and configure the dependencies.
@@ -908,303 +943,347 @@ This annotation is used at the class level. The `@RestController` annotation mar
 This annotation is a method level annotation. The `@Scheduled` annotation is used on methods along with the trigger metadata. A method with `@Scheduled` should have void return type and should not accept any parameters.
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## GET /stocks (Pt I)
+## Setup Stock Interface
 Duration: 15
 
-In Spring's approach to building RESTful web services, HTTP requests are handled by a controller. These components are easily identified by the `@RestController` annotation. 
+In Java there is a concept of **interfaces** and **classes**. An interface specifies what a class must do, and not how.
 
-Create a class called `StockController.java` under the **stock** package and annotate the class with `@RestController`. Add another annotation to the same class with `@RequestMapping("/api/v1")`. The request mapping creates a root API context of **/api/v1** and every endpoint created in the controller will begin with that context. This can also be a way to version your API. 
+The first interface we are going to define is `StockService.java` and it will be under the **services** folder. Here we declare the behaviors of all the functions for our five main endpoints, which the class will implement. 
 
-~~~java
-import org.springframework.web.bind.annotation.*;
+Let's review the endpoints: 
 
-@RestController
-@RequestMapping("/api/v1")
-public class StockController {
+| Usage | Function | Implementation |
+| --- | --- | --- |
+| Usage | Function | Implementation |
+| Get all stock objects |`getAllStocks()` | **GET** `/stocks` |
+| Get a single stock object | `getStockBySymbol(String symbol)` | **GET** `/stocks/{symbol}` |
+| Create a new stock object | `createStock(String symbol)` | **POST** `/stocks/{symbol}` |
+| Update [the price of] a stock object | `updateStock(String symbol, Double lastPrice)` | **PUT** `/stocks/{symbol}` |
+| Delete a stock object | `deleteStock(String symbol)` | **DELETE** `/stocks/{symbol}` |
 
+This is what our interface looks like: 
+
+### `StockService.java`
+
+```java
+import sample.api.stocks.exceptions.StocksResponseException;
+import sample.api.stocks.models.Stock;
+import sample.api.stocks.models.StockGeneralResponse;
+
+public interface StockService {
+
+    StockGeneralResponse getAllStocks();
+    void populateStockDatabase();
+    StockGeneralResponse getStockBySymbol(String symbol);
+    StockGeneralResponse createStock(Stock stock);
+    StockGeneralResponse updateStock(String symbol, Double lastPrice);
+    StockGeneralResponse deleteStock(String symbol);
 }
-~~~
+```
 
-Create a method called `getStocks` and annotate it with `@RequestMapping("/stocks)`. This creates a handler for GET requests at the URL path `/stocks`. This method should return an array Stock objects, which we will create in just a bit. You can also control the response format returned by the API. Set the `produces` parameter to `application/json`. 
+- We are returning the object `StockGeneralResponse` for each endpoint, even for the `DELETE` operation, which typically returns no content. More on this later. 
 
-~~~java
-import org.springframework.web.bind.annotation.*;
+- We have a `populateStockDatabase()` function that will help us populate our database and keep it updated at a given frequency.
 
-@RestController
-@RequestMapping("/api/v1")
-public class StockController {
+- The rest are self explanatory. 
 
-    @RequestMapping(value = "/stocks", method = RequestMethod.GET, produces = "application/json")
-    public StocksResponse getStocks() {
-
-    }
-}
-~~~
-
-Include `@ApiOperation` to verbalize what the endpoint is used for and `@ResponseStatus` to set the status code for the HTTP response. The `@ApiOperation` annotation is used for our API spec, which will be displayed via Swagger UI. We will go over Swagger later in this lab, but for now, just understand that we will be using [SpringFox](http://springfox.github.io/springfox/) to setup swagger for our API. To set this up you will need to add the following two dependencies in your `pom.xml` file, which is found at the root of the project. The pom file contains all the dependencies that your project will need. 
-
-~~~xml
-<dependency>
-    <groupId>io.springfox</groupId>
-    <artifactId>springfox-swagger2</artifactId>
-    <version>2.9.2</version>
-</dependency>
-<dependency>
-    <groupId>io.springfox</groupId>
-    <artifactId>springfox-swagger-ui</artifactId>
-    <version>2.9.2</version>
-</dependency>
-~~~
-
-~~~java
-import io.swagger.annotations.ApiOperation;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-@RestController
-@RequestMapping("/api/v1")
-public class StockController {
-
-    @ApiOperation(value = "Get all stocks")
-    @RequestMapping(value = "/stocks", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public StocksResponse getStocks() {
-
-    }
-}
-~~~
-
-✅You are now ready to move onto the next step.
+Negative
+: Comment out every function but the `populateStockDatabase()` one, because the IDE will complain about any function that has been defined in the interface, that does not have a proper implementation. 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Setup Interface to MongoDB Repository 
-Duration: 10
+## Steps to Consume External API
+Duration: 2
 
-In order to interact with MongoDB, we will be using Spring's MongoDB data repository. Spring data repositories simplify the amount of code required to implement data access layers for various persistence stores. All that's required to get this working is to create an interface that extends the Spring MongoDB repository. So let's create a `StockRepository.java` interface that `extends` the `MongoRepository` under the **repositories** package. We want to annotate this persistence layer with `@Repository`, which again, is a stereotype annotation applied to data access layers that are used to get data from the database. 
+First, let's populate the data so that we have some data to manipulate.
+
+We are going to work on writing the `populateStockDatabase()`. This function will be defined in a new class called, `StockServiceImpl.java`, which is the implementation of the interface we just created.
+
+Before we get started, we are going to have to do the following: 
+✔️ create a subscription to the API that is going to provide the data 
+✔️ test the connection to the API via cURL (or another REST client, like Postman or Insomnia)
+✔️ create a java `repository` that will read from a MongoDB 
+✔️ create an application properties file in java to store the credentials needed to access the API 
+✔️ setup a REST template that will connect to the API (optional, but recommended)
+✔️ setup an exception handler to deal with failed responses from the API (optional, but recommended)
+✔️ develop the `populateStockDatabase()` function to call the external API and populate the database
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Subcribe and Test API via Postman
+Duration: 2
+
+### Create Subscription 
+
+To make things easier, I have created a subscription and have retrieved a sample key from the [Latest Stock API](https://rapidapi.com/suneetk92/api/latest-stock-price/).
+
+### Test Connection via Postman
+
+Here are some points you will need to know about consuming the API: 
+
+| Key | Value | Notes
+| --- | --- | --- |
+| Key | Value | Notes
+| Invocation URL | `https://latest-stock-price.p.rapidapi.com` | In our project we will configure this URL to be used with a REST template just for consuming stock data. 
+| API Key |`x-rapidapi-key: 9e87a2c143msh6b92309e36af212p15ccc6jsn2bc37ea481bd` | This will be passed in as a header in the API request.
+| Path | `/price` | This is the path to view the prices for a specific stock index. 
+| Query Parameter | `Indices=<SOME-VALUE-HERE>` | The API requires the `Indicies` query parameter to be passed in an accepted value, such as `NIFTY NEXT 50`, found in the API docs for **Latest Stock API**.
+
+In Postman, setup a simple `GET` request with the following values to target: 
+```
+https://latest-stock-price.p.rapidapi.com/price?Indices=NIFTY NEXT 50
+```
+
+Hit the **Send** button and your response should look as followed: 
+![](elements/assets/springboot-api/get-stocks-postman.png)
+
+```json
+[
+    {
+        "symbol": "NIFTY NEXT 50",
+        "identifier": "NIFTY NEXT 50",
+        "open": 38759.15,
+        "dayHigh": 38846.85,
+        "dayLow": 38684.95,
+        "lastPrice": 38697.7,
+        "previousClose": 38678.15,
+        "change": 19.549999999995634,
+        "pChange": 0.05,
+        "yearHigh": 39399.6,
+        "yearLow": 25614.15,
+        "totalTradedVolume": 28602611,
+        "totalTradedValue": 7654580126.95,
+        "lastUpdateTime": "30-Jun-2021 09:29:14",
+        "perChange365d": 50.15,
+        "perChange30d": 3.43
+    },
+    { ... }
+]
+```
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Setup Stock Repository for MongoDB
+Duration: 5
+
+In order to interact with MongoDB, we will be using the Spring Framework MongoDB data repository. Spring data repositories simplify the amount of code required to implement data access layers for various persistence stores. 
+
+All that's required to get this working is to create an **interface** that extends the Spring MongoDB repository. So let's create a `StockRepository.java` interface that `extends` the `MongoRepository`, under the **repositories** package/directory. We want to annotate this persistence layer with `@Repository`, which again, is a stereotype annotation applied to data access layers that are used to get data from the database. 
 
 Out-of-the-box, this interface comes with many operations, including standard CRUD (create-read-update-delete) operations. Spring has its' own [query builder mechanism](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation) and the `findAll` method is already provided by default, so for now, we will leave this interface empty of additional queries. 
 
-When you extend the interface, the `<Stock, String>` implies that the MongoDB will contain Stock objects and stored as strings. 
+When you extend the interface, the `<Stock, String>` implies that the MongoDB will contain stock objects, stored as strings. 
 
-~~~java
+### `StockRepository.java`
+```java
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
+import sample.api.stocks.models.Stock;
 
 @Repository
 public interface StockRepository extends MongoRepository<Stock, String> {
 
 }
-~~~
-
-Let's take a step back and go back to the `Stock` object model class. We want to annotate our **symbol** property with `@Id`. This tells MongoDB that we want to use the **symbol** as the unique identifier for our stock objects.  
-
-~~~java
-import org.springframework.data.annotation.Id;
-import java.time.LocalDateTime;
-
-public class Stock {
-    @Id
-    String symbol;
-    String name;
-    String description;
-    Double price;
-    LocalDateTime lastUpdated;
-    ...
-}
-~~~
-
-<!-- ---------------------------------------------------------------------------------------------------------------- -->
-## GET /stocks (Pt II)
-Duration: 10
-
-Now we will `@Autowire` the `StockRepository` in our `StockController`. Autowiring in Spring enables you to inject the object dependency implicitly. It internally uses setter or constructor injection. Then we will use the predefined method, `findAll()`, to retrieve all the stock objects from MongoDB. The `All` is a reserved keyword that refers to all objects of the managed entity class, i.e. the Stock class. 
-
-~~~java
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-@RestController
-@RequestMapping("/api/v1")
-public class StockController {
-
-    @Autowired
-    private StockRepository stockRepository;
-
-    @ApiOperation(value = "Get all stocks")
-    @RequestMapping(value = "/stocks", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public StocksResponse getStocks() {
-        return new StocksResponse(stockRepository.findAll());
-    }
-}
-~~~
-
-At this point, you can startup the API locally by running `./mvnw spring-boot:run` on a MacOS or `mvnw.cmd spring-boot:run` on a Windows. By default, the API will be running on [http://localhost:8080/api/v1/stocks](http://localhost:8080/api/v1/stocks). Open a browser and try the GET request just by hitting that endpoint. You should see an empty stock array object as the response. 
-
-![](elements/assets/springboot-api/empty-stock-obj.png)
-
-<!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Define Application Properties
-Duration: 15
-
-Spring allows you to configure/enable/disable various application properties rather easily via its `application.properties` file. You can set custom configurations as well. This file is found under the **src/main/resources** folder. 
-
-Spring also allows you to handle properties per environment (i.e. dev, qa, prod). This is taken care of in the naming convention of the file. In order to select which file / profile to use at runtime, you can do so in multiple ways as well. 
-
-### Properties per Environment
-
-In order to keep the environment properties organized, we will create the following files under `src/main/resources`. Notice the naming convention we use in the files. 
-- `application.properties`
-- `application-local.properties`
-- `application-dev.properties`
-- `application-qa.properties`
-- `application-prod.properties`
-
-We have successfully created four files. The local properties file will be used for `local` testing, `dev` will be used for the development servers, `qa` for Quality Assurance, and `prod` for the production environment. The default `application.properties` file will be include what is common amongst all the environments. Now there is a hierarchy for the ways that these files are sourced at runtime. Let's say you want to use the `local` properties file for the time being, Spring will initilize everything in that `local` file first, then it will initialize everything in the default `application.properties` file. However, for any property that has been declared in both the local file as well as prod file, Spring will use the values for the property declared in the `local` file vs the prod file, since that was the environment set by the user as the runtime environment. 
-
-### Setting Runtime Environment 
-
-Now there are multiple ways to set the runtime environment or in other words, the Active Profile. This goes back to configuring your [run/debug configurations](https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html). If you look closely, there is an option to set your **Active Profile**, and in that section, you can type in `local` or `dev`, etc. For the purposes of this tutorial, let's set the profile to `local`. 
-
-Another way to initialize the profile on startup, would be to simply add a property in the `application.properties` at the top, which is the following:
-
-```java
-spring.profiles.active=local
 ```
 
-Normally, I would not recommend declaring the runtime environment in this manner becuase you will have to update that property in a file that you version. You rather set this in your run/debug configurations instead. However, to understand more about how Spring profiles work, reference this: [Spring Boot features - Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html)
- 
-### Setting up Mongo Properties
+Let's take a quick step back and go back to the `Stock.java` object model class. You are going to annotate the **symbol** attribute with `@Id`. This tells the MongoDB that we want map the `_id` field in mongo to the stock **symbol**, which is essentially the unique identifier for each object in the databse. 
 
-In order to set the name of the mongo database, add the following properties in the `application-local.properties` folder. As you can see we will use Camel Case to name the mongo database. For db naming restrictions, reference: [Restrictions on DB Names](https://docs.mongodb.com/manual/reference/limits/#restrictions-on-db-names)
+You are also going to annotate the whole class with `@Document` to define the name of the document collection where the data should be stored within the MongoDB database. 
 
-~~~java
-spring.data.mongodb.database=sampleSpringApi
-spring.data.mongodb.host=localhost
-spring.data.mongodb.port=27017
-~~~
-
-The complete list of all predefined Spring application properties can be found here: [Common Application Properties](https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)
-
-<!-- ---------------------------------------------------------------------------------------------------------------- -->
-## GET /stocks (Pt III)
-Duration: 1
-
-Now take a step back and annotate the `Stock` class with `@Document` to name the collection inside the Mongo database that will store the stock objects. 
-
-~~~java
+### `Stock.java`
+```java
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-
 @Document(collection = "stocks")
 public class Stock {
+    ...
     @Id
-    String symbol;
-    String name;
-    String description;
-    Double price;
-    LocalDateTime lastUpdated;
+    public String symbol;
+    public double totalTradedValue;
+    public long totalTradedVolume;
+    public long yearHigh;
+    public long yearLow;
     ...
 }
-~~~
-
-✅Let's generate some sample data to work with!
+```
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Populate the MongoDB
-Duration: 10
+## Setup REST Template
+Duration: 5
 
-In order to have some sample data to test with, let's create a simple service to help populate our MongoDB. Before we create the service class, add this dependency to your pom file. 
+In order to connect to the **Latest Stock API** we will create an application properties file to manage the configuration items. The `application.yaml` file will be created under the **resources** directory. 
 
-~~~xml
-<dependency>
-    <groupId>com.mashape.unirest</groupId>
-    <artifactId>unirest-java</artifactId>
-    <version>1.4.9</version>
-</dependency>
-~~~
+### `application.yaml`
 
-Now create a `StockUpdateService.java` class under the **services** package to help populate the mongo database with some sample stock data and annotate the class with `@Service`. 
+```yaml
+# stocks api
+stocks:
+  api:
+    fqdn: https://latest-stock-price.p.rapidapi.com
+```
 
-~~~java
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.CookieSpecs;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClients;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+- `fqdn` stands for fully qualified domain name 🤓
 
-import java.time.LocalDateTime;
-import java.util.Iterator;
+Now, under the **configs** folder, create a class called `RestTemplateConfig.java`. This template will help establish a connection to the **Latest Stock API** at application runtime. 
 
-@Service
-public class StockUpdateService {
+### `RestTemplateConfig.java`
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StockUpdateService.class);
+```java
+package sample.api.stocks.configs;
 
-    @Autowired
-    private StockRepository stockRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
-    private static String API_URL = "https://api.iextrading.com/1.0/stock/market/batch";
+@Configuration
+public class RestTemplateConfig {
 
-    StockUpdateService() {
-        HttpClient httpClient = HttpClients.custom()
-                .setDefaultRequestConfig(RequestConfig.custom()
-                        .setCookieSpec(CookieSpecs.STANDARD).build())
-                .build();
-        Unirest.setHttpClient(httpClient);
-    }
+    @Value("${stocks.api.fqdn}")
+    private String stocksApiUrl;
 
-    @Scheduled(fixedRate = 60000)
-    public void updateStockQuotes() {
-        LOGGER.info("Updating Stock Quotes");
-        try {
-            HttpResponse<JsonNode> stocksResponse = Unirest.get(API_URL)
-                    .queryString("symbols", "AAPL, FB, BK, GOOGL, AMZN, SNAP, MSFT, IBM, MS")
-                    .queryString("types", "quote")
-                    .asJson();
-            LOGGER.debug(stocksResponse.getBody().toString());
-            JSONObject stocks = stocksResponse.getBody().getObject();
-            Iterator keys = stocks.keys();
-            while (keys.hasNext()) {
-                String key = keys.next().toString();
-                JSONObject stock = stocks.getJSONObject(key).getJSONObject("quote");
-                saveToDatabase(stock);
-            }
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        LOGGER.info("Finished Updating Stock Quotes");
-    }
-
-    private void saveToDatabase(JSONObject stock) {
-        Stock stockDTO = new Stock();
-        stockDTO.setLastUpdated(LocalDateTime.now());
-        stockDTO.setName(stock.getString("companyName"));
-        stockDTO.setSymbol(stock.getString("symbol"));
-        stockDTO.setPrice(stock.getDouble("latestPrice"));
-        stockDTO.setDescription(stock.getString("primaryExchange"));
-        LOGGER.info(String.format("Updating %s", stockDTO.getSymbol()));
-        stockRepository.save(stockDTO);
+    @Bean
+    @Qualifier("stocksApiRestTemplate")
+    public RestTemplate stocksApiRestTemplate() throws Exception {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(this.stocksApiUrl));
+        return restTemplate;
     }
 }
-~~~
 
-Take a look at the `updateStockQuotes` method and notice the `@Scheduled` annotation. The method will be called at a fixed rate, i.e. every 60000 milliseconds. To enable this, you must annotate the main `ApiApplication` class that is located under the **api** folder, with `@EnableScheduling`. 
+```
 
-~~~java
+Let's go over some things in this configuration class: 
+- The java class is annotated with `@Configuration`, which is a configuration by itself and will have methods to instantiate and configure the dependencies.
+- The `@Value` tells the project to initialize the `string` property `stocksApiUrl` with an item found in the `application.yaml` file that follows the hierarchy of: **stocks** > **api** > **fqdn**. If this variable is not found, the application will not start up. 
+- We pass the `stocksApiUrl` to the template handler to establish a connection with the stock API.
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Setup Exceptions
+Duration: 5
+
+When an error occurs within any of our methods, the method will create an object and hand it off to the runtime system. The object, called an exception object, contains information about the error, including its type and the state of the program when the error occurred. Creating an exception object and handing it to the runtime system is called throwing an exception. More here: [Oracle: Java Tutorials - Exceptions](https://docs.oracle.com/javase/tutorial/essential/exceptions/definition.html)
+
+Now when an appropriate handler is found, the runtime system passes the exception to the handler. An exception handler is considered appropriate if the type of the exception object thrown matches the type that can be handled by the handler. The exception handler chosen is said to catch the exception.
+
+Let's start by creating a simple exception class under the **exceptions** folder. 
+
+### `StockResponseException.java`
+
+```java
+public class StocksResponseException extends Exception {
+
+    public StocksResponseException(String message) {
+        super(message);
+    }
+}
+```
+
+This is a pretty standard exception class defined in java. 
+
+We will take it a step further by creating an exception handler as well. More on this later.
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Setup Stock Service to Call External API 
+Duration: 5
+
+At this point we have setup all the items needed to make this rest call to the external API. Let's break down how we are going to do this by creating the following class under the **services** folder.
+
+### `StockServiceImpl.java`
+
+```java 
+import org.eclipse.collections.impl.list.mutable.FastList;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+import sample.api.stocks.exceptions.StocksResponseException;
+import sample.api.stocks.models.*;
+import sample.api.stocks.repositories.StockRepository;
+
+import java.util.Objects;
+
+// annotation which marks a Java class that executes business logic, perform calculations and calls external APIs
+@Service 
+public class StockServiceImpl implements StockService {
+
+    // define local variable to call the stock repository (i.e. MongoDB)
+    private final StockRepository stockRepository;
+
+    // define local var that will perform the connection to the external API
+    private final RestTemplate stocksApiRestTemplate;
+
+    // define local var to pass the API key via headers 
+    private HttpHeaders httpHeaders;
+
+    public StockServiceImpl(
+      // the @Qualifier annotation will ensure that the correct REST template is being instantiated in the constructor 
+      @Qualifier("stocksApiRestTemplate") RestTemplate stocksApiRestTemplate,
+                            StockRepository stockRepository) {
+        this.stocksApiRestTemplate = stocksApiRestTemplate;
+        this.stockRepository = stockRepository;
+
+        // instantiating headers and passing in the API key to the header name "x-rapidapi-key", which can be found in the API documentation
+        httpHeaders = new HttpHeaders();
+        httpHeaders.add("x-rapidapi-key", "9e87a2c143msh6b92309e36af212p15ccc6jsn2bc37ea481bd");
+    }
+
+    //---------------------------------------------------------------------------------------------------------------
+
+    // annotation is used to trigger this request once a minute, time in seconds
+    @Scheduled(fixedRate = 60000)
+    public void populateStockDatabase() throws StocksResponseException {
+        // the path that needs to be called once the rest template intializes a connection with the API 
+        String path = "/price";
+
+        // a query parameter was required to be passed to the path above, and we utilize a query builder object where "Indices=NIFTY%20NEXT%2050" is the encoded value 
+        UriComponentsBuilder builder = UriComponentsBuilder
+                .fromUriString(path)
+                .queryParam("Indices", "NIFTY NEXT 50");
+
+        // a FastList is an attempt to provide the same functionality as ArrayList without the support for concurrent modification exceptions
+        // we set the type of data that will be collected in this FastList, i.e. Stock 
+        // we use the rest template and apply the "exchange" function to it 
+        // the exchange method takes in the builder object which will result in --> /price?Indices=NIFTY%20NEXT%2050
+        // we pass in the CRUD operation as GET and pass in the headers that were previously instantiated
+        ResponseEntity<FastList<Stock>> response = stocksApiRestTemplate.exchange(builder.build().toString(), HttpMethod.GET, new HttpEntity<>(httpHeaders), new ParameterizedTypeReference<FastList<Stock>>() {
+        });
+
+        // if the response status is a 200 or OK...
+        if (response.getStatusCode() == HttpStatus.OK) {
+            // we ensure that the response is not null, and then save the body of the response object into our database via the stock respository's default given method, save()
+            Objects.requireNonNull(response.getBody()).forEach(stockRepository::save);
+        } else {
+            // if an issue occurs, we throw an exception with a specific error message, in String format
+            throw new StocksResponseException("Error: Issue retrieving stocks.");
+        }
+    }
+}
+```
+
+Since we decided to throw exceptions within our `StockServiceImpl.java` class, therefore, we need to update our interface class to reflect the same.  
+
+### `StockService.java`
+```java
+public interface StockService {
+
+    StockGeneralResponse getAllStocks();
+    void populateStockDatabase() throws StocksResponseException; // throws exception
+    StockGeneralResponse getStockBySymbol(String symbol);
+    StockGeneralResponse createStock(Stock stock);
+    StockGeneralResponse deleteStock(String symbol);
+    StockGeneralResponse updateStock(String symbol, Double lastPrice) throws StocksResponseException; // throws exception
+}
+```
+
+Finall, navigate to the main Spring Boot application class. In order to trigger the `populateStockDatabase()` function at a scheduled rate, we must annoate the main class with `@EnableScheduling`.
+
+### `ApiApplication.java`
+
+```java
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -1217,69 +1296,422 @@ public class ApiApplication {
 		SpringApplication.run(ApiApplication.class, args);
 	}
 }
-~~~
-
-✅You are now ready to design the next endpoint!
+```
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## GET /stocks/{symbol}
+## Code GET /stocks
 Duration: 5
 
-To retrieve a stock by its' symbol, we add another method in our `StockRepository` utilizing Spring's query creation. 
+Now that you have setup the service that is going to populate the database, let's build a service that will retrieve all the records from the database, i.e. `getAllStocks()`.
 
-~~~java
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-import sample.api.stock.models.Stock;
+In the service implementation class, define the following function. 
+
+### `StockServiceImpl.java`
+
+```java
+    public StockGeneralResponse getAllStocks() {
+        return new StockGeneralResponse(stockRepository.findAll(), HttpStatus.OK);
+    }
+```
+
+All we are doing is calling the stock repository's `findAll` method, which is one of the default methods provided by the JPA's as stated in the **Setup Stock MongoDB Repository** section. 
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Setup Stock Controller
+Duration: 5
+
+To view the stock data, let's configure our stock controller class under the **controllers** directory. 
+
+The controller class is responsible for defining and exposing endpoints in our API contract. It is also responsible for delivering the correct HTTP status to the user. 
+
+We will utilize the Swagger/OpenAPI framework to autogenerate and manage the endpoints defined in our controller. The framework provides us access to various annotations that help frame the  API documentation.
+
+Open up your root `pom.xml` and include these dependencies: 
+
+```xml
+<dependencies>
+    ...
+    <!--Swagger-->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-boot-starter</artifactId>
+        <version>${io.springfox.version}</version>
+    </dependency>
+    ...
+</dependencies>
+```
+
+Use the pre-existing `<properties>` section at the top of the `pom.xml` file and include: 
+
+```xml
+<properties>
+    ...
+    <io.springfox.version>3.0.0</io.springfox.version>
+</properties>
+```
+
+Now let's setup the stock controller: 
+
+### `StockController.java`
+
+```java
+import io.swagger.annotations.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import sample.api.stocks.exceptions.StocksResponseException;
+import sample.api.stocks.models.Stock;
+import sample.api.stocks.models.StockGeneralResponse;
+import sample.api.stocks.services.StockService;
+
+// include the following media type constants 
+import static org.springframework.http.MediaType.ALL_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+// annotatation denotes that this class will handle HTTP requests 
+@RestController
+// request mapping sets the root API context of /api/v1 and every endpoint created in this controller will begin with that context 
+// instead of creating headers for Content-Type and Accept, we set these headers as consumes and produces within the annotation 
+@RequestMapping(
+        value="/api/v1",
+        consumes = {APPLICATION_JSON_VALUE, APPLICATION_FORM_URLENCODED_VALUE, ALL_VALUE},
+        produces = {APPLICATION_JSON_VALUE})
+// we define the HTTP response codes and their messages to be applied to each endpoint defined in this controller
+@ApiResponses({
+        @ApiResponse(code = 200, message = "Successful: Stock(s) found."),
+        @ApiResponse(code = 400, message = "Bad Request: Check input parameter(s) syntax for invalid characters."),
+        @ApiResponse(code = 401, message = "Unauthorized: User is not entitled to retrieve information."),
+        @ApiResponse(code = 404, message = "Not Found: Stock(s) not found."),
+        @ApiResponse(code = 500, message = "Internal Server Error: Backend service is down.")
+})
+public class StockController {
+
+    // define local var that will allow us to call our stock service
+    // note: this is NOT The stock service implementation, we are calling the interface
+    private final StockService stockService;
+
+    public StockController(StockService stockService) {
+        this.stockService = stockService;
+    }
+
+    //---------------------------------------------------------------------------------------------------------------
+
+    // annotatation verbalizes what the endpoint is used for 
+    @ApiOperation(value = "Get all stocks")
+    // use the annotation that is specific to the GET operation 
+    @GetMapping(value = "/stocks")
+    // in the controller it is common to return the ResponseEntity as the response object type 
+    public ResponseEntity<StockGeneralResponse> getAllStocks() {
+
+        ResponseEntity<StockGeneralResponse> responseEntity;
+        // call the getAllStocks method from the stock service
+        StockGeneralResponse serviceResponse = stockService.getAllStocks();
+        responseEntity = new ResponseEntity<>(serviceResponse, serviceResponse.getHttpStatus());
+        return responseEntity;
+    }
+
+}
+```
+At this point, we have done everything required to call the external API, so now let's actual connect to the database and ensure . 
+
+Before we do that, let's learn about how to manage application properties correctly. 
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Define Runtime Application Properties
+Duration: 5
+
+Spring allows you to configure/enable/disable various application properties rather easily via an `application.yaml` or an `application.properties` file. These files are found under the **src/main/resources** folder. 
+
+Spring also allows you to handle properties per environment (i.e. dev, qa, prod). This is taken care of in the naming convention of the file. In order to select which Spring profile to use at runtime, we generate the correct `.yaml` file.
+
+### Property Files per Environment
+
+In order to keep the environment properties organized, we will create the following files under `src/main/resources`. Notice the naming convention we use in the files. 
+
+| Active Profile / Environment | File |
+| --- | --- |
+| Active Profile / Environment | File |
+| Any | `application.yaml` |
+| local | `application-local.yaml` |
+| dev | `application-dev.yaml` |
+| qa | `application-qa.yaml` |
+| prod | `application-prod.yaml` |
+
+Spring will initilize everything in the environment specific file first and they take precedent than anything defined in the default `application.yaml` file. 
+
+Earlier we utilized the `application.yaml` file to include the `fqdn` of the stocks API. The standard file means that no matter what profile we are running, the property will be available to all profiles, unless it is overwritten in a environment specific `application.yaml` file. It contains properties common to all profiles at run time. 
+
+### Configure Runtime Spring Profile
+
+Now there are multiple ways to set the runtime environment or in other words, the Active Profile. This goes back to configuring your [run/debug configurations](https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html). If you look closely, there is an option to set your **Active Profile**, and in that section, you can type in `local` or `dev`, etc. For the purposes of this tutorial, let's set the profile to `local`. 
+
+Another way to initialize the profile on startup, would be to simply add a property in the `application.yaml` file, like so:
+
+```yaml
+# spring related settings
+spring:
+  profiles:
+    active: local
+```
+
+Normally, I would not recommend declaring the runtime environment which you don't want to run once the application is deployed because you will have to update that property in a file that you check into source code. 
+
+You rather set `active` to `prod` and then in your run/debug configuration set **Active Profiles** to use `local`, which will take precendent when you are running the application on your local computer. Essentially, this:  
+
+```yaml
+# spring related settings
+spring:
+  profiles:
+    active: prod
+```
+
+### References 
+
+- To understand more about how Spring profiles work, reference this: [Spring Boot features - Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html)
+
+- The complete list of all predefined Spring application properties can be found here: [Common Application Properties](https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Setup and Connect to MongoDB
+Duration: 5
+
+### Option 1 - Run Embedded MongoDB
+
+If you don't want to install and run MongoDB locally, then uncomment the maven dependency under `<!--Embedded MongoDB-->` in the root `pom.xml` to run an embedded version of mongo as a quick start route: 
+
+```xml
+<dependency>
+    <groupId>de.flapdoodle.embed</groupId>
+    <artifactId>de.flapdoodle.embed.mongo</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
+- You will see `Jackson Databind` errors, don't worry.
+- Lastly, create a properties file that is specific to your local configuration under the **resources** directory. Include the connection details to your local instance of mongo.
+
+### `application-local.yaml`
+```yaml
+# local mongodb connection
+spring:
+  data:
+    mongodb:
+      database: samplespringapi
+      host: localhost
+      port: 27017
+```
+
+### Option 2 - Setup and Run Local MongoDB
+
+- MacOS Guide: [Install mongodb-community@4.2 via Homebrew](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x)
+- Windows Guide: [Install mongodb 4.x.x via MSI package](https://www.simplilearn.com/tutorials/mongodb-tutorial/install-mongodb-on-windows)
+
+### Option 3 - Setup and Connect to Remote MongoDB
+
+- [Read the section on how to setup and connect to MongoDB Atlas](https://faun.pub/setup-a-circleci-pipeline-for-a-containerized-spring-boot-app-93045fa060de)
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Jackson Dataypes
+Duration: 5
+
+One final step is required before firing up our application. We Need to ensure the data being returned is serialized and does not contain nulls. 
+
+Serialization is the process of translating a data structure or object state into a format that can be stored or transmitted and reconstructed later. 
+
+Further, in order to keep only relevant data in our database, we will exclude any property in the data model that is `null` or not set. 
+
+To help us accomplish this, we utilize the jackson add-on module in our java project. Start off by adding the following dependencies in our `pom.xml` file: 
+
+```xml
+<dependencies>
+    ...
+    <!--Jackson Datatypes-->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+    ...
+</dependencies>
+```
+
+Subsequently, add the correct versions in the `<properties>` section:
+
+```xml
+<properties>
+    ...
+    <jackson.version>2.12.0</jackson.version>
+</properties>
+```
+
+Now, add the following to your `application.yaml` file: 
+
+### `application.yaml` 
+
+```yaml
+spring:
+  profiles:
+    active: prod
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+```
+
+You can learn more about the settings in this file here: [Jackson ObjectMapper](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper)
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Startup Application
+Duration: 5
+
+At this point, let's startup 🚀 the API locally!
+
+Negative
+: Don't forget to comment out any function in the `StockService.java` interface that does not have a proper implemntation in the `StockServiceImpl.java` class. Ergo, only `populateStockDatabase()` and `getAllStocks()` should be active. 
+
+### Option 1
+
+Utilize the Run/Debug config by pushing the play button in the toolbar of your IDE as shown below: 
+
+![](elements/assets/springboot-api/run-button.png)
+
+![](elements/assets/springboot-api/run-debug-config.png)
+
+### Option 2
+
+Run the following commands in the root directory via a bash emulator or the embedded terminal inside IntelliJ:
+
+#### Windows
+```bash
+# maven not configured on $PATH
+mvnw.cmd clean install
+mvnw.cmd spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=local 
+```
+
+#### MacOS
+```bash
+# maven not configured on $PATH
+./mvnw clean install
+./mvnw spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=local
+```
+
+#### OS Agnostic
+```bash
+mvn clean install
+mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=local
+```
+
+Open up a browser session and navigate to: [http://localhost:8080/api/v1/stocks](http://localhost:8080/api/v1/stocks)
+
+You should see all the stock entries available via an object of stock objects, like so: 
+
+![](elements/assets/springboot-api/get-all-stocks-browser.png)
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Code GET /stocks/{symbol}
+Duration: 5
+
+Let's breakdown the series of function calls made once a user calls an endpoint:
+
+- **user** → **controller** → **service interface** → **service implementation** → **repository** → **database**
+
+Therefore, to implement the `getStockBySymbol(String symbol)` function, let's start at the **database** layer. 
+
+Here is a sample of the data stored inside mongo: 
+
+```json
+{
+    "symbol": "NIFTY NEXT 50",
+    "identifier": "NIFTY NEXT 50",
+    "open": 38759.15,
+    "dayHigh": 38846.85,
+    "dayLow": 38684.95,
+    "lastPrice": 38697.7,
+    "previousClose": 38678.15,
+    "change": 19.549999999995634,
+    "pChange": 0.05,
+    "yearHigh": 39399.6,
+    "yearLow": 25614.15,
+    "totalTradedVolume": 28602611,
+    "totalTradedValue": 7654580126.95,
+    "lastUpdateTime": "30-Jun-2021 09:29:14",
+    "perChange365d": 50.15,
+    "perChange30d": 3.43
+}
+```
+
+If you recall, stock `symbol` is also the `_id` for each document in the collection. Furthermore, the variable is stored in uppercase. This is something to keep in mind when developing the function inside the service implemnetation class. 
+
+Next, we check the **repository**. The repository will need a method to query the database and return the object that matches the given `symbol`. 
+
+### `StockRepository.java`
+
+```java
+import sample.api.stocks.models.Stock;
 
 @Repository
 public interface StockRepository extends MongoRepository<Stock, String> {
 
     Stock findBySymbol(String symbol);
 }
-~~~
+```
 
-Now all we need to do is add another `@RequestMapping` endpoint in our `StocksController`. According to our API Spec, in order to get a stock by symbol, we need to pass the symbol as a path variable. We represent this by using the `@PathVariable` annotation in our function. Furthermore, to ensure that a path variable is provided, use the `@ApiParam` annotation and set the **value** and **required** parameters.
+Therefore, we add a simple function named `findBySymbol` to query the collection for us. To learn more about how this is done, please reference: [Query Builder mMchanism](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation)
 
-Positive
-: Before inserting the stock object into the database, we will upper-case the symbol. So when you search for symbols in the database, search for the upper-case version of the symbol. 
+We make our way to the **service implementation** class. Here we define the business logic for our `getStockBySymbol` method.
 
-~~~java
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+### `StockServiceImpl.java`
 
-@RestController
-@RequestMapping("/api/v1")
-public class StockController {
-
-    @Autowired
-    private StockRepository stockRepository;
-
-    @ApiOperation(value = "Get all stocks")
-    @RequestMapping(value = "/stocks", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public StocksResponse getStocks() {
-        return new StocksResponse(stockRepository.findAll());
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Get a stock object by symbol")
-    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public Stock getStockBySymbol(
-            @ApiParam(value = "A stock symbol", required = true)
-            @PathVariable String symbol) {
-        Stock stockObj = stockRepository.findBySymbol(symbol.toUpperCase());
-        return stockRepository.findBySymbol(symbol.toUpperCase());
+```java
+// ask the user to input a string for the symbol they are looking for
+public StockGeneralResponse getStockBySymbol(String symbol) {
+    // the method should automatically capitalize the symbol so that there are no issues regarding case-sensitive querying
+    Stock stock = stockRepository.findBySymbol(symbol.toUpperCase());
+    if (stock != null) {
+        return new StockGeneralResponse(stock, HttpStatus.OK);
+    } else {
+        return new StockGeneralResponse(symbol, HttpStatus.NOT_FOUND);
     }
 }
-~~~
+```
 
-✅That was easy. Let's move on to the next step.
+We skip the **service interface** since we have already defined our function in the class and go straight to our controller to define the endpoint. 
+
+### `StockController.java`
+
+```java
+@ApiOperation(value = "Get a stock by symbol")
+// to denote a path variable, we use curly braces like so {...}
+@GetMapping(value = "/stocks/{symbol}")
+// this annotation is used to display a dropdown of possible values for the Swagger / OpenAPI spec to present to users (more on this later)
+@ApiImplicitParams({
+        @ApiImplicitParam(name="symbol", allowableValues = "SIEMENS, INDUSTOWER, NIFTY NEXT 50")
+})
+public ResponseEntity<StockGeneralResponse> getStockBySymbol(
+        // define if the parameter is required or not
+        @ApiParam(value = "A stock symbol", required = true) 
+        // indicate that this parameter is a path variable and define the variable name
+        @PathVariable String symbol) {
+
+    ResponseEntity<StockGeneralResponse> responseEntity;
+    // call the service class, passing in the input variable to the function
+    StockGeneralResponse serviceResponse = stockService.getStockBySymbol(symbol);
+    responseEntity = new ResponseEntity<>(serviceResponse, serviceResponse.getHttpStatus());
+    return responseEntity;
+}
+```
+
+✅Now that you understand the basic workflow, let's repeat this for our **POST**, **PUT** and **DELETE** methods!
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## POST /stocks
