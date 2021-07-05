@@ -9,15 +9,19 @@ Feedback Link: https://zarin.io
 # How to Design a RESTful Spring Boot API
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Overview
-Duration: 15
+Duration: 5
 
 ### What you'll learn
-- How to design an API using OpenAPI Spec (Swagger)
+- How to design an API using OpenAPI Spec (Swagger Framework)
 - How to scaffold a Java Spring API project
 - How to configure application properties, web security and Swagger
 - How to run and connect to MongoDB locally (stretch goal: establish remote MongoDB cluster)
 
-### What you'll need
+![](elements/assets/springboot-api/sample-spring-api.jpeg)
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Software and Apps
+Duration: 20
 
 #### Software
 
@@ -47,7 +51,7 @@ Positive
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## API Endpoints Explained
-Duration: 3
+Duration: 2
 
 For this codelab, we will design and develop five RESTful API endpoints. The API will have a service class that calls an external stock API to populate a MongoDB, which the five endpoints will interact with. The API contract will contain the following resource methods:
 
@@ -61,7 +65,7 @@ For this codelab, we will design and develop five RESTful API endpoints. The API
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Spec Driven Development
-Duration: 2
+Duration: 3
 
 Ideal software development occurs in two distinct phases:
 1. The creation of a Spec
@@ -81,7 +85,7 @@ Spec Driven Development is the process of generating a concise spec that can be 
 - [API Blueprint](https://apiblueprint.org/)
 - [Swagger](https://swagger.io/) (renamed to [OpenAPI Spec](https://github.com/OAI/OpenAPI-Specification))
 
-We will be utilizing OpenAPI Spect (i.e. Swagger) framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allowed both humans and computers to discover and understand the capabilities of a service without requiring access to source code. 
+We will be utilizing Swagger framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allowed both humans and computers to discover and understand the capabilities of a service without requiring access to source code. 
 
 ✅Move on to the next step to start building your API Spec!
 
@@ -253,7 +257,7 @@ This response object has three main attributes:
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Create the Spec (Pt II)
-Duration: 15
+Duration: 10
 
 Now we are ready to implement the GET `/stocks` method. We are going to insert this portion between the basic `info` block we created and the `components` block.
 
@@ -358,7 +362,7 @@ This concludes the spec for the CRUD operations that can be performed under the 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Create the Spec (Pt III)
-Duration: 8
+Duration: 10
 
 Let's implement the remaining three endpoints that follow the path of: `/api/v1/stocks/{symbol}`
 
@@ -582,7 +586,7 @@ Let's breakdown the folders under **stocks**:
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Configure Maven Settings
-Duration: 5
+Duration: 4
 
 Apache Maven, referred to as maven, is a build management tool that is primarily used to build Java projects. 
 
@@ -612,7 +616,7 @@ More information on a default `settings.xml` file here: [Apache Maven Settings](
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Import API Project
-Duration: 8
+Duration: 5
 
 If you are using IntelliJ, import your project as a Maven project. You can run through the following to make sure your project has been imported and configured correctly. 
 
@@ -904,7 +908,7 @@ Create or use the pre-existing `<properties>` section at the top of the `pom.xml
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Spring Annotations Overview
-Duration: 3
+Duration: 2
 
 Annotations in Java is a special form of metadata that can be embedded in Java source code. Users can use annotations to configure beans inside the java source file itself. 
 
@@ -944,7 +948,7 @@ This annotation is a method level annotation. The `@Scheduled` annotation is use
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Setup Stock Interface
-Duration: 15
+Duration: 5
 
 In Java there is a concept of **interfaces** and **classes**. An interface specifies what a class must do, and not how.
 
@@ -1009,7 +1013,7 @@ Before we get started, we are going to have to do the following:
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Subcribe and Test API via Postman
-Duration: 2
+Duration: 5
 
 ### Create Subscription 
 
@@ -1026,6 +1030,10 @@ Here are some points you will need to know about consuming the API:
 | API Key |`x-rapidapi-key: 9e87a2c143msh6b92309e36af212p15ccc6jsn2bc37ea481bd` | This will be passed in as a header in the API request.
 | Path | `/price` | This is the path to view the prices for a specific stock index. 
 | Query Parameter | `Indices=<SOME-VALUE-HERE>` | The API requires the `Indicies` query parameter to be passed in an accepted value, such as `NIFTY NEXT 50`, found in the API docs for **Latest Stock API**.
+
+To make a test call to this API, we are going to use Postman. 
+
+[Postman](https://www.postman.com/product/rest-client/) is an API client that makes it easy for developers to create and save simple and complex HTTP/s requests, as well as read their responses. The result - more efficient and less tedious work.
 
 In Postman, setup a simple `GET` request with the following values to target: 
 ```
@@ -1160,7 +1168,7 @@ Let's go over some things in this configuration class:
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Setup Exceptions
-Duration: 5
+Duration: 4
 
 When an error occurs within any of our methods, the method will create an object and hand it off to the runtime system. The object, called an exception object, contains information about the error, including its type and the state of the program when the error occurred. Creating an exception object and handing it to the runtime system is called throwing an exception. More here: [Oracle: Java Tutorials - Exceptions](https://docs.oracle.com/javase/tutorial/essential/exceptions/definition.html)
 
@@ -1185,7 +1193,7 @@ We will take it a step further by creating an exception handler as well. More on
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Setup Stock Service to Call External API 
-Duration: 5
+Duration: 10
 
 At this point we have setup all the items needed to make this rest call to the external API. Let's break down how we are going to do this by creating the following class under the **services** folder.
 
@@ -1217,7 +1225,7 @@ public class StockServiceImpl implements StockService {
     private final RestTemplate stocksApiRestTemplate;
 
     // define local var to pass the API key via headers 
-    private HttpHeaders httpHeaders;
+    private final HttpHeaders httpHeaders;
 
     public StockServiceImpl(
       // the @Qualifier annotation will ensure that the correct REST template is being instantiated in the constructor 
@@ -1299,8 +1307,8 @@ public class ApiApplication {
 ```
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Code GET /stocks
-Duration: 5
+## GET /stocks
+Duration: 3
 
 Now that you have setup the service that is going to populate the database, let's build a service that will retrieve all the records from the database, i.e. `getAllStocks()`.
 
@@ -1318,13 +1326,13 @@ All we are doing is calling the stock repository's `findAll` method, which is on
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Setup Stock Controller
-Duration: 5
+Duration: 8
 
 To view the stock data, let's configure our stock controller class under the **controllers** directory. 
 
 The controller class is responsible for defining and exposing endpoints in our API contract. It is also responsible for delivering the correct HTTP status to the user. 
 
-We will utilize the Swagger/OpenAPI framework to autogenerate and manage the endpoints defined in our controller. The framework provides us access to various annotations that help frame the  API documentation.
+We will utilize the Swagger framework to autogenerate and manage the endpoints defined in our controller. The framework provides us access to various annotations that help frame the  API documentation.
 
 Open up your root `pom.xml` and include these dependencies: 
 
@@ -1418,7 +1426,7 @@ Before we do that, let's learn about how to manage application properties correc
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Define Runtime Application Properties
-Duration: 5
+Duration: 8
 
 Spring allows you to configure/enable/disable various application properties rather easily via an `application.yaml` or an `application.properties` file. These files are found under the **src/main/resources** folder. 
 
@@ -1443,7 +1451,7 @@ Earlier we utilized the `application.yaml` file to include the `fqdn` of the sto
 
 ### Configure Runtime Spring Profile
 
-Now there are multiple ways to set the runtime environment or in other words, the Active Profile. This goes back to configuring your [run/debug configurations](https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html). If you look closely, there is an option to set your **Active Profile**, and in that section, you can type in `local` or `dev`, etc. For the purposes of this tutorial, let's set the profile to `local`. 
+Now there are multiple ways to set the runtime environment or in other words, the **Active Profile**. This goes back to configuring your [run/debug configurations](https://www.jetbrains.com/help/idea/creating-and-editing-run-debug-configurations.html). If you look closely, there is an option to set your **Active Profile**, and in that section, you can type in `local` or `dev`, etc. For the purposes of this tutorial, let's set the profile to `local`. 
 
 Another way to initialize the profile on startup, would be to simply add a property in the `application.yaml` file, like so:
 
@@ -1454,9 +1462,11 @@ spring:
     active: local
 ```
 
-Normally, I would not recommend declaring the runtime environment which you don't want to run once the application is deployed because you will have to update that property in a file that you check into source code. 
+Normally, I would not recommend declaring anything but the true runtime environment, i.e. `prod`, as the active profile in your `application.yaml` file. That way you don't mistakingly run `local` once you deploy your application. Furthermore, this file will be built and minified and there is no easy way of changing this once your source code is live. 
 
-You rather set `active` to `prod` and then in your run/debug configuration set **Active Profiles** to use `local`, which will take precendent when you are running the application on your local computer. Essentially, this:  
+Note: The **Active Profiles** attribute in your IDE's run/debug configuration will take precendent over what is declared in the `application.yaml` file. 
+
+Therefore, initialize the active profile via the run/debug config, and then set `prod` as the default active profile in your `application.yaml` file, like so:
 
 ```yaml
 # spring related settings
@@ -1511,7 +1521,7 @@ spring:
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Jackson Dataypes
-Duration: 5
+Duration: 8
 
 One final step is required before firing up our application. We Need to ensure the data being returned is serialized and does not contain nulls. 
 
@@ -1561,14 +1571,72 @@ Now, add the following to your `application.yaml` file:
 spring:
   profiles:
     active: prod
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
-    default-property-inclusion: non_null
+    jackson:
+      default-property-inclusion: non_null
 ```
 
-You can learn more about the settings in this file here: [Jackson ObjectMapper](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper)
+Furthermore, we can utilize the jackson module to help with serializing JSON properties. Let's take a look at a portion of our `StockGeneralResponse.java` class. 
 
+### `StockGeneralResponse.java`
+
+```java
+public class StockGeneralResponse<T> {
+
+    @JsonProperty("response")
+    private T response;
+
+    @JsonProperty("status")
+    private HttpStatus httpStatus;
+
+    @JsonProperty("userMessages")
+    private UnifiedSet<String> userMessages = UnifiedSet.newSet();
+
+    ...
+}
+```
+
+If you look closely we have annotated each field with `@JsonProperty`. The annotation tells Jackson ObjectMapper to map the JSON property name to the annotated Java field's name.
+
+The name of variable is directly used to serialize data. In some cases, you have to rename variables during the serialization/deserialization process. `@JsonProperty` is used to tell the serializer how to serial the object.
+
+Granted, the `StockGeneralResponse` is an object that we are handling, however, this is *more useful* when we apply this to a an object model that deals direclty with the raw data (i.e. `Stock.java` class).
+
+For example, let's say the data we are about to request has field names that have hypens or underscores in them, like so: 
+
+```json
+{
+  "_foo": "bar",
+  "hello-world": "whatsup"
+}
+```
+
+In our object class, we would be able to serialize this data by doing the following: 
+
+```java
+import java.io.Serializable;
+
+// have the class implement serializable 
+public class Test implements Serializable {
+
+    // annotate the fields with what property to expect from the raw data
+    @JsonProperty("_foo")
+    private String foo;
+
+    @JsonProperty("hello-world")
+    private String helloWorld;
+}
+```
+
+This allows us to capture the data and then rename them the way we desire, in this scenario, we turn to camelCase. Therefore, the serialized data will look like so: 
+
+```json
+{
+  "foo": "bar",
+  "helloWorld": "whatsup"
+}
+```
+
+You can learn more about the settings in this file here: [Jackson ObjectMapper](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.spring-mvc.customize-jackson-objectmapper)
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Startup Application
@@ -1618,8 +1686,8 @@ You should see all the stock entries available via an object of stock objects, l
 ![](elements/assets/springboot-api/get-all-stocks-browser.png)
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Code GET /stocks/{symbol}
-Duration: 5
+## GET /stocks/{symbol}
+Duration: 8
 
 Let's breakdown the series of function calls made once a user calls an endpoint:
 
@@ -1693,7 +1761,7 @@ We skip the **service interface** since we have already defined our function in 
 @ApiOperation(value = "Get a stock by symbol")
 // to denote a path variable, we use curly braces like so {...}
 @GetMapping(value = "/stocks/{symbol}")
-// this annotation is used to display a dropdown of possible values for the Swagger / OpenAPI spec to present to users (more on this later)
+// this annotation is used to display a dropdown of possible values for the OpenAPI spec to present to users (more on this later)
 @ApiImplicitParams({
         @ApiImplicitParam(name="symbol", allowableValues = "SIEMENS, INDUSTOWER, NIFTY NEXT 50")
 })
@@ -1715,225 +1783,107 @@ public ResponseEntity<StockGeneralResponse> getStockBySymbol(
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## POST /stocks
-Duration: 5
+Duration: 8
 
-This method is also fairly simple. Add another `@RequestMapping` to create a stock at the `/stocks` endpoint in our controller. Since this is a create method, we need to specify a body parameter in the function defintiion. This is represented by the `@RequestBody` annotation. 
+Here is sequence of calls again:
 
-The `StockRepository` has a predefined method called `save()` just like it has the `findAll()` method. This automatically saves the new stock entity and returns the object that was stored into the database, which is also what we want to return to the client. Further, don't forget to upper-case the symbol.
+- **user** → **controller** → **service interface** → **service implementation** → **repository** → **database**
 
-~~~java
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+We can skip the **database** (db) layer and focus on the **repository**. If we are going to create a new object in the db, we are going to need a method to save the object to the db. 
 
-@RestController
-@RequestMapping("/api/v1")
-public class StockController {
+Just like the `findAll()` method, the stock repository has another predefined method called, `save()`. This automatically saves the new stock entity and returns the object that was stored in the db, which is what we will return to the client as well. Now let's define our `createStock` function. 
 
-    @Autowired
-    private StockRepository stockRepository;
-
-    @ApiOperation(value = "Get all stocks")
-    @RequestMapping(value = "/stocks", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public StocksResponse getStocks() {
-        return new StocksResponse(stockRepository.findAll());
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Get a stock object by symbol")
-    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public Stock getStockBySymbol(
-            @ApiParam(value = "A stock symbol", required = true)
-            @PathVariable String symbol) {
-        Stock stockObj = stockRepository.findBySymbol(symbol.toUpperCase());
-        return stockRepository.findBySymbol(symbol.toUpperCase());
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Create a new stock")
-    @RequestMapping(value = "/stocks", method = RequestMethod.POST, produces = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Stock createStock(
-            @ApiParam(value = "New stock object", required = true)
-            @RequestBody Stock newStock) {
-        newStock.setSymbol(newStock.getSymbol().toUpperCase());
-        return stockRepository.save(newStock);
-    }
+### `StockServiceImpl.java`
+```java
+public StockGeneralResponse createStock(Stock stock) {
+    stockRepository.save(stock);
+    return new StockGeneralResponse(stock, HttpStatus.CREATED);
 }
-~~~
+```
+Further, don't forget to upper-case the `symbol` before saving the stock. Since this is going to be the case for each and every object, let's make a change in the object model definition to take this into account, therefore, saving time writing this into our business logic. 
 
-✅Try out the next step!
+### `Stock.java`
+
+```java
+// change the setter function to set the incoming symbol to upper-case chars 
+public void setSymbol(String symbol) {
+    this.symbol = symbol.toUpperCase();
+}
+```
+
+Finally, create an endpoint in the controller class. 
+
+### `StockController.java`
+
+```java
+@ApiOperation(value = "Create a new stock")
+@PostMapping(value = "/stocks")
+public ResponseEntity<StockGeneralResponse> createStock(
+        @ApiParam(value = "New stock object", required = true)
+        // the annotation @RequestBody indicates an object is required to be passed as an API param to this function
+        @RequestBody Stock stock) {
+
+    ResponseEntity<StockGeneralResponse> responseEntity;
+    StockGeneralResponse serviceResponse = stockService.createStock(stock);
+    responseEntity = new ResponseEntity<>(serviceResponse, serviceResponse.getHttpStatus());
+    return responseEntity;
+}
+```
+
+✅Try out the next operation!
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## PUT /stocks/{symbol}
-Duration: 10
+Duration: 8
 
-For the `/stocks/{symbol}` endpoint, we will be utilizing the `@PathVariable` as well as the `@RequestBody` annotation. 
+There is no predefined update method we can make use of in the repository, however the `save()` method will allow us to update an object in the db, if one exists. 
 
-There is no predefined update method, however the `save()` method will be able to update an object by ID if the object already exists in the database. So the first thing we do is find the stock object by the symbol. Second, we update that stock object with the properties from the request body. Lastly, we save the updated stock object back to the database. 
+We will attempt to update the `lastPrice` attribute of an existing stock object. 
+In our service implementation we find out if the stock object exists given a certain `symbol`. Second, we update only the `lastPrice` variable via this function. Lastly, we save the updated stock object back to the database. 
 
-~~~java
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+### `StockServiceImpl.java`
 
-@RestController
-@RequestMapping("/api/v1")
-public class StockController {
-
-    @Autowired
-    private StockRepository stockRepository;
-
-    @ApiOperation(value = "Get all stocks")
-    @RequestMapping(value = "/stocks", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public StocksResponse getStocks() {
-        return new StocksResponse(stockRepository.findAll());
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Get a stock object by symbol")
-    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public Stock getStockBySymbol(
-            @ApiParam(value = "A stock symbol", required = true)
-            @PathVariable String symbol) {
-        Stock stockObj = stockRepository.findBySymbol(symbol.toUpperCase());
-        return stockRepository.findBySymbol(symbol.toUpperCase());
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Create a new stock")
-    @RequestMapping(value = "/stocks", method = RequestMethod.POST, produces = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Stock createStock(
-            @ApiParam(value = "New stock object", required = true)
-            @RequestBody Stock newStock) {
-        newStock.setSymbol(newStock.getSymbol().toUpperCase());
-        return stockRepository.save(newStock);
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Update an existing stock by symbol")
-    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.PUT, produces = "application/json")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public Stock updateStockBySymbol(
-            @ApiParam(value = "A stock symbol", required = true)
-            @PathVariable String symbol,
-            @ApiParam(value = "Updated stock object", required = true)
-            @RequestBody Stock updatedStock) {
-        Stock foundStock = stockRepository.findBySymbol(symbol.toUpperCase());
-        foundStock.setName(updatedStock.getName());
-        foundStock.setDescription(updatedStock.getDescription());
-        foundStock.setPrice(updatedStock.getPrice());
-        foundStock.setLastUpdated(updatedStock.getLastUpdated());
-        return stockRepository.save(foundStock);
+```java
+public StockGeneralResponse updateStock(String symbol, Double lastPrice) throws StocksResponseException {
+    // locate the stock object in the db
+    Stock currentStock = stockRepository.findBySymbol(symbol.toUpperCase());
+    // if it exists...
+    if (currentStock != null) {
+        // update the price 
+        currentStock.setLastPrice(lastPrice);
+        // save it
+        stockRepository.save(currentStock);
+        // return saved object to user
+        return new StockGeneralResponse(symbol, HttpStatus.OK);
+    } else {
+        // if it doesn't exist, throw an exception 
+        throw new StocksResponseException("The stock you are trying to update does not exist.");
     }
 }
-~~~
+```
 
-The above implementation works, but what happens when the user passes in a symbol that does not exist? If a stock object is not found, then the `foundStock` variable will be null and a NullPointerException will be thrown. To handle this, we need to check if the stock object exists or doesn't. If it was found, then perform the updates, otherwise, throw a not found exception. 
+If a stock object is not found, then the `currentStock` variable would be null and a `NullPointerException` would be thrown if the `StocksResponseException` was not thrown instead. 
 
-Spring's default exception handler will catch the exception and create a response message based on the exception details. So let's create a class called `StockNotFoundException` that extends a `RuntimeException` under the **exceptions** package. We will then annotate the entire class with `@ResponseStatus(HttpStatus.NOT_FOUND)`. THis will tell Spring to set the response code to `404` in the response. Now we can use this exception if the stock was not found. 
+### `StockController.java`
 
-~~~java
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+```java
+@ApiOperation(value = "Update an existing stock by symbol")
+@PutMapping(value = "/stocks/{symbol}")
+public ResponseEntity<StockGeneralResponse> updateStockBySymbol(
+        @ApiParam(value = "A stock symbol", required = true)
+        // user needs to specify the symbol of the stock object 
+        @PathVariable String symbol,
+        // this is the first time we generate an example value of the price  
+        @ApiParam(value = "Last Price", required = true, example = "127.05")
+        // the price is passed as a @RequestParam 
+        @RequestParam Double lastPrice) throws StocksResponseException {
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class StockNotFoundException extends RuntimeException {
-
-    public StockNotFoundException(String message) {
-        super(message);
-    }
+    ResponseEntity<StockGeneralResponse> responseEntity;
+    StockGeneralResponse serviceResponse = stockService.updateStock(symbol, lastPrice);
+    responseEntity = new ResponseEntity<>(serviceResponse, serviceResponse.getHttpStatus());
+    return responseEntity;
 }
-~~~
-
-Below is the updated version of the `updateStockBySymbol()` method. We can apply the same logic to the `getStockBySymbol()` method as well. 
-
-~~~java
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-@RestController
-@RequestMapping("/api/v1")
-public class StockController {
-
-    @Autowired
-    private StockRepository stockRepository;
-
-    @ApiOperation(value = "Get all stocks")
-    @RequestMapping(value = "/stocks", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public StocksResponse getStocks() {
-        return new StocksResponse(stockRepository.findAll());
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Get a stock object by symbol")
-    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public Stock getStockBySymbol(
-            @ApiParam(value = "A stock symbol", required = true)
-            @PathVariable String symbol) {
-        Stock stockObj = stockRepository.findBySymbol(symbol.toUpperCase());
-        if (stockObj != null) {
-            return stockRepository.findBySymbol(symbol.toUpperCase());
-        } else {
-            throw new StockNotFoundException(String.format("The Stock with Symbol: %s, was not found in the database", symbol.toUpperCase()));
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Create a new stock")
-    @RequestMapping(value = "/stocks", method = RequestMethod.POST, produces = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Stock createStock(
-            @ApiParam(value = "New stock object", required = true)
-            @RequestBody Stock newStock) {
-        newStock.setSymbol(newStock.getSymbol().toUpperCase());
-        return stockRepository.save(newStock);
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Update an existing stock by symbol")
-    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.PUT, produces = "application/json")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public Stock updateStockBySymbol(
-            @ApiParam(value = "A stock symbol", required = true)
-            @PathVariable String symbol,
-            @ApiParam(value = "Updated stock object", required = true)
-            @RequestBody Stock updatedStock) {
-        Stock foundStock = stockRepository.findBySymbol(symbol.toUpperCase());
-        if (foundStock != null) {
-            foundStock.setName(updatedStock.getName());
-            foundStock.setDescription(updatedStock.getDescription());
-            foundStock.setPrice(updatedStock.getPrice());
-            foundStock.setLastUpdated(updatedStock.getLastUpdated());
-            return stockRepository.save(foundStock);
-        } else {
-            throw new StockNotFoundException(String.format("The Stock with Symbol: %s, was not found in the database", symbol.toUpperCase()));
-        }
-    }
-}
-~~~
+```
 
 ✅Move onto the final endpoint!
 
@@ -1941,118 +1891,82 @@ public class StockController {
 ## DELETE /stocks/{symbol}
 Duration: 5
 
-In order to delete a stock object by its' symbol, we need to first create another method in our `StockRepository` interface. Add a `deleteDistinctBySymbol` method and take note of the word **distinct**. This is another keyword that is defined in the Spring query builder. 
+In order to delete a stock object, we need to generate a method in the repository first. 
 
-~~~java
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-import sample.api.stock.models.Stock;
+### `StockRepository.java`
 
+```java
 @Repository
 public interface StockRepository extends MongoRepository<Stock, String> {
 
     Stock findBySymbol(String symbol);
     void deleteDistinctBySymbol(String symbol);
 }
-~~~
+```
 
-Now in our controller, add a `@RequestMapping` to delete at the `/stocks/{symbol}` endpoint and pass in a `@PathVariable` (i.e. the stock symbol). Delete methods generally return a response code of `204`, i.e. No Content and no response message. To represent this, annotate the method in the controller with `@ResponseStatus(HttpStatus.NO_CONTENT)`. 
+The method has the word **distinct** in it, which is a keyword defined in the Spring query builder. The query actually results in: 
 
-~~~java
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+```sql
+select distinct …​ 
+where x.symbol = ?1
+```
 
-@RestController
-@RequestMapping("/api/v1")
-public class StockController {
+You can always append more attributes to the method to further narrow your search, but it is not needed in our case. For example, you could do: 
 
-    @Autowired
-    private StockRepository stockRepository;
+Function: `findBySymbolAndLastPrice`
+IDE intellisense suggestions: 
 
-    @ApiOperation(value = "Get all stocks")
-    @RequestMapping(value = "/stocks", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public StocksResponse getStocks() {
-        return new StocksResponse(stockRepository.findAll());
-    }
+![](elements/assets/springboot-api/stock-query-example.png)
 
-    //---------------------------------------------------------------------------------------------------------------
+Which will result in the following SQL: 
 
-    @ApiOperation(value = "Get a stock object by symbol")
-    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public Stock getStockBySymbol(
-            @ApiParam(value = "A stock symbol", required = true)
-            @PathVariable String symbol) {
-        Stock stockObj = stockRepository.findBySymbol(symbol.toUpperCase());
-        if (stockObj != null) {
-            return stockRepository.findBySymbol(symbol.toUpperCase());
-        } else {
-            throw new StockNotFoundException(String.format("The Stock with Symbol: %s, was not found in the database", symbol.toUpperCase()));
-        }
-    }
+```sql
+select distinct …​ 
+where x.symbol = ?1 and x.lastPrice = ?2
+```
 
-    //---------------------------------------------------------------------------------------------------------------
+Moving on to our service implementation, which is pretty self-explanatory. Traditionally, a **DELETE** method returns `NO_CONTENT`, however, we are trying to give our users the most amount of information. Therefore, we return an HTTP status of `204` or `NO_CONTENT` as part of the `status` attribute, but we also return the `symbol` of the stock object that was deleted just for precaution. 
 
-    @ApiOperation(value = "Create a new stock")
-    @RequestMapping(value = "/stocks", method = RequestMethod.POST, produces = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Stock createStock(
-            @ApiParam(value = "New stock object", required = true)
-            @RequestBody Stock newStock) {
-        newStock.setSymbol(newStock.getSymbol().toUpperCase());
-        return stockRepository.save(newStock);
-    }
+### `StockServiceImpl.java`
 
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Update an existing stock by symbol")
-    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.PUT, produces = "application/json")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public Stock updateStockBySymbol(
-            @ApiParam(value = "A stock symbol", required = true)
-            @PathVariable String symbol,
-            @ApiParam(value = "Updated stock object", required = true)
-            @RequestBody Stock updatedStock) {
-        Stock foundStock = stockRepository.findBySymbol(symbol.toUpperCase());
-        if (foundStock != null) {
-            foundStock.setName(updatedStock.getName());
-            foundStock.setDescription(updatedStock.getDescription());
-            foundStock.setPrice(updatedStock.getPrice());
-            foundStock.setLastUpdated(updatedStock.getLastUpdated());
-            return stockRepository.save(foundStock);
-        } else {
-            throw new StockNotFoundException(String.format("The Stock with Symbol: %s, was not found in the database", symbol.toUpperCase()));
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------------------------
-
-    @ApiOperation(value = "Delete a stock by symbol")
-    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.DELETE, produces = "application/json")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteStockBySymbol(
-            @ApiParam(value = "A stock symbol", required = true)
-            @PathVariable String symbol) {
-        stockRepository.deleteDistinctBySymbol(symbol.toUpperCase());
-    }
+```java
+public StockGeneralResponse deleteStock(String symbol) {
+    stockRepository.deleteDistinctBySymbol(symbol.toUpperCase());
+    return new StockGeneralResponse(symbol, HttpStatus.NO_CONTENT);
 }
-~~~
+```
 
-✅Let's add the user interface for Swagger now that all of our endpoints are complete!
+### `StockController.java`
+
+```java
+@ApiOperation(value = "Delete a stock by symbol")
+@DeleteMapping(value = "/stocks/{symbol}")
+public ResponseEntity<StockGeneralResponse> deleteStockBySymbol(
+        @ApiParam(value = "A stock symbol", required = true)
+        @PathVariable String symbol) {
+
+    ResponseEntity<StockGeneralResponse> responseEntity;
+    StockGeneralResponse serviceResponse = stockService.deleteStock(symbol);
+    responseEntity = new ResponseEntity<>(serviceResponse, serviceResponse.getHttpStatus());
+    return responseEntity;
+}
+```
+
+We are officially done with all of our five endpoints!
+
+✅Let's add the configuration needed to startup our Swagger UI on the browser! 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Add Swagger UI
+## Configure Swagger Framework
 Duration: 8
 
-Since we already setup the dependencies needed for Swagger UI, now all we have to do is add the Swagger Configuration class. 
+Since we already downloaded the dependencies needed for our Swagger UI, all we have left to do is add the configuration class. 
 
-Let's start by creating a class called `SwaggerConfig.java` under the **config** pacakge. Since this class is used to configure swagger add `@EnableSwagger2` and annotate the class with `@Configuration`. The version of the API is set to `1.0.0`, which, again, is following the rules of Semantic Versioning. You can read more about the springfox configurable properties on their website: [SpringFox Documentation](https://springfox.github.io/springfox/docs/current/)
+Create a class called, `SwaggerConfig.java` under the **configs** pacakge. 
 
-~~~java
+### `SwaggerConfig.java`
+
+```java
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -2064,49 +1978,67 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
     @Bean
     public Docket documentation() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
+                // we want to display the swagger for all classes that are annotated with @RestController
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                // display all paths not specifically to "/api/v1"...
                 .paths(PathSelectors.any())
                 .build()
+                // we could have added "/api/v1" here and have removed it from our rest controller
                 .pathMapping("/")
                 .genericModelSubstitutes(ResponseEntity.class)
                 .useDefaultResponseMessages(false)
+                // include the metadata details from the method below
                 .apiInfo(metadata());
     }
 
     private ApiInfo metadata() {
         return new ApiInfoBuilder()
+                // name of your API project
                 .title("Stock API")
-                .description("Sample Spring boot API")
-                .version("1.0.0")
-                .contact(new Contact("Zarin", "https://github.com/zarinlo", ""))
+                .description("Sample Java Spring Boot API using MongoDB Atlas")
+                // this version follows semantic versioning
+                // at the time this codelab was created, the project had been updated to 2.0.0 from 1.0.0
+                // there are breaking changes from the old code base, therefore we increment the major integer from 1 -> 2
+                .version("2.0.0")
+                .contact(new Contact("SOME_NAME", "SOME_URL", "SOME_EMAIL"))
                 .build();
     }
 }
-~~~
+```
+You can read more about the springfox configurable properties on their website: [SpringFox Documentation](https://springfox.github.io/springfox/docs/current/)
 
-✅Move onto adding the next configuration. 
+✅Move onto to the web security configuration file. 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Configure CORS
+## Configure Global CORS
 Duration: 10
 
-Cross-origin resource sharing, also known as CORS, is a mechanism that allows restricted resources (e.g. fonts, images) on a web page to be requested from another domain outside the domain from which the first resource was served. A web page may freely embed cross-origin images, stylesheets, scripts, iFrames, and videos. 
+### What is CORS?
 
-CORS defines a way in which a browser and server can interact to determine whether or not it is safe to allow the cross-origin request. 
+For security reasons, browsers prohibit AJAX calls to resources residing outside the current origin. For example, as you’re checking your bank account in one tab, you could have the evil.com website open in another tab. The scripts from evil.com should not be able to make AJAX requests to your bank API (e.g., withdrawing money from your account!) using your credentials.
 
-To enable this, create a `CorsConfig.java` class under the **config** package. You can reference the [Web Application Security](https://docs.spring.io/spring-security/site/docs/current/reference/html/cors.html) section for further details. 
+Cross-origin resource sharing (CORS) is a W3C specification implemented by most browsers that allows you to specify in a flexible way what kind of cross domain requests are authorized, instead of using some less secured and less powerful hacks like IFRAME or JSONP. [excerpt from [docs.spring.io](https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/cors.html)]
 
-~~~java
+In Spring, CORS must be processed before Spring Security because the pre-flight request will not contain any cookies. Cookies are not allowed by default to avoid increasing the surface attack of the web application (for example via exposing sensitive user-specific information like **CSRF** tokens). If you set `allowCredentials` property to `true`, then pre-flight responses will include the header `Access-Control-Allow-Credentials` with value set to `true` (see below).
+
+
+Therefore, if the request does not contain any cookies and Spring Security is first, the request will determine the user is not authenticated (since there are no cookies in the request) and reject it.
+
+The easiest way to ensure that CORS is handled first is to use the `CorsFilter`. Users can integrate the `CorsFilter` with Spring Security by providing a `CorsConfigurationSource`. 
+
+We will enable this by create a `WebSecurityConfig.java` class under the **configs** package.
+
+### `WebSecurityConfig.java`
+```java
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -2118,83 +2050,130 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+// annotation indicates that this class is a configuration
 @Configuration
+// annotation required to extend this class
 @EnableWebSecurity
-public class CorsConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    // grab the active profile that has been declared either from the run/debug config or from the command line startup arguments 
+    @Value("${spring.profiles.active}")
+    private String springProfile;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // enabling cors support
         http.cors();
     }
 
     @Bean
+    // this is a pretty standard cors config, which you can further customize
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers","Access-Control-Allow-Origin","Access-Control-Request-Method", "Access-Control-Request-Headers","Origin","Cache-Control", "Content-Type", "Authorization"));
-        configuration.setAllowedMethods(Arrays.asList("DELETE", "GET", "POST", "PATCH", "PUT"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
+        // if we are running our local profile, allow the request to include browser cookies
+        // again, note: browser cookies contain user specific information
+        if (springProfile.equals("local")) {
+            configuration.setAllowCredentials(true);
+        }
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-}
-~~~
 
-✅Finalize your application properties.
+}
+```
+
+✅Go to the next section to finalize the web security configuration file. 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Spring Properties and Actuators
-Duration: 5
+## Configure CSRF
+Duration: 6
 
-We covered how to add Spring properties to the `application-local.properties`, so now we'll go over different [Spring actuators](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html) that you can add to the `application.properties` file. Notice that we are not adding these actuators to the `local` properties file, because we want to enable certain features for the entire application.
+### What is CSRF?
 
-Actuator endpoints let you monitor and interact with your application. Spring boot includes a number of built-in endpoints and lets you add your own as well. 
+We were discussing how cookies are not allowed by default to avoid increasing the surface attack of a web application. A cookie includes sensitive user-specific information like **CSRF** tokens. 
+
+But what does CSRF stand for and what does it mean? 
+
+Cross-Site Request Forgery (CSRF) is an attack that forces an end user to execute unwanted actions on a web application in which they’re currently authenticated. With a little help of social engineering (such as sending a link via email or chat), an attacker may trick the users of a web application into executing actions of the attacker’s choosing. If the victim is a normal user, a successful CSRF attack can force the user to perform state changing requests like transferring funds, changing their email address, and so forth. If the victim is an administrative account, CSRF can compromise the entire web application. [excerpt from [Open Web Application Security Project® (OWASP)](https://owasp.org/www-community/attacks/csrf)]
+
+Let's see how this is handled in Spring, which by default **enables** CSRF in Java configurations. The only class which can **disable** this is `WebSecurityConfigurerAdapter`. 
+
+We accomplish disabling CSRF by modifying the `configure` method in the configuration below. 
+
+### `WebSecurityConfig.java`
+```java
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.cors();
+    // if we are running our local profile, then disable CSRF just so we can test things
+    if ( !(springProfile.equals("local"))) {
+        http.csrf().disable();
+    }
+}
+```
+
+🚨We are almost done, just add the final touches to this project! 
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Configure Spring Actuators
+Duration: 4
+
+We covered how to add Spring properties to `application.yaml` files, so now we'll go over [Spring actuators](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html). Actuators will be enabled in the base properties file so that we can monitor certain endpoints no matter what profile is activated. 
+
+Actuator endpoints help you monitor application level system settings. Spring boot includes a number of built-in endpoints and lets you add your own as well. 
+
+Each individual endpoint can be enabled or disabled and exposed (made remotely accessible) over HTTP or JMX. An endpoint is considered to be available when it is both enabled and exposed. The built-in endpoints will only be auto-configured when they are available. Most applications choose exposure via HTTP, where the ID of the endpoint along with a prefix of `/actuator` is mapped to a URL. For example, by default, the health endpoint is mapped to `/actuator/health`. 
 
 To enable spring actuator support, include the following in your `pom.xml` file. 
 
-~~~xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-actuator</artifactId>
-</dependency>
-~~~
+```xml
+<dependencies>
+    ...
+    <!--Spring-->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    ...
+</dependencies>
+```
 
 ### Actuator Endpoints
 
-Let's add a couple of endpoints to the `application.properties` file to demonstrate the use of actuators. By default, actuators can be discovered via the `/actuator` endpoint. If you want to override this so that you can access the endpoints via the root path, `\`, we will include the first line as shown. You can add multiple web endpoints, just check the spring actuator documentation linked. 
+As mentioned, by default, actuators can be discovered via the `/actuator` endpoint. If you want to override this so that you can access the endpoints via the root path, i.e. `/`, we will set the `base-path` to a simple forward slash. Furhtermore, we will enable a couple of actuator endpoints, all in our `application.yaml` file, like so: 
 
-~~~java
-management.endpoints.web.base-path=/
-management.endpoints.web.exposure.include=health, metrics, httptrace, mappings
-~~~
-
-### Application Properties 
-
-The `LocalDateTime` property in the Swagger UI will show up as an object instead of an ISO8601 string. In order to fix this, we have to add the following [Jackson ObjectMapper](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper) environment property. Keep in mind, you will add this to your `application.properties` file vs your `application-local.properties` file because we want this to be enabled for every environment, and not just specifically for your local testing. 
-
-~~~java
-spring.jackson.serialization.write-dates-as-timestamps=false
-~~~
-
+### `application.yaml`
+```yaml
+# actuators
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health, metrics, mappings
+```
 ✅Next, add in your final build steps. 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Finalize Build Configurations
 Duration: 5
 
-In your `pom.xml` file we need to add the **repackage** goal for the **spring-boot-maven-plugin**. This will package the jar to be an executable so that we can run it as a standalone process. Lastly, add in the **maven-compiler-plugin** so that we can set the source compiler and target for our application. You can set the compiler and target in your IDE as well, but this is another way to do just that. 
+In your `pom.xml` file we need to add the **repackage** goal for the the **spring-boot-maven-plugin**. This will package the jar to be an executable so that we can run it as a standalone process. Lastly, add in the **maven-compiler-plugin** so that we can set the source compiler and target java version for our application. You can set the compiler and target in your IDE as well, but this is another way to do so, that way any CI/CD pipeline will understand how to build the source code.
 
 Positive
-: If you are using Java 1.8, change the 1.10 to 1.8.
+: Depending on what version of Java you are using, the values for the tag, `<configuration>`, may change. They may not always be the same version of java, since this is dependent on what version of the compiler you are using and if it has been updated to use the latest version of java as your project uses. 
 
-~~~xml
+```xml
 <build>
     <plugins>
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>2.0.3.RELEASE</version>
+            <version>2.0.5.RELEASE</version>
             <executions>
                 <execution>
                     <goals>
@@ -2206,60 +2185,76 @@ Positive
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
             <configuration>
-                <source>1.10</source>
-                <target>1.10</target>
+                <source>16</source>
+                <target>16</target>
             </configuration>
         </plugin>
     </plugins>
 </build>
-~~~
+```
 
-Fill in the `properties` tag if it was not set already by Spring Initialzr.
+Finally, the `<properties>` tag at the top of the `pom.xml` file should already have the following attributes. Just make sure the `java.version` is set correclty for your project. 
 
-~~~xml
+```xml
 <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.10</java.version>
+    <java.version>16</java.version>
+    ...
 </properties>
-~~~
+```
 
-✅Thats it! You are now ready to run your API locally! 
+✅Thats it! You are now ready to run your API locally and view the Swagger! 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Run API Locally
+## Startup API and View Swagger
 Duration: 3
 
-Run the following commands in your root directory.
+Just a reminder...
 
-### MacOS Users
-~~~sh
-./mvnw clean install 
-./mvnw spring-boot:run
-~~~
+### Windows
+```bash
+# maven not configured on $PATH
+mvnw.cmd clean install
+mvnw.cmd spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=local 
+```
 
-### Windows Users
-~~~sh
-mvnw.cmd clean install 
-mvnw.cmd spring-boot:run
-~~~
+### MacOS
+```bash
+# maven not configured on $PATH
+./mvnw clean install
+./mvnw spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=local
+```
 
-Navigate to [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html). You should see the Swagger UI. From here, you can expand each endpoint and test out all of your API operations with the "Try it out" button. 
+### OS Agnostic
+```bash
+mvn clean install
+mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=local
+```
 
-![](elements/assets/springboot-api/swagger-ui.png)
+![](elements/assets/springboot-api/run-app-via-cmd-line.png)
 
-SpringFox auto-generates Swagger in JSON format, which can be found at [http://localhost:8080/v2/api-docs](http://localhost:8080/v2/api-docs). The **v2** stands for the version of Swagger, not the version of the API. You can see the stock data stored in mongo at [http://localhost:8080/api/v1/stocks](http://localhost:8080/api/v1/stocks). Under the **resources/static** directory, you will find the `swagger.yaml` API Spec as well as JSON the formatted file.  
+### Swagger and Data Links
 
-You can also view the actuator endpoints enabled here: 
+- Swagger includes automated documentation that allows you to test out each endpoint by expanding the sections and clicking on the "Try it out" button on your browser!
+- Swagger UI available at: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+- SpringFox autogenerates Swagger in JSON format, which can be found at: [http://localhost:8080/v2/api-docs](http://localhost:8080/v2/api-docs) (where the `v2` stands for the version of Swagger, not the version of the API)
+- Open API spec 3.0.3: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+- Stock data: [http://localhost:8080/api/v1/stocks](http://localhost:8080/api/v1/stocks)
+
+![](elements/assets/springboot-api/swagger.png)
+
+### Spring Actuator Endpoints 
+
 - Health: [http://localhost:8080/health](http://localhost:8080/health)
 - Metrics: [http://localhost:8080/metrics](http://localhost:8080/metrics)
-- Http Trace: [http://localhost:8080/httptrace](http://localhost:8080/httptrace)
 - Mappings: [http://localhost:8080/mappings](http://localhost:8080/mappings)
 
 ➡️ [Download full codebase](https://github.com/zarinlo/sample-springboot-api) 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## Congratulations!
+## and...
 
 ![](elements/assets/springboot-api/congrats.jpg)
