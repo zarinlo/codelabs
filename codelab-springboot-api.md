@@ -656,6 +656,72 @@ To synchronize your project, right-click on the project folder and hit Synchroni
 ✅Continue on to the next step to start creating the Object model classes for a Stock as we defined in our API Spec. 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Setup gitignore
+Duration: 5
+
+### What is gitignore
+Throughout this tutorial, the expectation is that the user will be commiting code often to one of the following source code repositories: GitHub, GitLab (use what is available to you)
+
+That being said, there are many files produced by your OS, or IDE, or a build tool, that are not required to be versioned inside a code repo. Therefore, we ignore those files when pushing to a source code repo. 
+
+Fortunately, there is a website that will help generate this file, called `.gitignore`. The file is a plain text file where each line contains a pattern for files/directories to ignore. Generally, this is placed in the root folder of the repository, and that's what I recommend. However, you can put it in any folder in the repository and you can also have multiple. 
+
+Further, if you forget to add a specific file to the `.gitignore`, there is a way to *untrack* that file before pushing the code. 
+
+You can learn more here: [Gitignore Explained: What is Gitignore and How to Add it to Your Repo](https://www.freecodecamp.org/news/gitignore-what-is-it-and-how-to-add-to-repo/)
+
+### Generate gitignore 
+
+Go here: [gitignore.io](https://www.toptal.com/developers/gitignore)
+
+Enter the values for the OS, IDE, build tools, etc, that are relevant to your development setup:
+
+![](elements/assets/springboot-api/gitignore.png)
+
+Press "Create" and this should open up a browser window with the detailed inputs for your `.gitignore` file. 
+
+Here is the sample output:
+
+### `.gitignore`
+```text
+# Created by https://www.toptal.com/developers/gitignore/api/intellij+iml,maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=intellij+iml,maven
+
+### Intellij+iml ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+...
+
+### Intellij+iml Patch ###
+# Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
+
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+
+# End of https://www.toptal.com/developers/gitignore/api/intellij+iml,maven
+```
+
+Copy the whole thing and create a `.gitignore` file in the root directory of this project. Paste the values in the file and hit save. 
+
+✅All done! Now let's get coding 😎
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Create API Object Models
 Duration: 8
 

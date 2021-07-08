@@ -198,7 +198,7 @@ tags:
 <p>Before we do so, we must define the schemas for the request and response objects from the <strong>Latest Stock API</strong> (reference the Overview slide for more details) inventory.</p>
 <aside class="special"><p>Note: The data type of each attribute in the following stock object is predefined in the API documentation for the <strong>Latest Stock API</strong>.</p>
 </aside>
-<p>Insert this directly after the <code>tags</code> section.</p>
+<p>Insert the following section directly after the <code>tags</code> section.</p>
 <h2>Stock Object</h2>
 <pre><code>components:
   schemas:
@@ -699,6 +699,58 @@ Java version: 16.0.1, vendor: Homebrew
 <li>Reference: <a href="https://www.jetbrains.com/help/idea/maven-projects-tool-window.html" target="_blank">Maven Projects Tool Window</a></li>
 </ul>
 <p>✅Continue on to the next step to start creating the Object model classes for a Stock as we defined in our API Spec.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setup gitignore" duration="5">
+        <h2>What is gitignore</h2>
+<p>Throughout this tutorial, the expectation is that the user will be commiting code often to one of the following source code repositories: GitHub, GitLab (use what is available to you)</p>
+<p>That being said, there are many files produced by your OS, or IDE, or a build tool, that are not required to be versioned inside a code repo. Therefore, we ignore those files when pushing to a source code repo.</p>
+<p>Fortunately, there is a website that will help generate this file, called <code>.gitignore</code>. The file is a plain text file where each line contains a pattern for files/directories to ignore. Generally, this is placed in the root folder of the repository, and that&#39;s what I recommend. However, you can put it in any folder in the repository and you can also have multiple.</p>
+<p>Further, if you forget to add a specific file to the <code>.gitignore</code>, there is a way to <em>untrack</em> that file before pushing the code.</p>
+<p>You can learn more here: <a href="https://www.freecodecamp.org/news/gitignore-what-is-it-and-how-to-add-to-repo/" target="_blank">Gitignore Explained: What is Gitignore and How to Add it to Your Repo</a></p>
+<h2>Generate gitignore</h2>
+<p>Go here: <a href="https://www.toptal.com/developers/gitignore" target="_blank">gitignore.io</a></p>
+<p>Enter the values for the OS, IDE, build tools, etc, that are relevant to your development setup:</p>
+<p><img src="img/18867f1f0acc6885.png"></p>
+<p>Press &#34;Create&#34; and this should open up a browser window with the detailed inputs for your <code>.gitignore</code> file.</p>
+<p>Here is the sample output:</p>
+<h2><code>.gitignore</code></h2>
+<pre><code># Created by https://www.toptal.com/developers/gitignore/api/intellij+iml,maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=intellij+iml,maven
+
+### Intellij+iml ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+...
+
+### Intellij+iml Patch ###
+# Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
+
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+
+# End of https://www.toptal.com/developers/gitignore/api/intellij+iml,maven
+</code></pre>
+<p>Copy the whole thing and create a <code>.gitignore</code> file in the root directory of this project. Paste the values in the file and hit save.</p>
+<p>✅All done! Now let&#39;s get coding 😎</p>
 
 
       </google-codelab-step>
