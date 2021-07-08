@@ -1355,9 +1355,9 @@ public class ApiApplication {
         <p>Now that you have setup the service that is going to populate the database, let&#39;s build a service that will retrieve all the records from the database, i.e. <code>getAllStocks()</code>.</p>
 <p>In the service implementation class, define the following function.</p>
 <h2><code>StockServiceImpl.java</code></h2>
-<pre><code>    public StockGeneralResponse getAllStocks() {
-        return new StockGeneralResponse(stockRepository.findAll(), HttpStatus.OK);
-    }
+<pre><code>public StockGeneralResponse getAllStocks() {
+    return new StockGeneralResponse(stockRepository.findAll(), HttpStatus.OK);
+}
 </code></pre>
 <p>All we are doing is calling the stock repository&#39;s <code>findAll</code> method, which is one of the default methods provided by the JPA&#39;s as stated in the <strong>Setup Stock MongoDB Repository</strong> section.</p>
 

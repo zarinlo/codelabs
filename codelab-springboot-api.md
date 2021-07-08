@@ -1386,9 +1386,9 @@ In the service implementation class, define the following function.
 ### `StockServiceImpl.java`
 
 ```java
-    public StockGeneralResponse getAllStocks() {
-        return new StockGeneralResponse(stockRepository.findAll(), HttpStatus.OK);
-    }
+public StockGeneralResponse getAllStocks() {
+    return new StockGeneralResponse(stockRepository.findAll(), HttpStatus.OK);
+}
 ```
 
 All we are doing is calling the stock repository's `findAll` method, which is one of the default methods provided by the JPA's as stated in the **Setup Stock MongoDB Repository** section. 
