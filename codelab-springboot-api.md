@@ -85,7 +85,7 @@ Spec Driven Development is the process of generating a concise spec that can be 
 - [API Blueprint](https://apiblueprint.org/)
 - [Swagger](https://swagger.io/) (renamed to [OpenAPI Spec](https://github.com/OAI/OpenAPI-Specification))
 
-We will be utilizing Swagger framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allowed both humans and computers to discover and understand the capabilities of a service without requiring access to source code. 
+We will be utilizing Swagger framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allows both humans and computers to discover and understand the capabilities of a service without requiring access to source code. 
 
 ✅Move on to the next step to start building your API Spec!
 
@@ -134,9 +134,12 @@ Now let's break it down:
 
 Let's add the first REST endpoint definition: **GET** `/stocks` endpoint.
 
-Before we do so, we must define the schemas for the request and response objects from the Latest Stock API (reference the Overview slide for more details) inventory.
+Before we do so, we must define the schemas for the request and response objects from the **Latest Stock API** (reference the Overview slide for more details) inventory.
 
-Insert this directly after the `tags` section. 
+Positive
+: Note: The data type of each attribute in the following stock object is predefined in the API documentation for the **Latest Stock API**.
+
+Insert the following section directly after the `tags` section. 
 
 ### Stock Object
 

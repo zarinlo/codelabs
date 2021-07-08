@@ -147,7 +147,7 @@
 <li><a href="https://apiblueprint.org/" target="_blank">API Blueprint</a></li>
 <li><a href="https://swagger.io/" target="_blank">Swagger</a> (renamed to <a href="https://github.com/OAI/OpenAPI-Specification" target="_blank">OpenAPI Spec</a>)</li>
 </ul>
-<p>We will be utilizing Swagger framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allowed both humans and computers to discover and understand the capabilities of a service without requiring access to source code.</p>
+<p>We will be utilizing Swagger framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allows both humans and computers to discover and understand the capabilities of a service without requiring access to source code.</p>
 <p>✅Move on to the next step to start building your API Spec!</p>
 
 
@@ -195,7 +195,9 @@ tags:
 </td></tr>
 </table>
 <p>Let&#39;s add the first REST endpoint definition: <strong>GET</strong><code>/stocks</code> endpoint.</p>
-<p>Before we do so, we must define the schemas for the request and response objects from the Latest Stock API (reference the Overview slide for more details) inventory.</p>
+<p>Before we do so, we must define the schemas for the request and response objects from the <strong>Latest Stock API</strong> (reference the Overview slide for more details) inventory.</p>
+<aside class="special"><p>Note: The data type of each attribute in the following stock object is predefined in the API documentation for the <strong>Latest Stock API</strong>.</p>
+</aside>
 <p>Insert this directly after the <code>tags</code> section.</p>
 <h2>Stock Object</h2>
 <pre><code>components:
