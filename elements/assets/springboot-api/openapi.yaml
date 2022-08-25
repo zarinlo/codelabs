@@ -45,8 +45,8 @@ paths:
             schema:
               "$ref": "#/components/schemas/Stock"
       responses:
-        '200':
-          description: 'Successful: Stock(s) found.'
+        '201':
+          description: 'Created: Stock created.'
           content:
             application/json:
               schema:
@@ -111,8 +111,8 @@ paths:
           type: number
           format: double
       responses:
-        '200':
-          description: 'Successful: Stock(s) found.'
+        '202':
+          description: 'Accepted: Stock updated'
           content:
             application/json:
               schema:
@@ -139,8 +139,8 @@ paths:
         schema:
           type: string
       responses:
-        '200':
-          description: 'Successful: Stock(s) found.'
+        '204':
+          description: 'No Content: Stock deleted.'
           content:
             application/json:
               schema:

@@ -1,15 +1,14 @@
 {
   "environment": "web",
-  "source": "codelab-springboot-api.md",
   "format": "html",
-  "prefix": "../../",
+  "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-07-08T10:25:07-04:00",
+  "updated": "2022-08-25T00:08:54-04:00",
   "id": "springboot-api",
   "duration": 232,
   "title": "How to Design a RESTful Spring Boot API",
-  "author": "Zarin Lokhandwala",
   "summary": "How to Design a RESTful Spring Boot API",
+  "source": "codelab-springboot-api.md",
   "theme": "",
   "status": [
     "published"
