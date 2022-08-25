@@ -651,7 +651,7 @@ Once you have imported the project, there may be times where you need to reimpor
 
 ![](elements/assets/springboot-api/reimport-maven-proj.png)
 
-2. Run [Ivalidate Caches](https://www.jetbrains.com/help/idea/invalidate-caches.html) and check the box that says, "Clear VCS Log caches and indexes".
+2. Run [Invalidate Caches](https://www.jetbrains.com/help/idea/invalidate-caches.html) and check the box that says, "Clear VCS Log caches and indexes".
 
 3. Synchronize your project by right-clicking on the project folder and hitting Synchronize. You can also do this from the maven projects tool window. Follow: [Maven Projects Tool Window](https://www.jetbrains.com/help/idea/maven-projects-tool-window.html)
 
@@ -746,9 +746,6 @@ You will need to Generate getters and setters for this Object class so that you 
 ### `Stock.java`
 
 ```java
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 public class Stock {
     public double dayHigh;
     public double dayLow;
@@ -1062,7 +1059,7 @@ public interface StockService {
 - The rest are self explanatory. 
 
 <aside class="negative">
-Comment out every function but the "populateStockDatabase()" one, because the IDE will complain about any function that has been defined in the interface, that does not have a proper implementation. 
+Comment out every function except for the "populateStockDatabase()" one, because the IDE will complain about any function that has been defined in the interface, that does not have a proper implementation. 
 </aside>
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
@@ -1715,7 +1712,7 @@ Duration: 5
 At this point, let's startup 🚀 the API locally!
 
 <aside class="negative">
-Don't forget to comment out any function in the `StockService.java` interface that does not have a proper implemntation in the `StockServiceImpl.java` class. Ergo, only "populateStockDatabase()" and "getAllStocks()" should be active. 
+Don't forget to comment out every function in the "StockService.java" interface, that has not been implemented in the "StockServiceImpl.java" class. Ergo, only "populateStockDatabase()" and "getAllStocks()" should be active. Comment out the other methods. 
 </aside>
 
 ### Option 1

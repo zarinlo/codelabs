@@ -717,7 +717,7 @@ Java version: 16.0.1, vendor: Homebrew
 </ol>
 <p class="image-container"><img src="img/dbf0d7d163dec787.png"></p>
 <ol type="1" start="2">
-<li>Run <a href="https://www.jetbrains.com/help/idea/invalidate-caches.html" target="_blank">Ivalidate Caches</a> and check the box that says, &#34;Clear VCS Log caches and indexes&#34;.</li>
+<li>Run <a href="https://www.jetbrains.com/help/idea/invalidate-caches.html" target="_blank">Invalidate Caches</a> and check the box that says, &#34;Clear VCS Log caches and indexes&#34;.</li>
 <li>Synchronize your project by right-clicking on the project folder and hitting Synchronize. You can also do this from the maven projects tool window. Follow: <a href="https://www.jetbrains.com/help/idea/maven-projects-tool-window.html" target="_blank">Maven Projects Tool Window</a></li>
 </ol>
 <p>✅ Continue on to the next step to start creating the Object model classes for a Stock as we defined in our API Spec.</p>
@@ -795,10 +795,7 @@ buildNumber.properties
 </ul>
 <p>You will need to Generate getters and setters for this Object class so that you can access and modify the objects as needed. Under <strong>Code</strong> –&gt; <strong>Generate</strong> select <strong>Getter and Setter</strong> and select all the attributes to generate them for. Repeat the same steps to generate a Constructor as well.</p>
 <h2 is-upgraded><code>Stock.java</code></h2>
-<pre><code language="language-java" class="language-java">import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-public class Stock {
+<pre><code language="language-java" class="language-java">public class Stock {
     public double dayHigh;
     public double dayLow;
     public String identifier;
@@ -1090,7 +1087,7 @@ public interface StockService {
 <li>We are returning the object <code>StockGeneralResponse</code> for each endpoint, even for the <code>DELETE</code> operation, which typically returns no content. More on this later.</li>
 <li>The rest are self explanatory.</li>
 </ul>
-<aside class="warning"><p> Comment out every function but the &#34;populateStockDatabase()&#34; one, because the IDE will complain about any function that has been defined in the interface, that does not have a proper implementation.  </p>
+<aside class="warning"><p> Comment out every function except for the &#34;populateStockDatabase()&#34; one, because the IDE will complain about any function that has been defined in the interface, that does not have a proper implementation.  </p>
 </aside>
 
 
@@ -1660,7 +1657,7 @@ public class Test implements Serializable {
     
       <google-codelab-step label="Startup Application" duration="5">
         <p>At this point, let&#39;s startup 🚀 the API locally!</p>
-<aside class="warning"><p> Don&#39;t forget to comment out any function in the `StockService.java` interface that does not have a proper implemntation in the `StockServiceImpl.java` class. Ergo, only &#34;populateStockDatabase()&#34; and &#34;getAllStocks()&#34; should be active.  </p>
+<aside class="warning"><p> Don&#39;t forget to comment out every function in the &#34;StockService.java&#34; interface, that has not been implemented in the &#34;StockServiceImpl.java&#34; class. Ergo, only &#34;populateStockDatabase()&#34; and &#34;getAllStocks()&#34; should be active. Comment out the other methods.  </p>
 </aside>
 <h2 is-upgraded>Option 1</h2>
 <p>Utilize the Run/Debug config by pushing the play button in the toolbar of your IDE as shown below:</p>
