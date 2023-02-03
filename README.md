@@ -20,4 +20,4 @@ To understand more about the local environment required to set this up, please r
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="../elements/codelab.html">
     ```
-- Run python simple server using `python -m SimpleHTTPServer` in the root directory, then navigate to the folder resulting from the `claat export` command to see the codelab on your browser on: http://localhost:8000/
+- Run either python simple server using `python3 -m http.server`, or `claat serve ${name_of_markdown_file}` in the root directory. If you used python, then navigate to the folder resulting from the `claat export` command to see the codelab on your browser at http://localhost:8000/. If you used claat, then navigate to the folder on your browser at http://localhost:9090/.
