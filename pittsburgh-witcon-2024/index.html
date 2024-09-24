@@ -286,17 +286,22 @@ ETag: &#34;5f6cabc3-15e&#34;
 <ul>
 <li>Envelope the data inside an object:</li>
 </ul>
-<pre><code>{
+<pre><code language="language-json" class="language-json">{
   data: [
     { ... },
     { ... }
   ]
 }
-
-Don&#39;t: 
-- Return a top-level array: 
 </code></pre>
-<p>[ { ... }, { ... } ]</p>
+<p>Don&#39;t:</p>
+<ul>
+<li>Return a top-level array:</li>
+</ul>
+<pre><code language="language-text" class="language-text">[
+  { ... },
+  { ... }
+]
+</code></pre>
 
 
       </google-codelab-step>

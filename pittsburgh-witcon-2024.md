@@ -259,21 +259,23 @@ Key Points:
 
 Do:
 - Envelope the data inside an object: 
-```
+```json
 {
   data: [
     { ... },
     { ... }
   ]
 }
+```
 
 Don't: 
 - Return a top-level array: 
-```
+```text
 [
   { ... },
   { ... }
 ]
+```
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## HTTP Request Example
