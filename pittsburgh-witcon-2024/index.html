@@ -1,0 +1,518 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>API Refresher Course</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="pittsburgh-witcon-2024"
+                  title="API Refresher Course"
+                  environment="web"
+                  feedback-link="https://zarin.io">
+    
+      <google-codelab-step label="Overview" duration="1">
+        <h2 is-upgraded>First Half</h2>
+<p>✅ Understanding HTTP <br>✅ HTTP Request Lifecycle <br>✅ Web Architecture Overview <br>✅ HTTP Request Structure <br>✅ HTTP Response Structure <br>✅ HTTP Request Example <br>✅ REST API 101 <br>✅ API Versioning <br>✅ API Routes <br>✅ API Security Concepts <br>✅ API Consumption with Postman REST Client</p>
+<h2 is-upgraded>Second Half</h2>
+<p>✅ Spec Driven Development <br>✅ Use AI to Scaffold Project</p>
+<h2 is-upgraded>Prerequisties</h2>
+<ul>
+<li>Download <a href="https://www.postman.com/" target="_blank">Postman</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Understanding HTTP" duration="1">
+        <h2 is-upgraded>What is HTTP?</h2>
+<ul>
+<li>HTTP (HyperText Transfer Protocol) is a stateless, communication protocol</li>
+<li>A protocol is a system of rules</li>
+<li>Stateless means each request is independent, and the server doesn&#39;t store session information</li>
+<li>An HTTP packet is a packet of data that carries information between client and server</li>
+<li>The <strong>S</strong> at the end of HTTP, stands for secured</li>
+</ul>
+<p class="image-container"><img alt="drawing" style="width: 500.00px" src="img/e0b7749ea4e1a3cb.png"></p>
+<h2 is-upgraded>HTTP Versions</h2>
+<ul>
+<li><code>HTTP/1.0</code>: Basic functionality with no persistence between requests.</li>
+<li><code>HTTP/1.1</code>: Persistent connections, better caching, but still suffers from limitations like head-of-line blocking. <ul>
+<li><strong>Head-of-line</strong> is when the first packet in a queue prevents other packets from being processed, creating a bottleneck</li>
+</ul>
+</li>
+<li><code>HTTP/2</code>: Major performance improvements with multiplexing and binary framing but still reliant on TCP.</li>
+<li><code>HTTP/3</code>: Uses QUIC over UDP, eliminating head-of-line blocking and improving connection speed and reliability. <ul>
+<li><strong>Quick UDP Internet Connections</strong> developed by Google runs over UDP and provides features similar to TCP</li>
+</ul>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="HTTP Request Lifecycle" duration="1">
+        <p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/1c6ddc0d057af7d2.png"></p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Key</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Value</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>DNS Lookup</p>
+</td><td colspan="1" rowspan="1"><p>Resolve domain names (i.e., website addresses) to IP addresses, a unique number that identifies a device connected to the internet.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>TCP 3-Way Handshake</p>
+</td><td colspan="1" rowspan="1"><p>Establishing a connection between client and server.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>HTTP Request</p>
+</td><td colspan="1" rowspan="1"><p>Client sends an HTTP request.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>HTTP Response</p>
+</td><td colspan="1" rowspan="1"><p>Server processes and returns the appropriate response.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Connection Close</p>
+</td><td colspan="1" rowspan="1"><p>Connections can be set to persistent, therefore reused (i.e., closed by client), or one time connections (i.e., closed by server).</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Web Architecture Overview" duration="1">
+        <p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/3a67649013adce5.png"></p>
+<h2 is-upgraded>HTTP Request Flow</h2>
+<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/791818163de77ab3.png"></p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Key</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Value</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Content Delivery Network (CDN)</p>
+</td><td colspan="1" rowspan="1"><p>A middleman cache (i.e., proxy cache) between a user and a server, often close to the user geographically, that stores copies of website content to reduce latency and improve load times.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Load Balancer</p>
+</td><td colspan="1" rowspan="1"><p>A device/software that distributes network traffic across multiple servers to improve efficiency and reliability.</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="HTTP Request Structure" duration="3">
+        <p class="image-container"><img alt="drawing" style="width: 300.00px" src="img/cefdc3646d7a17c.png"></p>
+<h2 is-upgraded>URL Components</h2>
+<pre><code>https://www.wesellvehicles.com/vehicles/bmw/x3?year=2017&amp;exterior-color=navy&amp;page-number=1&amp;page-size=25
+</code></pre>
+<ol type="1">
+<li>Scheme / Protocol</li>
+</ol>
+<ul>
+<li><code>https://</code></li>
+<li>This specifies the protocol used for communication. It could be <code>http</code>, <code>https</code>, etc. <code>https</code> is secure and encrypted.</li>
+</ul>
+<ol type="1" start="2">
+<li>Host / Domain</li>
+</ol>
+<ul>
+<li><code>www.wesellvehicles.com</code></li>
+<li>This is the domain name of the server where the resource is located. It typically includes the subdomain (<code>www</code>), the second-level domain (<code>wesellvehicles</code>), and the top-level domain (<code>.com</code>). <ul>
+<li>Root Domain: <code>"."</code></li>
+<li>Top-Level Domains: <code>.edu</code>, <code>.org</code>, <code>.gov</code>, <code>.com</code></li>
+<li>Second-Level Domains: <code>khanacademy.org</code>, <code>microsoft.com</code></li>
+<li>Third-Level Domains: <code>www.khanacademy.org</code>, <code>support.microsoft.com</code></li>
+</ul>
+</li>
+</ul>
+<ol type="1" start="3">
+<li>Path</li>
+</ol>
+<ul>
+<li><code>/vehicles/bmw/x3</code></li>
+<li>The path represents the specific resource or endpoint on the server you are trying to access.</li>
+</ul>
+<ol type="1" start="4">
+<li>Query Parameters</li>
+</ol>
+<ul>
+<li><code>?year=2017&exterior-color=navy&page-number=1&page-size=25</code></li>
+<li>The query string begins with <code>?</code> and contains key-value pairs separated by <code>&</code>. Each key-value pair provides parameters for the request: <ul>
+<li><code>year=2017</code>: The year the vehicle was manufactured.</li>
+<li><code>exterior-color=navy</code>: The exterior color of the vehicle.</li>
+<li><code>page-number=1</code>: Provide the first page of results.</li>
+<li><code>page-size=25</code>: Request to see 25 items per page of results.</li>
+</ul>
+</li>
+</ul>
+<p>⭐️ Bonus question: What port does HTTP communicate over?</p>
+<h2 is-upgraded>HTTP Methods</h2>
+<p>Methods are ways to request data from servers. They are in the form of verbs. Often referred to as CRUD operations.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Method</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Usage</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>GET</code></p>
+</td><td colspan="1" rowspan="1"><p>Get data from the server</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>POST</code></p>
+</td><td colspan="1" rowspan="1"><p>Create a new resource on the server</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>PUT</code></p>
+</td><td colspan="1" rowspan="1"><p>Update an existing resource on the server</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>DELETE</code></p>
+</td><td colspan="1" rowspan="1"><p>Delete resource(s) on the server</p>
+</td></tr>
+</table>
+<h2 is-upgraded>HTTP Request Headers</h2>
+<p>Imagine sending a letter through the postal service. The envelope is the part that has your address and the person&#39;s address. That&#39;s like the HTTP headers, which have information about where the message is going and how it&#39;s being sent</p>
+<p>Common Request Headers:</p>
+<ul>
+<li><code>Host</code>: Specifies the domain name of the server.</li>
+<li><code>User-Agent</code>: Identifies the client software making the request (e.g., browser, app).</li>
+<li><code>Accept</code>: Informs the server what content types the client is willing to accept.</li>
+<li><code>Content-Type</code>: Specifies the media type of the body of the request when sending data (such as in a <code>POST</code> or <code>PUT</code> request).</li>
+<li><code>Authorization</code>: Used to provide authentication credentials (e.g., a Bearer token for OAuth).</li>
+</ul>
+<p>Example HTTP GET Request:</p>
+<pre><code>GET /weather?city=San+Francisco HTTP/1.1
+Host: api.weather.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15
+Accept: application/json
+</code></pre>
+<h2 is-upgraded>HTTP Body Structure</h2>
+<p>The body of the letter is the actual message you are sending inside the envelope. It could be words, pictures, or anything you&#39;re trying to communicate.</p>
+<p>The body carries the payload that the client is sending to the server. This might include data in the form of <code>JSON</code>, <code>XML</code>, plain text, a file upload, etc.</p>
+<p>Key points:</p>
+<ul>
+<li>Methods like <code>GET</code> <em>typically</em> have an empty body in requests, while <code>POST</code>, <code>PUT</code> <em>should</em> include a body.</li>
+<li><code>Content-Type</code>: This header indicates the format of the body (e.g., <code>application/json</code>, <code>text/html</code>, etc.).</li>
+<li><code>Content-Length</code>: This header specifies the size of the body in bytes.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="HTTP Response Structure" duration="3">
+        <p class="image-container"><img alt="drawing" style="width: 300.00px" src="img/3b5acd0ca3e184f7.png"></p>
+<h2 is-upgraded>Status Codes</h2>
+<p>HTTP status codes are short messages your web browser and websites use to talk to each other when you&#39;re browsing the internet. They tell your browser what happened when it tried to load a webpage.</p>
+<p>Here&#39;s a breakdown of the main categories:</p>
+<h3 is-upgraded><code>1xx</code>: Information</h3>
+<p>These codes let your browser know the request is being processed, but there&#39;s no final result yet. You rarely see these.</p>
+<h3 is-upgraded><code>2xx</code>: Success</h3>
+<p>Everything worked as expected!</p>
+<ul>
+<li><code>200</code> OK: Standard success response for <code>GET</code> requests.</li>
+<li><code>201</code> Created: Typically returned by a <code>POST</code> request when a resource is successfully created.</li>
+<li><code>204</code> No Content: The server successfully processed the request, but no content is returned, typically used when updating resources via <code>PUT</code> or removing resources via <code>DELETE</code>.</li>
+</ul>
+<h3 is-upgraded><code>3xx</code>: Redirection</h3>
+<p>These codes mean the website you&#39;re trying to reach is sending you somewhere else.</p>
+<ul>
+<li><code>301</code> Moved Permanently: The requested resource has been assigned a new permanent URI, and future requests should use the new URI.</li>
+<li><code>304</code> Not Modified: Used with conditional <code>GET</code> requests when the content hasn&#39;t changed since the last fetch. The server returns this response, so the client can use cached data.</li>
+</ul>
+<h3 is-upgraded><code>4xx</code>: Client Error</h3>
+<p>The problem is on your side (the browser or your request).</p>
+<ul>
+<li><code>400</code> Bad Request: The server could not understand the request due to invalid syntax (e.g., malformed JSON or query parameters).</li>
+<li><code>401</code> Unauthorized: The client has not passed in valid authentication credentials to access the resource.</li>
+<li><code>403</code> Forbidden: The client&#39;s authentication is correct, but the client doesn&#39;t have permission to access the resource.</li>
+<li><code>404</code> Not Found: The requested resource could not be found on the server. This could mean the URI is incorrect or the resource was deleted.</li>
+</ul>
+<h3 is-upgraded><code>5xx</code>: Server Error</h3>
+<p>These codes mean something went wrong on the website&#39;s server.</p>
+<ul>
+<li><code>500</code> Internal Server Error: A generic error message indicating something went wrong on the server.</li>
+<li><code>502</code> Bad Gateway: The server was acting as a middleman server (i.e., proxy) and received an invalid response from the upstream server.</li>
+<li><code>503</code> Service Unavailable: The server is currently unable to handle the request due to temporary overload or maintenance.</li>
+<li><code>504</code> Gateway Timeout: Server did not receive a timely response from an upstream server.</li>
+</ul>
+<h2 is-upgraded>Response Headers and Body</h2>
+<p>The response body is the part of the response where the actual content you&#39;re looking for is sent back to you.</p>
+<h3 is-upgraded>Headers</h3>
+<p>Example HTTP GET Response:</p>
+<pre><code>HTTP/1.1 200 OK
+Date: Tue, 15 Sep 2024 19:20:00 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 354
+Cache-Control: no-cache
+ETag: &#34;5f6cabc3-15e&#34;
+</code></pre>
+<h3 is-upgraded>Body</h3>
+<pre><code language="language-json" class="language-json">{
+    &#34;city&#34;: &#34;San Francisco&#34;,
+    &#34;temperature&#34;: 18.7,
+    &#34;description&#34;: &#34;Partly cloudy&#34;,
+    &#34;humidity&#34;: 77,
+    &#34;wind_speed&#34;: 5.2,
+    &#34;forecast&#34;: [
+        {
+            &#34;day&#34;: &#34;Wednesday&#34;,
+            &#34;high&#34;: 19.4,
+            &#34;low&#34;: 13.2,
+            &#34;description&#34;: &#34;Mostly sunny&#34;
+        },
+        {
+            &#34;day&#34;: &#34;Thursday&#34;,
+            &#34;high&#34;: 20.1,
+            &#34;low&#34;: 14.0,
+            &#34;description&#34;: &#34;Clear skies&#34;
+        }
+    ]
+}
+</code></pre>
+<p>Key Points:</p>
+<ul>
+<li>When data is requested in <code>JSON</code> format, we should follow industry best practices.</li>
+<li>Considering that <code>JSON</code> stands for JavaScript Object Notation, the data payload found in the body of the response should be returned as an object, denoted by, <code>{ }</code>.</li>
+</ul>
+<p>Do:</p>
+<ul>
+<li>Envelope the data inside an object:</li>
+</ul>
+<pre><code>{
+  data: [
+    { ... },
+    { ... }
+  ]
+}
+
+Don&#39;t: 
+- Return a top-level array: 
+</code></pre>
+<p>[ { ... }, { ... } ]</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="HTTP Request Example" duration="3">
+        <pre><code language="language-bash" class="language-bash">https://cat-fact.herokuapp.com/facts
+</code></pre>
+<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/82d02fab7617ffa1.png"></p>
+<pre><code language="language-bash" class="language-bash">&gt; GET /facts HTTP/1.1
+&gt; Host: cat-fact.herokuapp.com
+&gt; User-Agent: curl/8.7.1
+&gt; Accept: */*
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="REST API 101" duration="3">
+        <h2 is-upgraded>What is an API?</h2>
+<ul>
+<li>An <strong>API</strong> (Application Programming Interface) is a waiter in a restaurant.</li>
+<li>Customer (<strong>client</strong>) looks at the menu, tells the waiter the order (<strong>request</strong>).</li>
+<li>Waiter takes your order to the kitchen (<strong>the server</strong>) and brings the food (<strong>response</strong>) back to you.</li>
+<li>You don&#39;t need to know HOW the kitchen prepares the food. The waiter (<strong>API</strong>) simply delivers it.</li>
+</ul>
+<h2 is-upgraded>What is a RESTful API?</h2>
+<ul>
+<li>Options to order food: <ul>
+<li>at the counter</li>
+<li>via a drive-thru</li>
+<li>through a mobile app</li>
+</ul>
+</li>
+<li>No matter the method, same process, same food –&gt; consistent == RESTful API</li>
+</ul>
+<h2 is-upgraded>RESTful API Principles</h2>
+<h3 is-upgraded>1. Uniform Interface</h3>
+<ul>
+<li>Resources are manipulated via standardized URIs and representations (e.g., JSON, XML).</li>
+<li>The basic CRUD operations: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code>, <code>DELETE</code></li>
+<li>The URL is intuitive and points to a specific resource.</li>
+</ul>
+<h3 is-upgraded>2. Stateless</h3>
+<ul>
+<li>Each request from the client to the server must contain all the necessary information for the server to understand and process it. The server does not store any client state between requests.</li>
+<li>Ex: When you place an order at the drive-thru, they don&#39;t remember your previous orders.</li>
+</ul>
+<h3 is-upgraded>3. Cacheable</h3>
+<ul>
+<li>Responses from the server must explicitly define whether they can be cached, and for how long.</li>
+<li>Enables clients to reduce the number of requests they make to the server, improving performance.</li>
+</ul>
+<h3 is-upgraded>4. Client-Server</h3>
+<ul>
+<li>The client is responsible for the user interface (UI) and request handling, while the server handles data storage and business logic.</li>
+<li>Ex: The menu at the counter of Wendy&#39;s should appear the same to the customer even though the way it handles the requests to send to the kitchen have evolved.</li>
+</ul>
+<h3 is-upgraded>5. Layered System</h3>
+<ul>
+<li>Encourages intermediary layers such as load balancers, security layers, or caches between the client and server.</li>
+<li>The client is unaware of these intermediary layers.</li>
+</ul>
+<h3 is-upgraded>6. Code on Demand (optional)</h3>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="API Versioning" duration="3">
+        <h2 is-upgraded>Why Version an API?</h2>
+<ul>
+<li>Backward Compatibility: Avoid breaking existing client applications when introducing new changes.</li>
+<li>Adding / Removing Features: Phase in new features and phase out old functionality in a controlled manner.</li>
+</ul>
+<h2 is-upgraded>API Versioning Strategies</h2>
+<h3 is-upgraded>1. URI Path Versioning</h3>
+<p>The version number is included directly in the URL path:</p>
+<pre><code language="language-bash" class="language-bash">GET /api/v1/users/123   (version 1 of the API)
+GET /api/v2/users/123   (version 2 of the API)
+</code></pre>
+<h3 is-upgraded>2. Query Parameters Versioning</h3>
+<p>The version is passed as a query parameter in the request URL:</p>
+<pre><code language="language-bash" class="language-bash">GET /api/users/123?version=1
+GET /api/users/123?version=2
+</code></pre>
+<h3 is-upgraded>3. Header Versioning</h3>
+<p>The version number is specified in the HTTP headers, usually under a custom header:</p>
+<pre><code language="language-bash" class="language-bash">GET /api/users/123
+Accept: application/vnd.myapi.v1+json   (version 1)
+Accept: application/vnd.myapi.v2+json   (version 2)
+</code></pre>
+<h3 is-upgraded>4. Embedded Versioning in Request/Response Body</h3>
+<p>The version number is embedded within the request or response body, instead of being part of the URL or headers:</p>
+<pre><code language="language-json" class="language-json">{
+  &#34;version&#34;: &#34;1.0&#34;,
+  &#34;data&#34;: { ... }
+}
+</code></pre>
+<p>Pros and Cons?</p>
+<h2 is-upgraded>API Deprecation Policies</h2>
+<ul>
+<li>Grace Period: Time the old version of an API is still available for after the new one is released.</li>
+<li>Clear Deprecation Warnings: API responses often include headers or messages warning users when they&#39;re using deprecated versions.</li>
+<li>Backward Compatibility: Ensuring older versions are compatible with existing clients as much as possible during the transition period.</li>
+</ul>
+<h3 is-upgraded>Semantic Versioning</h3>
+<p>A versioning system that defines a structured, predictable format for assigning version numbers to software.</p>
+<pre><code>MAJOR.MINOR.PATCH
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>MAJOR</code> version increments when there are incompatible changes that break backward compatibility.</li>
+<li><code>MINOR</code> version increments when new features are added in a backward-compatible way.</li>
+<li><code>PATCH</code> version increments when backward-compatible bug fixes are made.</li>
+</ul>
+<p>Example:</p>
+<pre><code>4.1.2
+</code></pre>
+<ul>
+<li><code>4</code> is the <code>MAJOR</code> version, indicating potential breaking changes.</li>
+<li><code>1</code> is the <code>MINOR</code> version, meaning new features have been added but no breaking changes.</li>
+<li><code>2</code> is the <code>PATCH</code> version, indicating that only bug fixes or small updates have been made.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="API Routes" duration="3">
+        <p>Every resource in a RESTful API has its own URL (web address).</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Method</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Route</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Usage</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>GET</code></p>
+</td><td colspan="1" rowspan="1"><p><code>/menu</code></p>
+</td><td colspan="1" rowspan="1"><p>Check the menu</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>GET</code></p>
+</td><td colspan="1" rowspan="1"><p><code>/orders/123</code></p>
+</td><td colspan="1" rowspan="1"><p>Get the status of an order</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>POST</code></p>
+</td><td colspan="1" rowspan="1"><p><code>/orders</code></p>
+</td><td colspan="1" rowspan="1"><p>Place an order</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>PUT</code></p>
+</td><td colspan="1" rowspan="1"><p><code>/orders/123</code></p>
+</td><td colspan="1" rowspan="1"><p>Update an existing order</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>DELETE</code></p>
+</td><td colspan="1" rowspan="1"><p><code>/orders/123</code></p>
+</td><td colspan="1" rowspan="1"><p>Cancel an order</p>
+</td></tr>
+</table>
+<p>How would I delete all the orders?</p>
+<h2 is-upgraded>Key Points</h2>
+<ul>
+<li>Use the plural of words to represent a collection (ex: <code>orders</code> vs <code>order</code>).</li>
+<li><code>GET</code> can be used on a singular resource or a collection or resources.</li>
+<li><code>POST</code> should be used on an endpoint that represents a collection.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="API Security Concepts" duration="3">
+        <h2 is-upgraded>1. Authentication</h2>
+<p>Only authenticated users or systems can access the API (<em>you are who you say you are</em>).</p>
+<ul>
+<li><strong>Basic Authentication</strong>: Client supplies username and password in the API request.</li>
+<li><strong>API keys</strong>: A simple, unique key provided to users to authenticate requests.</li>
+<li><strong>OAuth 2.0</strong>: An open standard for authorization that allows third-party services to access resources on behalf of the user without exposing credentials.</li>
+</ul>
+<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/59ae200bd8443c67.png"></p>
+<ul>
+<li><strong>OpenID Connect (OIDC)</strong>: An authentication layer built on top of OAuth 2.0, allowing identity verification and single sign-on (SSO).</li>
+<li><strong>JWT (JSON Web Tokens)</strong>: Encoded user data and includes a signature for verifying the authenticity of the token. Used for stateless authentication in APIs.</li>
+</ul>
+<h2 is-upgraded>2. Authorization</h2>
+<p>After authentication, authorization determines what resources a user or system can access (<em>what do you have access to</em>).</p>
+<ul>
+<li><strong>Role-based access control (RBAC)</strong>: Given a user&#39;s role, they are allowed certain operations.</li>
+</ul>
+<h2 is-upgraded>3. Encryption</h2>
+<p>Encrypting data in transit (via <code>TLS/SSL</code>) to protectg against &#34;man-in-the-middle&#34; attacks. Encrypted sometimes at rest to ensure data is unreadable if obtained.</p>
+<h2 is-upgraded>4. Rate Limiting and Throttling</h2>
+<p>Controls the number of requests a client can make in a specific time frame to prevent abuse (e.g., DoS - Denial of Service - attacks).</p>
+<h2 is-upgraded>5. Data Validation and Sanitization</h2>
+<p>Ensures that input data is valid, properly formatted, and free from malicious content (like SQL injection).</p>
+<ul>
+<li><strong>HMAC (Hash-based Message Authentication Code)</strong>: Ensures data integrity and authentication using cryptographic hashing and shared secret keys.</li>
+</ul>
+<h2 is-upgraded>6. API Gateway</h2>
+<p>Acts as a proxy to manage, secure, and monitor API traffic.</p>
+<h2 is-upgraded>7. Access Control</h2>
+<ul>
+<li><strong>CORS (Cross-Origin Resource Sharing)</strong>: Controls which external domains can interact with an API, protecting against unauthorized cross-origin requests.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="API Consumption with Postman REST Client" duration="3">
+        <p>================================================================================</p>
+<p>https://pokeapi.co/docs/v2#pokemon-section https://reqres.in/ More free sample data: <a href="https://github.com/public-apis/public-apis" target="_blank">Public APIs</a> https://reqres.in/</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
