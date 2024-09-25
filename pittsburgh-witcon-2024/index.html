@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>API Refresher Course</title>
+  <title>Pittsburgh WITCON 2024</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
@@ -24,16 +24,16 @@
   <google-codelab codelab-gaid=""
                   codelab-ga4id=""
                   id="pittsburgh-witcon-2024"
-                  title="API Refresher Course"
+                  title="Pittsburgh WITCON 2024"
                   environment="web"
                   feedback-link="https://zarin.io">
     
       <google-codelab-step label="Overview" duration="1">
         <h2 is-upgraded>First Half</h2>
-<p>✅ Understanding HTTP <br>✅ HTTP Request Lifecycle <br>✅ Web Architecture Overview <br>✅ HTTP Request Structure <br>✅ HTTP Response Structure <br>✅ HTTP Request Example <br>✅ REST API 101 <br>✅ API Versioning <br>✅ API Routes <br>✅ API Security Concepts <br>✅ API Consumption with Postman REST Client</p>
+<p>✅ Understanding HTTP <br>✅ HTTP Request Lifecycle <br>✅ Web Architecture Overview <br>✅ HTTP Request Structure <br>✅ HTTP Response Structure <br>✅ HTTP Request Example <br>✅ REST API 101 <br>✅ API Versioning <br>✅ API Routes <br>✅ API Security Concepts <br>✅ API Consumption with Postman REST Client 🚀</p>
 <h2 is-upgraded>Second Half</h2>
-<p>✅ Spec Driven Development <br>✅ Use AI to Scaffold Project</p>
-<h2 is-upgraded>Prerequisties</h2>
+<p>✅ Spec Driven Development <br>✅ Analyzing an API Spec <br>✅ Power of AI <br>✅ Workshop - Forge the Code 🧙🏼‍♀️🪄</p>
+<h2 is-upgraded>Software Utilized</h2>
 <ul>
 <li>Download <a href="https://www.postman.com/" target="_blank">Postman</a></li>
 </ul>
@@ -41,14 +41,14 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Understanding HTTP" duration="1">
+      <google-codelab-step label="Understanding HTTP" duration="5">
         <h2 is-upgraded>What is HTTP?</h2>
 <ul>
 <li>HTTP (HyperText Transfer Protocol) is a stateless, communication protocol</li>
 <li>A protocol is a system of rules</li>
 <li>Stateless means each request is independent, and the server doesn&#39;t store session information</li>
 <li>An HTTP packet is a packet of data that carries information between client and server</li>
-<li>The <strong>S</strong> at the end of HTTP, stands for secured</li>
+<li>The <strong>S</strong> at the end of HTTP<strong>S</strong>, stands for secured</li>
 </ul>
 <p class="image-container"><img alt="drawing" style="width: 500.00px" src="img/e0b7749ea4e1a3cb.png"></p>
 <h2 is-upgraded>HTTP Versions</h2>
@@ -94,7 +94,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Web Architecture Overview" duration="1">
+      <google-codelab-step label="Web Architecture Overview" duration="2">
         <p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/3a67649013adce5.png"></p>
 <h2 is-upgraded>HTTP Request Flow</h2>
 <p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/791818163de77ab3.png"></p>
@@ -113,9 +113,14 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="HTTP Request Structure" duration="3">
+      <google-codelab-step label="HTTP Request Structure" duration="5">
         <p class="image-container"><img alt="drawing" style="width: 300.00px" src="img/cefdc3646d7a17c.png"></p>
 <h2 is-upgraded>URL Components</h2>
+<h3 is-upgraded>Base Syntax</h3>
+<pre><code>https://www.wesellvehicles.com/vehicles/{make}/{model}?year={year}&amp;exterior-color=navy&amp;page-number=1&amp;page-size=25
+
+</code></pre>
+<h3 is-upgraded>Example</h3>
 <pre><code>https://www.wesellvehicles.com/vehicles/bmw/x3?year=2017&amp;exterior-color=navy&amp;page-number=1&amp;page-size=25
 </code></pre>
 <ol type="1">
@@ -155,6 +160,13 @@
 <li><code>exterior-color=navy</code>: The exterior color of the vehicle.</li>
 <li><code>page-number=1</code>: Provide the first page of results.</li>
 <li><code>page-size=25</code>: Request to see 25 items per page of results.</li>
+</ul>
+</li>
+<li>The query parameters can be written in either format: <ul>
+<li>camelCase, more common in JavaScript-based projects and is widely accepted in RESTful APIs or <ul>
+<li>Hyphens (<code>-</code>), common in static URLs, and useful for SEO-optimized URLs that need to be indexed by search engines.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -306,10 +318,10 @@ ETag: &#34;5f6cabc3-15e&#34;
 
       </google-codelab-step>
     
-      <google-codelab-step label="HTTP Request Example" duration="3">
+      <google-codelab-step label="HTTP Request Example" duration="1">
         <pre><code language="language-bash" class="language-bash">https://cat-fact.herokuapp.com/facts
 </code></pre>
-<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/82d02fab7617ffa1.png"></p>
+<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/3fda6711c3572f85.png"></p>
 <pre><code language="language-bash" class="language-bash">&gt; GET /facts HTTP/1.1
 &gt; Host: cat-fact.herokuapp.com
 &gt; User-Agent: curl/8.7.1
@@ -467,15 +479,18 @@ Accept: application/vnd.myapi.v2+json   (version 2)
 
       </google-codelab-step>
     
-      <google-codelab-step label="API Security Concepts" duration="3">
+      <google-codelab-step label="API Security Concepts" duration="5">
         <h2 is-upgraded>1. Authentication</h2>
 <p>Only authenticated users or systems can access the API (<em>you are who you say you are</em>).</p>
 <ul>
 <li><strong>Basic Authentication</strong>: Client supplies username and password in the API request.</li>
 <li><strong>API keys</strong>: A simple, unique key provided to users to authenticate requests.</li>
-<li><strong>OAuth 2.0</strong>: An open standard for authorization that allows third-party services to access resources on behalf of the user without exposing credentials.</li>
+<li><strong>OAuth 2.0</strong>: An open standard for authorization that allows third-party services to access resources on behalf of the user without exposing credentials. <ul>
+<li>Access tokens have a TTL (Time to Live) associated to them, which specifies how long is considered valid.</li>
 </ul>
-<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/59ae200bd8443c67.png"></p>
+</li>
+</ul>
+<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/82f4650d9049b5ab.png"></p>
 <ul>
 <li><strong>OpenID Connect (OIDC)</strong>: An authentication layer built on top of OAuth 2.0, allowing identity verification and single sign-on (SSO).</li>
 <li><strong>JWT (JSON Web Tokens)</strong>: Encoded user data and includes a signature for verifying the authenticity of the token. Used for stateless authentication in APIs.</li>
@@ -504,9 +519,127 @@ Accept: application/vnd.myapi.v2+json   (version 2)
 
       </google-codelab-step>
     
-      <google-codelab-step label="API Consumption with Postman REST Client" duration="3">
-        <p>================================================================================</p>
-<p>https://pokeapi.co/docs/v2#pokemon-section https://reqres.in/ More free sample data: <a href="https://github.com/public-apis/public-apis" target="_blank">Public APIs</a> https://reqres.in/</p>
+      <google-codelab-step label="API Consumption with Postman REST Client 🚀" duration="10">
+        <p>We are going to consume an API using the <code>GET</code> method.</p>
+<p>Here are some good websites that will get you started when looking for free APIs to consume data from:</p>
+<ul>
+<li><a href="https://rapidapi.com/hub" target="_blank">Rapid API</a></li>
+<li><a href="https://github.com/public-apis/public-apis" target="_blank">GitHub Public APIs</a></li>
+</ul>
+<p>Let&#39;s take the following example:</p>
+<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/536a555de2707117.png">     <img alt="drawing" style="width: 800.00px" src="img/9ba474267b36c944.png"></p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Parameter</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Value</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Method</p>
+</td><td colspan="1" rowspan="1"><p><code>GET</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Base URL</p>
+</td><td colspan="1" rowspan="1"><p><code>https://yahoo-finance15.p.rapidapi.com</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Path Parameters</p>
+</td><td colspan="1" rowspan="1"><p><code>/api/v2/markets/tickers</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Query Parameters</p>
+</td><td colspan="1" rowspan="1"><p><code>page=1</code>, <code>type=STOCKS</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Request Header</p>
+</td><td colspan="1" rowspan="1"><p><code>x-rapidapi-host: yahoo-finance15.p.rapidapi.com</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>API Key sent via Request Header</p>
+</td><td colspan="1" rowspan="1"><p><code>x-rapidapi-key: REDACTED</code></p>
+</td></tr>
+</table>
+<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/5b1c2ad67361151b.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Spec Driven Development" duration="3">
+        <p>Ideal software development occurs in two distinct phases:</p>
+<ol type="1">
+<li>The creation of a Spec</li>
+<li>Development of code to match the Spec</li>
+</ol>
+<p>Spec Driven Development is the process of generating a concise spec that can be used to describe your application&#39;s interactions in a pragmatic way. In other words, the Spec is a blueprint for your application, detailing how the user interacts with it, rather than just expected behaviors/results. In order to be successful with Spec Driven Development, the Spec must be:</p>
+<ol type="1">
+<li><strong>Standardized</strong>: Use of a standard Spec related to the type of application you are building</li>
+<li><strong>Consistent</strong>: The Spec should remain consistent throughout in operations, utlizing consistent design patterns</li>
+<li><strong>Tested</strong>: Agile development of the Spec, incorporating repeated user feedback with long-term focus in mind</li>
+<li><strong>Concrete</strong>: The creation of a complete, foundational Spec to be used for your application</li>
+<li><strong>Immutable</strong>: Coding to the Spec without deviation</li>
+<li><strong>Persistent</strong>: The Spec is not changed without strong reason and careful testing</li>
+</ol>
+<h2 is-upgraded>Specs Available</h2>
+<ul>
+<li><a href="https://raml.org/" target="_blank">RAML</a></li>
+<li><a href="https://apiblueprint.org/" target="_blank">API Blueprint</a></li>
+<li><a href="https://swagger.io/" target="_blank">Swagger</a> (renamed to <a href="https://github.com/OAI/OpenAPI-Specification" target="_blank">OpenAPI Spec</a>)</li>
+</ul>
+<p>We will be utilizing Swagger framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allows both humans and computers to discover and understand the capabilities of a service without requiring access to source code.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Analyzing an API Spec" duration="10">
+        <p>An OpenAPI spec is written in either <code>JSON</code> or <code>YAML</code>. We will be looking at a <code>YAML</code> spec for this demo.</p>
+<p>Use the online swagger editor 👉🏼 <a href="https://editor.swagger.io/" target="_blank">editor.swagger.io</a> or <a href="https://editor-next.swagger.io/" target="_blank">editor-next.swagger.io</a></p>
+<p>There will be a sample pre-populated, which we will further break down.</p>
+<p>For more docs, checkout: <a href="https://swagger.io/docs/specification/about/" target="_blank">Swagger.io Docs</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Power of AI" duration="6">
+        <h2 is-upgraded>Who is Allie K. Miller?</h2>
+<p><a href="https://www.alliekmiller.com/" target="_blank">Allie K. Miller</a> is a leading AI expert, previously the Global Head of Machine Learning for Startups and Venture Capital at AWS. She helped scale AI innovation worldwide and was the youngest woman to develop an AI product at IBM. A recognized voice in tech, she advocates for diversity in AI, co-founding <strong>Girls of the Future</strong> and serving as a national ambassador for  American Association for the Advancement of Science (AAAS). She holds an MBA from Wharton and frequently speaks on AI&#39;s future.</p>
+<h2 is-upgraded>Proof is in the Pudding</h2>
+<p><a href="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7235005812656467968" target="_blank">   <img alt="LinkedIn Post" style="width: 100.00px" src="img/5a74db3bbcf3a27b.png"></a><a href="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7236449411118043136" target="_blank">   <img alt="LinkedIn Post" style="width: 100.00px" src="img/5a74db3bbcf3a27b.png"></a></p>
+<p>Follow her <a href="https://www.linkedin.com/in/alliekmiller/" target="_blank">LinkedIn posts</a> by clicking on &#34;Follow&#34; to get <em>byte</em>-sized bits of information 🙂</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Workshop - Forge the Code 🧙🏼‍♀️🪄" duration="20">
+        <h2 is-upgraded>Kickoff with a ChatGPT Prompt</h2>
+<p>Select the correct GPT model to start out with!</p>
+<pre><code>given the following API endpoint: https://yahoo-finance15.p.rapidapi.com/api/v2/markets/tickers?page=1&amp;type=STOCKS
+
+lets say i pass in header x-rapidapi-host = yahoo-finance15.p.rapidapi.com and an API key which is passed in as a header like x-rapidapi-key = 9e87a2c143msh6b923
+
+which resulted in the following json object:
+
+{&#34;meta&#34;:{&#34;version&#34;:&#34;v1.0&#34;,&#34;status&#34;:200,&#34;copywrite&#34;:&#34;https://apicalls.io&#34;,&#34;totalrecords&#34;:7008,&#34;headers&#34;:{&#34;symbol&#34;:&#34;Symbol&#34;,&#34;name&#34;:&#34;Name&#34;,&#34;lastsale&#34;:&#34;Last Sale&#34;,&#34;netchange&#34;:&#34;Net Change&#34;,&#34;pctchange&#34;:&#34;% Change&#34;,&#34;marketCap&#34;:&#34;Market Cap&#34;}},&#34;body&#34;:[{&#34;symbol&#34;:&#34;ABBV&#34;,&#34;name&#34;:&#34;AbbVie Inc. Common Stock&#34;,&#34;lastsale&#34;:&#34;$193.51&#34;,&#34;netchange&#34;:&#34;-0.32&#34;,&#34;pctchange&#34;:&#34;-0.165%&#34;,&#34;marketCap&#34;:&#34;341,805,178,095&#34;},{&#34;symbol&#34;:&#34;ASML&#34;,&#34;name&#34;:&#34;ASML Holding N.V. New York Registry Shares&#34;,&#34;lastsale&#34;:&#34;$814.00&#34;,&#34;netchange&#34;:&#34;10.50&#34;,&#34;pctchange&#34;:&#34;1.307%&#34;,&#34;marketCap&#34;:&#34;320,245,280,894&#34;},{&#34;symbol&#34;:&#34;NFLX&#34;,&#34;name&#34;:&#34;Netflix, Inc. Common Stock&#34;,&#34;lastsale&#34;:&#34;$722.26&#34;,&#34;netchange&#34;:&#34;16.89&#34;,&#34;pctchange&#34;:&#34;2.394%&#34;,&#34;marketCap&#34;:&#34;309,968,434,830&#34;},{&#34;symbol&#34;:&#34;KO&#34;,&#34;name&#34;:&#34;Coca-Cola Company (The) Common Stock&#34;,&#34;lastsale&#34;:&#34;$71.33&#34;,&#34;netchange&#34;:&#34;-0.40&#34;,&#34;pctchange&#34;:&#34;-0.558%&#34;,&#34;marketCap&#34;:&#34;307,422,895,140&#34;},{&#34;symbol&#34;:&#34;BAC&#34;,&#34;name&#34;:&#34;Bank of America Corporation Common Stock&#34;,&#34;lastsale&#34;:&#34;$39.45&#34;,&#34;netchange&#34;:&#34;-0.42&#34;,&#34;pctchange&#34;:&#34;-1.053%&#34;,&#34;marketCap&#34;:&#34;306,115,328,943&#34;},{&#34;symbol&#34;:&#34;MRK&#34;,&#34;name&#34;:&#34;Merck &amp; Company, Inc. Common Stock (new)&#34;,&#34;lastsale&#34;:&#34;$114.96&#34;,&#34;netchange&#34;:&#34;-0.67&#34;,&#34;pctchange&#34;:&#34;-0.579%&#34;,&#34;marketCap&#34;:&#34;291,401,678,508&#34;},{&#34;symbol&#34;:&#34;CVX&#34;,&#34;name&#34;:&#34;Chevron Corporation Common Stock&#34;,&#34;lastsale&#34;:&#34;$147.45&#34;,&#34;netchange&#34;:&#34;-0.09&#34;,&#34;pctchange&#34;:&#34;-0.061%&#34;,&#34;marketCap&#34;:&#34;269,673,828,312&#34;},{&#34;symbol&#34;:&#34;SAP&#34;,&#34;name&#34;:&#34;SAP  SE ADS&#34;,&#34;lastsale&#34;:&#34;$230.93&#34;,&#34;netchange&#34;:&#34;0.49&#34;,&#34;pctchange&#34;:&#34;0.213%&#34;,&#34;marketCap&#34;:&#34;269,548,205,902&#34;},{&#34;symbol&#34;:&#34;CRM&#34;,&#34;name&#34;:&#34;Salesforce, Inc. Common Stock&#34;,&#34;lastsale&#34;:&#34;$270.44&#34;,&#34;netchange&#34;:&#34;6.23&#34;,&#34;pctchange&#34;:&#34;2.358%&#34;,&#34;marketCap&#34;:&#34;258,540,640,000&#34;},{&#34;symbol&#34;:&#34;AMD&#34;,&#34;name&#34;:&#34;Advanced Micro Devices, Inc. Common Stock&#34;,&#34;lastsale&#34;:&#34;$158.32&#34;,&#34;netchange&#34;:&#34;1.57&#34;,&#34;pctchange&#34;:&#34;1.002%&#34;,&#34;marketCap&#34;:&#34;256,238,045,700&#34;},{&#34;symbol&#34;:&#34;TM&#34;,&#34;name&#34;:&#34;Toyota Motor Corporation Common Stock&#34;,&#34;lastsale&#34;:&#34;$183.53&#34;,&#34;netchange&#34;:&#34;-1.87&#34;,&#34;pctchange&#34;:&#34;-1.009%&#34;,&#34;marketCap&#34;:&#34;247,291,479,267&#34;},{&#34;symbol&#34;:&#34;AZN&#34;,&#34;name&#34;:&#34;AstraZeneca PLC American Depositary Shares&#34;,&#34;lastsale&#34;:&#34;$76.87&#34;,&#34;netchange&#34;:&#34;-0.27&#34;,&#34;pctchange&#34;:&#34;-0.35%&#34;,&#34;marketCap&#34;:&#34;238,341,067,572&#34;},{&#34;symbol&#34;:&#34;NVS&#34;,&#34;name&#34;:&#34;Novartis AG Common Stock&#34;,&#34;lastsale&#34;:&#34;$116.42&#34;,&#34;netchange&#34;:&#34;0.05&#34;,&#34;pctchange&#34;:&#34;0.043%&#34;,&#34;marketCap&#34;:&#34;237,966,436,650&#34;},{&#34;symbol&#34;:&#34;BABA&#34;,&#34;name&#34;:&#34;Alibaba Group Holding Limited American Depositary Shares each representing eight Ordinary share&#34;,&#34;lastsale&#34;:&#34;$97.19&#34;,&#34;netchange&#34;:&#34;7.10&#34;,&#34;pctchange&#34;:&#34;7.881%&#34;,&#34;marketCap&#34;:&#34;236,525,556,155&#34;},{&#34;symbol&#34;:&#34;TMUS&#34;,&#34;name&#34;:&#34;T-Mobile US, Inc. Common Stock&#34;,&#34;lastsale&#34;:&#34;$201.44&#34;,&#34;netchange&#34;:&#34;-1.02&#34;,&#34;pctchange&#34;:&#34;-0.504%&#34;,&#34;marketCap&#34;:&#34;235,036,975,608&#34;},{&#34;symbol&#34;:&#34;TMO&#34;,&#34;name&#34;:&#34;Thermo Fisher Scientific Inc Common Stock&#34;,&#34;lastsale&#34;:&#34;$611.88&#34;,&#34;netchange&#34;:&#34;1.53&#34;,&#34;pctchange&#34;:&#34;0.251%&#34;,&#34;marketCap&#34;:&#34;233,735,446,924&#34;},{&#34;symbol&#34;:&#34;PEP&#34;,&#34;name&#34;:&#34;PepsiCo, Inc. Common Stock&#34;,&#34;lastsale&#34;:&#34;$169.92&#34;,&#34;netchange&#34;:&#34;-2.19&#34;,&#34;pctchange&#34;:&#34;-1.272%&#34;,&#34;marketCap&#34;:&#34;233,397,422,208&#34;},{&#34;symbol&#34;:&#34;ADBE&#34;,&#34;name&#34;:&#34;Adobe Inc. Common Stock&#34;,&#34;lastsale&#34;:&#34;$524.07&#34;,&#34;netchange&#34;:&#34;-3.80&#34;,&#34;pctchange&#34;:&#34;-0.72%&#34;,&#34;marketCap&#34;:&#34;232,372,638,000&#34;},{&#34;symbol&#34;:&#34;LIN&#34;,&#34;name&#34;:&#34;Linde plc Ordinary Shares&#34;,&#34;lastsale&#34;:&#34;$479.35&#34;,&#34;netchange&#34;:&#34;1.99&#34;,&#34;pctchange&#34;:&#34;0.417%&#34;,&#34;marketCap&#34;:&#34;228,890,936,981&#34;},{&#34;symbol&#34;:&#34;CCZ&#34;,&#34;name&#34;:&#34;Comcast Holdings ZONES&#34;,&#34;lastsale&#34;:&#34;$58.89&#34;,&#34;netchange&#34;:&#34;1.64&#34;,&#34;pctchange&#34;:&#34;2.865%&#34;,&#34;marketCap&#34;:&#34;228,051,620,578&#34;},{&#34;symbol&#34;:&#34;SHEL&#34;,&#34;name&#34;:&#34;Shell PLC American Depositary Shares (each representing two (2) Ordinary Shares) &#34;,&#34;lastsale&#34;:&#34;$69.41&#34;,&#34;netchange&#34;:&#34;0.33&#34;,&#34;pctchange&#34;:&#34;0.478%&#34;,&#34;marketCap&#34;:&#34;217,305,988,853&#34;},{&#34;symbol&#34;:&#34;MCD&#34;,&#34;name&#34;:&#34;McDonald&#39;s Corporation Common Stock&#34;,&#34;lastsale&#34;:&#34;$300.27&#34;,&#34;netchange&#34;:&#34;1.21&#34;,&#34;pctchange&#34;:&#34;0.405%&#34;,&#34;marketCap&#34;:&#34;215,396,656,777&#34;},{&#34;symbol&#34;:&#34;ACN&#34;,&#34;name&#34;:&#34;Accenture plc Class A Ordinary Shares (Ireland)&#34;,&#34;lastsale&#34;:&#34;$339.62&#34;,&#34;netchange&#34;:&#34;0.41&#34;,&#34;pctchange&#34;:&#34;0.121%&#34;,&#34;marketCap&#34;:&#34;212,837,532,697&#34;},{&#34;symbol&#34;:&#34;CSCO&#34;,&#34;name&#34;:&#34;Cisco Systems, Inc. Common Stock (DE)&#34;,&#34;lastsale&#34;:&#34;$52.52&#34;,&#34;netchange&#34;:&#34;0.33&#34;,&#34;pctchange&#34;:&#34;0.632%&#34;,&#34;marketCap&#34;:&#34;209,593,391,381&#34;},{&#34;symbol&#34;:&#34;GE&#34;,&#34;name&#34;:&#34;GE Aerospace Common Stock&#34;,&#34;lastsale&#34;:&#34;$189.66&#34;,&#34;netchange&#34;:&#34;0.99&#34;,&#34;pctchange&#34;:&#34;0.525%&#34;,&#34;marketCap&#34;:&#34;205,650,427,295&#34;}]}
+
+can you create a RESTful API spec for me that creates the following endpoint: 
+
+GET /stocks 
+
+which takes in a query parameter named &#34;page&#34; that takes an integer and the result is the same object as seen above
+</code></pre>
+<p>Follow-up prompts:</p>
+<ul>
+<li>Can you generate a spec that follows the OpenAPI standard, in <code>yaml</code> format?</li>
+<li>Can you modify the output object to be encompassed in another object called <code>response</code>? Then include a nested attribute called <code>statusCode</code> that takes the same value of <code>status</code> found in the <code>meta</code> object.</li>
+<li>...</li>
+</ul>
+<h2 is-upgraded>Enter Claude.ai</h2>
+<p>Claude AI is a family of AI models developed by Anthropic, a company founded by former OpenAI researchers. The model is named after Claude Shannon, the father of information theory.</p>
+<p>Does require a paid subscription to take advantage of the &#34;Use a project&#34; functionality: <a href="https://claude.ai/" target="_blank">Claude.ai</a></p>
+<ul>
+<li>Allows you to create focused workspaces that organize conversations, documents, and knowledge around specific topics or tasks.</li>
+<li>Great for collaboration!</li>
+</ul>
+<p class="image-container"><img alt="drawing" style="width: 800.00px" src="img/5d9f74a55bffab68.png"></p>
+<p>Everything after this point will be done on the fly! Nothing prepped to mimic real-world scenario!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Thank you!" duration="1">
+        <p class="image-container"><img alt="drawing" style="width: 500.00px" src="img/5040b51c2b00e5a3.png"></p>
+<p class="image-container"><img alt="drawing" style="width: 200.00px" src="img/3fc61ef0d24bac1f.png">   <img alt="drawing" style="width: 200.00px" src="img/289c30a6f1519b0d.png"></p>
 
 
       </google-codelab-step>

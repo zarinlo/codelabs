@@ -5,7 +5,7 @@ categories: Web
 status: draft 
 Feedback Link: https://zarin.io
 
-# API Refresher Course
+# Pittsburgh WITCON 2024
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Overview
 Duration: 1
@@ -21,24 +21,26 @@ Duration: 1
 <br>✅ API Versioning
 <br>✅ API Routes
 <br>✅ API Security Concepts
-<br>✅ API Consumption with Postman REST Client 
+<br>✅ API Consumption with Postman REST Client 🚀
 ### Second Half
 ✅ Spec Driven Development
-<br>✅ Use AI to Scaffold Project
+<br>✅ Analyzing an API Spec
+<br>✅ Power of AI
+<br>✅ Workshop - Forge the Code 🧙🏼‍♀️🪄
 
-### Prerequisties 
-- Download [Postman](https://www.postman.com/)
+### Software Utilized
+- Download [Postman](https://www.postman.com/) 
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Understanding HTTP
-Duration: 1
+Duration: 5
 
 ### What is HTTP? 
 - HTTP (HyperText Transfer Protocol) is a stateless, communication protocol
 - A protocol is a system of rules
 - Stateless means each request is independent, and the server doesn't store session information
 - An HTTP packet is a packet of data that carries information between client and server 
-- The **S** at the end of HTTP, stands for secured
+- The **S** at the end of HTTP**S**, stands for secured
 
 <div style="display: flex;">
     <img src="elements/assets/pittsburgh-witcon-2024/client-server-arch.png" alt="drawing" width="500"/>
@@ -71,7 +73,7 @@ Duration: 1
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## Web Architecture Overview
-Duration: 1
+Duration: 2
 
 <div style="display: flex;">
     <img src="elements/assets/pittsburgh-witcon-2024/web-arch-layers.png" alt="drawing" width="800"/>
@@ -90,7 +92,7 @@ Duration: 1
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## HTTP Request Structure
-Duration: 3
+Duration: 5
 
 <div style="display: flex;">
     <img src="elements/assets/pittsburgh-witcon-2024/http-request-structure.png" alt="drawing" width="300"/>
@@ -98,6 +100,12 @@ Duration: 3
 
 ### URL Components
 
+#### Base Syntax
+```
+https://www.wesellvehicles.com/vehicles/{make}/{model}?year={year}&exterior-color=navy&page-number=1&page-size=25
+
+```
+#### Example
 ```
 https://www.wesellvehicles.com/vehicles/bmw/x3?year=2017&exterior-color=navy&page-number=1&page-size=25
 ```
@@ -125,6 +133,9 @@ https://www.wesellvehicles.com/vehicles/bmw/x3?year=2017&exterior-color=navy&pag
   - `exterior-color=navy`: The exterior color of the vehicle. 
   - `page-number=1`: Provide the first page of results. 
   - `page-size=25`: Request to see 25 items per page of results. 
+- The query parameters can be written in either format: 
+  - camelCase, more common in JavaScript-based projects and is widely accepted in RESTful APIs or
+	- Hyphens (`-`), common in static URLs, and useful for SEO-optimized URLs that need to be indexed by search engines.
 
 ⭐️ Bonus question: What port does HTTP communicate over? 
 
@@ -279,7 +290,7 @@ Don't:
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## HTTP Request Example
-Duration: 3
+Duration: 1
 
 ```bash
 https://cat-fact.herokuapp.com/facts
@@ -423,13 +434,14 @@ How would I delete all the orders?
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
 ## API Security Concepts
-Duration: 3
+Duration: 5
 
 ### 1. Authentication
 Only authenticated users or systems can access the API (*you are who you say you are*). 
 - **Basic Authentication**: Client supplies username and password in the API request.
 - **API keys**: A simple, unique key provided to users to authenticate requests.
 - **OAuth 2.0**: An open standard for authorization that allows third-party services to access resources on behalf of the user without exposing credentials.
+  - Access tokens have a TTL (Time to Live) associated to them, which specifies how long is considered valid.
 
 <div style="display: flex;">
     <img src="elements/assets/pittsburgh-witcon-2024/oauth-workflow.png" alt="drawing" width="800"/>
@@ -459,15 +471,142 @@ Acts as a proxy to manage, secure, and monitor API traffic.
 - **CORS (Cross-Origin Resource Sharing)**: Controls which external domains can interact with an API, protecting against unauthorized cross-origin requests.
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
-## API Consumption with Postman REST Client 
+## API Consumption with Postman REST Client 🚀
+Duration: 10
+
+We are going to consume an API using the `GET` method. 
+
+Here are some good websites that will get you started when looking for free APIs to consume data from: 
+- [Rapid API](https://rapidapi.com/hub)
+- [GitHub Public APIs](https://github.com/public-apis/public-apis)
+
+Let's take the following example: 
+
+<div style="display: flex;">
+    <img src="elements/assets/pittsburgh-witcon-2024/api-consumption-example.png" alt="drawing" width="800"/>
+    <img src="elements/assets/pittsburgh-witcon-2024/api-consumption-snippet.png" alt="drawing" width="800"/>
+</div>
+
+| **Parameter** | **Value** 
+| --- | --- | 
+| Method | `GET` | Requesting resources | 
+| Base URL | `https://yahoo-finance15.p.rapidapi.com` | 
+| Path Parameters | `/api/v2/markets/tickers` | 
+| Query Parameters | `page=1`, `type=STOCKS` | 
+| Request Header | `x-rapidapi-host: yahoo-finance15.p.rapidapi.com` | 
+| API Key sent via Request Header | `x-rapidapi-key: REDACTED` | 
+
+<div style="display: flex;">
+  <img src="elements/assets/pittsburgh-witcon-2024/api-consumption-postman.png" alt="drawing" width="800"/>
+</div>
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Spec Driven Development
 Duration: 3
 
+Ideal software development occurs in two distinct phases:
+1. The creation of a Spec
+2. Development of code to match the Spec 
 
-================================================================================
+Spec Driven Development is the process of generating a concise spec that can be used to describe your application's interactions in a pragmatic way. In other words, the Spec is a blueprint for your application, detailing how the user interacts with it, rather than just expected behaviors/results. In order to be successful with Spec Driven Development, the Spec must be:
+1. **Standardized**: Use of a standard Spec related to the type of application you are building 
+2. **Consistent**: The Spec should remain consistent throughout in operations, utlizing consistent design patterns
+3. **Tested**: Agile development of the Spec, incorporating repeated user feedback with long-term focus in mind 
+4. **Concrete**: The creation of a complete, foundational Spec to be used for your application 
+5. **Immutable**: Coding to the Spec without deviation 
+6. **Persistent**: The Spec is not changed without strong reason and careful testing 
 
-https://pokeapi.co/docs/v2#pokemon-section
-https://reqres.in/
-More free sample data: [Public APIs](https://github.com/public-apis/public-apis)
-https://reqres.in/
-================================================================================
+### Specs Available 
 
+- [RAML](https://raml.org/)
+- [API Blueprint](https://apiblueprint.org/)
+- [Swagger](https://swagger.io/) (renamed to [OpenAPI Spec](https://github.com/OAI/OpenAPI-Specification))
+
+We will be utilizing Swagger framework to design, produce, visualize, and consume our RESTful service. It provides a programming language-agnostic interface, which allows both humans and computers to discover and understand the capabilities of a service without requiring access to source code. 
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Analyzing an API Spec
+Duration: 10
+
+An OpenAPI spec is written in either `JSON` or `YAML`. We will be looking at a `YAML` spec for this demo. 
+
+Use the online swagger editor 👉🏼 [editor.swagger.io](https://editor.swagger.io/) or [editor-next.swagger.io](https://editor-next.swagger.io/)
+
+There will be a sample pre-populated, which we will further break down. 
+
+For more docs, checkout: [Swagger.io Docs](https://swagger.io/docs/specification/about/) 
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Power of AI
+Duration: 6
+
+### Who is Allie K. Miller?
+[Allie K. Miller](https://www.alliekmiller.com/) is a leading AI expert, previously the Global Head of Machine Learning for Startups and Venture Capital at AWS. She helped scale AI innovation worldwide and was the youngest woman to develop an AI product at IBM. A recognized voice in tech, she advocates for diversity in AI, co-founding **Girls of the Future** and serving as a national ambassador for  American Association for the Advancement of Science (AAAS). She holds an MBA from Wharton and frequently speaks on AI's future.
+
+### Proof is in the Pudding
+
+<a href="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7235005812656467968">
+  <img src="elements/assets/pittsburgh-witcon-2024/claude-logo.png" alt="LinkedIn Post" width="100" height="300">
+</a>
+
+<a href="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7236449411118043136">
+  <img src="elements/assets/pittsburgh-witcon-2024/claude-logo.png" alt="LinkedIn Post" width="100" height="300">
+</a>
+
+Follow her [LinkedIn posts](https://www.linkedin.com/in/alliekmiller/) by clicking on "Follow" to get *byte*-sized bits of information 🙂
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Workshop - Forge the Code 🧙🏼‍♀️🪄
+Duration: 20
+
+### Kickoff with a ChatGPT Prompt
+
+Select the correct GPT model to start out with!
+
+``` 
+given the following API endpoint: https://yahoo-finance15.p.rapidapi.com/api/v2/markets/tickers?page=1&type=STOCKS
+
+lets say i pass in header x-rapidapi-host = yahoo-finance15.p.rapidapi.com and an API key which is passed in as a header like x-rapidapi-key = 9e87a2c143msh6b923
+
+which resulted in the following json object:
+
+{"meta":{"version":"v1.0","status":200,"copywrite":"https://apicalls.io","totalrecords":7008,"headers":{"symbol":"Symbol","name":"Name","lastsale":"Last Sale","netchange":"Net Change","pctchange":"% Change","marketCap":"Market Cap"}},"body":[{"symbol":"ABBV","name":"AbbVie Inc. Common Stock","lastsale":"$193.51","netchange":"-0.32","pctchange":"-0.165%","marketCap":"341,805,178,095"},{"symbol":"ASML","name":"ASML Holding N.V. New York Registry Shares","lastsale":"$814.00","netchange":"10.50","pctchange":"1.307%","marketCap":"320,245,280,894"},{"symbol":"NFLX","name":"Netflix, Inc. Common Stock","lastsale":"$722.26","netchange":"16.89","pctchange":"2.394%","marketCap":"309,968,434,830"},{"symbol":"KO","name":"Coca-Cola Company (The) Common Stock","lastsale":"$71.33","netchange":"-0.40","pctchange":"-0.558%","marketCap":"307,422,895,140"},{"symbol":"BAC","name":"Bank of America Corporation Common Stock","lastsale":"$39.45","netchange":"-0.42","pctchange":"-1.053%","marketCap":"306,115,328,943"},{"symbol":"MRK","name":"Merck & Company, Inc. Common Stock (new)","lastsale":"$114.96","netchange":"-0.67","pctchange":"-0.579%","marketCap":"291,401,678,508"},{"symbol":"CVX","name":"Chevron Corporation Common Stock","lastsale":"$147.45","netchange":"-0.09","pctchange":"-0.061%","marketCap":"269,673,828,312"},{"symbol":"SAP","name":"SAP  SE ADS","lastsale":"$230.93","netchange":"0.49","pctchange":"0.213%","marketCap":"269,548,205,902"},{"symbol":"CRM","name":"Salesforce, Inc. Common Stock","lastsale":"$270.44","netchange":"6.23","pctchange":"2.358%","marketCap":"258,540,640,000"},{"symbol":"AMD","name":"Advanced Micro Devices, Inc. Common Stock","lastsale":"$158.32","netchange":"1.57","pctchange":"1.002%","marketCap":"256,238,045,700"},{"symbol":"TM","name":"Toyota Motor Corporation Common Stock","lastsale":"$183.53","netchange":"-1.87","pctchange":"-1.009%","marketCap":"247,291,479,267"},{"symbol":"AZN","name":"AstraZeneca PLC American Depositary Shares","lastsale":"$76.87","netchange":"-0.27","pctchange":"-0.35%","marketCap":"238,341,067,572"},{"symbol":"NVS","name":"Novartis AG Common Stock","lastsale":"$116.42","netchange":"0.05","pctchange":"0.043%","marketCap":"237,966,436,650"},{"symbol":"BABA","name":"Alibaba Group Holding Limited American Depositary Shares each representing eight Ordinary share","lastsale":"$97.19","netchange":"7.10","pctchange":"7.881%","marketCap":"236,525,556,155"},{"symbol":"TMUS","name":"T-Mobile US, Inc. Common Stock","lastsale":"$201.44","netchange":"-1.02","pctchange":"-0.504%","marketCap":"235,036,975,608"},{"symbol":"TMO","name":"Thermo Fisher Scientific Inc Common Stock","lastsale":"$611.88","netchange":"1.53","pctchange":"0.251%","marketCap":"233,735,446,924"},{"symbol":"PEP","name":"PepsiCo, Inc. Common Stock","lastsale":"$169.92","netchange":"-2.19","pctchange":"-1.272%","marketCap":"233,397,422,208"},{"symbol":"ADBE","name":"Adobe Inc. Common Stock","lastsale":"$524.07","netchange":"-3.80","pctchange":"-0.72%","marketCap":"232,372,638,000"},{"symbol":"LIN","name":"Linde plc Ordinary Shares","lastsale":"$479.35","netchange":"1.99","pctchange":"0.417%","marketCap":"228,890,936,981"},{"symbol":"CCZ","name":"Comcast Holdings ZONES","lastsale":"$58.89","netchange":"1.64","pctchange":"2.865%","marketCap":"228,051,620,578"},{"symbol":"SHEL","name":"Shell PLC American Depositary Shares (each representing two (2) Ordinary Shares) ","lastsale":"$69.41","netchange":"0.33","pctchange":"0.478%","marketCap":"217,305,988,853"},{"symbol":"MCD","name":"McDonald's Corporation Common Stock","lastsale":"$300.27","netchange":"1.21","pctchange":"0.405%","marketCap":"215,396,656,777"},{"symbol":"ACN","name":"Accenture plc Class A Ordinary Shares (Ireland)","lastsale":"$339.62","netchange":"0.41","pctchange":"0.121%","marketCap":"212,837,532,697"},{"symbol":"CSCO","name":"Cisco Systems, Inc. Common Stock (DE)","lastsale":"$52.52","netchange":"0.33","pctchange":"0.632%","marketCap":"209,593,391,381"},{"symbol":"GE","name":"GE Aerospace Common Stock","lastsale":"$189.66","netchange":"0.99","pctchange":"0.525%","marketCap":"205,650,427,295"}]}
+
+can you create a RESTful API spec for me that creates the following endpoint: 
+
+GET /stocks 
+
+which takes in a query parameter named "page" that takes an integer and the result is the same object as seen above
+```
+
+Follow-up prompts: 
+- Can you generate a spec that follows the OpenAPI standard, in `yaml` format?
+- Can you modify the output object to be encompassed in another object called `response`? Then include a nested attribute called `statusCode` that takes the same value of `status` found in the `meta` object. 
+- ...
+
+### Enter Claude.ai
+
+Claude AI is a family of AI models developed by Anthropic, a company founded by former OpenAI researchers. The model is named after Claude Shannon, the father of information theory.
+
+Does require a paid subscription to take advantage of the "Use a project" functionality: [Claude.ai](https://claude.ai/)
+- Allows you to create focused workspaces that organize conversations, documents, and knowledge around specific topics or tasks. 
+- Great for collaboration! 
+
+<div style="display: flex;">
+  <img src="elements/assets/pittsburgh-witcon-2024/claude-ai.png" alt="drawing" width="800"/>
+</div>
+
+Everything after this point will be done on the fly! Nothing prepped to mimic real-world scenario! 
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+## Thank you!
+Duration: 1
+
+<div style="display: flex;">
+  <img src="elements/assets/pittsburgh-witcon-2024/congrats.png" alt="drawing" width="500"/>
+</div>
+
+<div style="display: flex;">
+  <img src="elements/assets/pittsburgh-witcon-2024/linkedin-QR-code-2.png" alt="drawing" width="200"/>
+  <img src="elements/assets/pittsburgh-witcon-2024/apple-music-QR-code-2.png" alt="drawing" width="200"/>
+</div>
